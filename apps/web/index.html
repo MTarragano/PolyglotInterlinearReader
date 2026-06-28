@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Polyglot Interlinear Reader Draft</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="eyebrow">Polyglot Reader</div>
+          <h1 id="document-title">Interlinear reading draft</h1>
+        </div>
+
+        <nav class="language-tabs" aria-label="Sample languages">
+          <button class="tab is-active" data-language="french" type="button">French</button>
+          <button class="tab" data-language="hebrew" type="button">Hebrew</button>
+          <button class="tab" data-language="arabic" type="button">Arabic</button>
+          <button class="tab" data-language="turkish" type="button">Turkish</button>
+        </nav>
+
+        <button class="icon-button" id="settings-toggle" type="button" aria-expanded="false" aria-controls="settings-panel">
+          <span aria-hidden="true">Aa</span>
+          <span class="sr-only">Reader settings</span>
+        </button>
+        <button class="icon-button wide-icon-button" id="word-list-toggle" type="button" aria-expanded="false" aria-controls="word-list-panel">
+          <span aria-hidden="true">Words</span>
+          <span class="sr-only">Open word list</span>
+        </button>
+        <button class="icon-button" id="inspector-toggle" type="button" aria-expanded="false" aria-controls="inspector-panel">
+          <span aria-hidden="true">i</span>
+          <span class="sr-only">Open inspector</span>
+        </button>
+      </header>
+
+      <main class="workspace">
+        <section class="reader-panel" aria-label="Interlinear reader">
+          <div class="reader-toolbar">
+            <div class="document-meta">
+              <span id="language-name">French</span>
+              <span id="sentence-count">3 sentences</span>
+              <span id="direction-label">LTR</span>
+            </div>
+
+            <label class="preset-control">
+              View
+              <select id="row-preset">
+                <option value="reading">Reading</option>
+                <option value="interlinear" selected>Interlinear</option>
+                <option value="morphology">Morphology</option>
+                <option value="cloze">Cloze</option>
+                <option value="minimal">Minimal</option>
+              </select>
+            </label>
+
+            <label class="preset-control">
+              Cloze
+              <select id="cloze-mode">
+                <option value="off" selected>Off</option>
+                <option value="blank">Hide answer fields</option>
+                <option value="first">First character</option>
+              </select>
+            </label>
+
+            <div class="row-menu" aria-label="Visible interlinear rows">
+              <label><input type="checkbox" data-row="transliteration" checked /> Transliteration</label>
+              <label><input type="checkbox" data-row="morphs" checked /> Morphs</label>
+              <label><input type="checkbox" data-row="gloss" checked /> Gloss</label>
+              <label><input type="checkbox" data-row="lemma" checked /> Lemma</label>
+              <label><input type="checkbox" data-row="root" /> Root</label>
+              <label><input type="checkbox" data-row="pos" checked /> POS</label>
+              <label><input type="checkbox" data-row="features" checked /> Features</label>
+            </div>
+          </div>
+
+          <div id="reader" class="reader" aria-live="polite"></div>
+
+          <section class="word-list-panel" id="word-list-panel" hidden>
+            <div class="word-list-header">
+              <div>
+                <div class="eyebrow">Learning list</div>
+                <h2>Words in this text</h2>
+              </div>
+              <div class="word-list-controls">
+                <label>
+                  Sort
+                  <select id="word-sort">
+                    <option value="knowledge">Unknown first</option>
+                    <option value="target">Target value</option>
+                    <option value="frequency">Frequency</option>
+                    <option value="alphabetic">Alphabetic</option>
+                  </select>
+                </label>
+                <label>
+                  View
+                  <select id="word-list-view">
+                    <option value="compact">Compact</option>
+                    <option value="interlinear">Interlinear</option>
+                    <option value="cloze">Cloze</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+            <div id="word-list-content" class="word-list-content"></div>
+          </section>
+        </section>
+
+        <aside class="inspector" id="inspector-panel" aria-label="Selected linguistic item">
+          <div class="inspector-header">
+            <div>
+              <div class="eyebrow">Inspector</div>
+              <h2 id="inspect-title">Select a word</h2>
+            </div>
+            <div class="inspector-header-actions">
+              <button class="small-button" id="mark-known" type="button">Known</button>
+              <button class="icon-button" id="inspector-close" type="button" aria-label="Close inspector">x</button>
+            </div>
+          </div>
+          <dl id="inspect-details" class="detail-list">
+            <div>
+              <dt>Tip</dt>
+              <dd>Click a token, morpheme, lemma, root, or feature in the reader.</dd>
+            </div>
+          </dl>
+          <div class="inspector-actions">
+            <button type="button">Add note</button>
+            <button type="button">Create cloze</button>
+            <button type="button">Open page</button>
+          </div>
+        </aside>
+
+        <aside class="settings-panel" id="settings-panel" aria-label="Reader settings" hidden>
+          <div class="settings-header">
+            <div>
+              <div class="eyebrow">Per-language settings</div>
+              <h2>Display</h2>
+            </div>
+            <button class="icon-button" id="settings-close" type="button" aria-label="Close settings">x</button>
+          </div>
+
+          <label>
+            Target font size
+            <input id="target-size" type="range" min="18" max="42" value="28" />
+          </label>
+          <label>
+            Annotation font size
+            <input id="annotation-size" type="range" min="10" max="20" value="13" />
+          </label>
+          <label>
+            Token gap
+            <input id="token-gap" type="range" min="8" max="34" value="18" />
+          </label>
+          <label>
+            Row gap
+            <input id="row-gap" type="range" min="1" max="10" value="4" />
+          </label>
+          <label>
+            Reading width
+            <input id="reading-width" type="range" min="760" max="1320" value="1120" />
+          </label>
+          <label>
+            RTL transliteration
+            <select id="rtl-transliteration-mode">
+              <option value="normal">Normal Latin</option>
+              <option value="rtl">RTL token flow</option>
+              <option value="reverse">Reverse Latin characters</option>
+              <option value="morpheme">Reverse by morpheme</option>
+            </select>
+          </label>
+
+          <div class="color-grid">
+            <label>Original <input id="original-color" type="color" value="#13201b" /></label>
+            <label>Translit. <input id="transliteration-color" type="color" value="#59656f" /></label>
+            <label>Morphs <input id="morphs-color" type="color" value="#9a5a1f" /></label>
+            <label>Gloss <input id="gloss-color" type="color" value="#42526b" /></label>
+            <label>Lemma <input id="lemma-color" type="color" value="#2f6f4f" /></label>
+            <label>Root/Stem <input id="root-color" type="color" value="#6b4f2a" /></label>
+            <label>POS <input id="pos-color" type="color" value="#755a13" /></label>
+            <label>Feature <input id="feature-color" type="color" value="#7c3aed" /></label>
+            <label>Highlight <input id="highlight-color" type="color" value="#fff2a8" /></label>
+          </div>
+
+          <div class="density-buttons" aria-label="Density presets">
+            <button type="button" data-density="comfortable">Comfortable</button>
+            <button type="button" data-density="standard">Standard</button>
+            <button type="button" data-density="compact">Compact</button>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="audio-bar" aria-label="Audio player">
+        <div class="transport">
+          <button type="button" id="previous-sentence" aria-label="Previous sentence">‹</button>
+          <button class="play-button" id="play-toggle" type="button">Play</button>
+          <button type="button" id="next-sentence" aria-label="Next sentence">›</button>
+        </div>
+        <div class="audio-status">
+          <span id="audio-label">Sentence 1</span>
+          <div class="progress-track"><span id="progress-fill"></span></div>
+        </div>
+        <div class="audio-options">
+          <label class="speed-slider">Speed <strong id="speed-value">0.85x</strong>
+            <input id="speed-range" type="range" min="25" max="160" step="5" value="85" />
+          </label>
+          <button type="button" id="loop-toggle">Sentence loop</button>
+          <button type="button" id="ab-start">A</button>
+          <button type="button" id="ab-end">B</button>
+          <button type="button" id="ab-clear">Clear A-B</button>
+          <button type="button" id="record-button">Record</button>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
