@@ -144,6 +144,10 @@ Scope should begin with free/private package sharing before paid commerce:
 
 The full extension plan lives in `docs/marketplace_extension.md`.
 
+## Interactive Build Plan
+
+The feedback-driven web app build sequence lives in `docs/interactive_build_plan.md`.
+
 ## Build Discipline
 
 Before each phase:
