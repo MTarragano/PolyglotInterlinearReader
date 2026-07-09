@@ -14,6 +14,14 @@
           <h1 id="document-title">Interlinear reading draft</h1>
         </div>
 
+        <nav class="app-nav" aria-label="Draft app sections">
+          <button class="app-nav-button is-active" data-view="library" type="button">Library</button>
+          <button class="app-nav-button" data-view="import" type="button">Import</button>
+          <button class="app-nav-button" data-view="reader" type="button">Reader</button>
+          <button class="app-nav-button" data-view="dictionary" type="button">Dictionary</button>
+          <button class="app-nav-button" data-view="progress" type="button">Progress</button>
+        </nav>
+
         <nav class="language-tabs" aria-label="Sample languages">
           <button class="tab is-active" data-language="french" type="button">French</button>
           <button class="tab" data-language="hebrew" type="button">Hebrew</button>
@@ -35,8 +43,65 @@
         </button>
       </header>
 
-      <main class="workspace">
-        <section class="reader-panel" aria-label="Interlinear reader">
+      <main class="main-stage">
+        <section class="app-view is-active" id="library-view" aria-label="Text library">
+          <div class="page-band">
+            <div class="page-heading">
+              <div>
+                <div class="eyebrow">Library</div>
+                <h2>Texts ready for reading and practice</h2>
+              </div>
+              <button class="primary-action" type="button" data-switch-view="import">Import text</button>
+            </div>
+            <div class="library-grid" id="library-grid"></div>
+          </div>
+        </section>
+
+        <section class="app-view" id="import-view" aria-label="Import text">
+          <div class="page-band import-layout">
+            <section class="import-editor" aria-label="Draft import form">
+              <div class="page-heading compact-heading">
+                <div>
+                  <div class="eyebrow">Import</div>
+                  <h2>Preview-confirm text intake</h2>
+                </div>
+                <button class="primary-action" id="mock-import-confirm" type="button">Confirm import</button>
+              </div>
+              <div class="form-grid">
+                <label>Title <input id="import-title" type="text" value="A small market dialogue" /></label>
+                <label>Language
+                  <select id="import-language">
+                    <option>Turkish</option>
+                    <option>Arabic</option>
+                    <option>Hebrew</option>
+                    <option>French</option>
+                  </select>
+                </label>
+                <label>Source <input type="text" value="Personal lesson draft" /></label>
+                <label>Tags <input type="text" value="dialogue, beginner, speaking" /></label>
+              </div>
+              <label class="text-input-label">Original text
+                <textarea id="import-text" rows="9">Merhaba. Pazara gidiyorum.
+Bugün elma ve ekmek alacağım.
+Sonra evde kahve içeceğiz.</textarea>
+              </label>
+            </section>
+            <section class="import-preview" aria-label="Import preview">
+              <div class="eyebrow">Preview</div>
+              <h2>Sentence candidates</h2>
+              <ol id="import-preview-list" class="preview-list"></ol>
+              <div class="validation-list">
+                <span>Language set</span>
+                <span>3 sentence candidates</span>
+                <span>Ready for parser job</span>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="app-view" id="reader-view" aria-label="Reader workspace">
+          <div class="workspace">
+            <section class="reader-panel" aria-label="Interlinear reader">
           <div class="reader-toolbar">
             <div class="document-meta">
               <span id="language-name">French</span>
@@ -188,6 +253,37 @@
             <button type="button" data-density="compact">Compact</button>
           </div>
         </aside>
+          </div>
+        </section>
+
+        <section class="app-view" id="dictionary-view" aria-label="Dictionary and entities">
+          <div class="page-band dictionary-layout">
+            <section>
+              <div class="page-heading compact-heading">
+                <div>
+                  <div class="eyebrow">Dictionary</div>
+                  <h2>Entity knowledge pages</h2>
+                </div>
+                <input class="search-input" id="dictionary-search" type="search" placeholder="Search lemmas, roots, features" aria-label="Search dictionary" />
+              </div>
+              <div class="entity-list" id="entity-list"></div>
+            </section>
+            <aside class="entity-detail" id="entity-detail" aria-label="Selected entity detail"></aside>
+          </div>
+        </section>
+
+        <section class="app-view" id="progress-view" aria-label="Learning progress">
+          <div class="page-band">
+            <div class="page-heading">
+              <div>
+                <div class="eyebrow">Progress</div>
+                <h2>Reading, cloze, and speaking score draft</h2>
+              </div>
+              <button class="primary-action" type="button" data-switch-view="reader">Practice now</button>
+            </div>
+            <div class="progress-grid" id="progress-grid"></div>
+          </div>
+        </section>
       </main>
 
       <footer class="audio-bar" aria-label="Audio player">
