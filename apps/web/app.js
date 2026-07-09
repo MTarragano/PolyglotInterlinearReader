@@ -177,6 +177,7 @@ function t(surface, transliteration, morphs, gloss, lemma, pos, features, root =
 }
 
 const state = {
+  view: "library",
   language: "french",
   selected: null,
   current: { sentenceIndex: 0, tokenIndex: 0 },
@@ -196,6 +197,7 @@ const state = {
   visibleRows: new Set(["transliteration", "morphs", "gloss", "lemma", "pos", "features"]),
 };
 
+const appShell = document.querySelector(".app-shell");
 const reader = document.querySelector("#reader");
 const workspace = document.querySelector(".workspace");
 const documentTitle = document.querySelector("#document-title");
@@ -212,11 +214,25 @@ const inspectorToggle = document.querySelector("#inspector-toggle");
 const wordListPanel = document.querySelector("#word-list-panel");
 const wordListContent = document.querySelector("#word-list-content");
 const speedValue = document.querySelector("#speed-value");
+const libraryGrid = document.querySelector("#library-grid");
+const importText = document.querySelector("#import-text");
+const importPreviewList = document.querySelector("#import-preview-list");
+const entityList = document.querySelector("#entity-list");
+const entityDetail = document.querySelector("#entity-detail");
+const progressGrid = document.querySelector("#progress-grid");
 let timer = null;
+
+const viewTitles = {
+  library: "Library draft",
+  import: "Import workflow draft",
+  reader: "",
+  dictionary: "Dictionary draft",
+  progress: "Progress draft",
+};
 
 function render() {
   const sample = samples[state.language];
-  documentTitle.textContent = sample.title;
+  documentTitle.textContent = state.view === "reader" ? sample.title : viewTitles[state.view];
   languageName.textContent = sample.languageName;
   sentenceCount.textContent = `${sample.sentences.length} sentences`;
   directionLabel.textContent = sample.direction.toUpperCase();
@@ -269,6 +285,7 @@ function render() {
   reader.replaceChildren(inner);
   renderWordList();
   updateAudio();
+  updateViewChrome();
 }
 
 function renderToken(token, sentenceIndex, tokenIndex) {
@@ -612,19 +629,199 @@ function toggleWordList() {
   }
 }
 
+function switchView(view) {
+  state.view = view;
+  document.querySelectorAll(".app-view").forEach((section) => {
+    section.classList.toggle("is-active", section.id === `${view}-view`);
+  });
+  document.querySelectorAll(".app-nav-button").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.view === view);
+  });
+  updateViewChrome();
+  if (view === "library") renderLibrary();
+  if (view === "import") renderImportPreview();
+  if (view === "dictionary") renderDictionary();
+  if (view === "progress") renderProgress();
+}
+
+function updateViewChrome() {
+  const isReader = state.view === "reader";
+  const sample = samples[state.language];
+  appShell.dataset.view = state.view;
+  documentTitle.textContent = isReader ? sample.title : viewTitles[state.view];
+  document.querySelector("#settings-toggle").hidden = !isReader;
+  document.querySelector("#word-list-toggle").hidden = !isReader;
+  inspectorToggle.hidden = !isReader;
+  document.querySelector(".language-tabs").hidden = !isReader && state.view !== "library";
+}
+
+function switchLanguage(language) {
+  state.language = language;
+  state.activeSentence = 0;
+  state.progress = 0;
+  state.selected = null;
+  state.current = { sentenceIndex: 0, tokenIndex: 0 };
+  state.customSettings = false;
+  document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("is-active", item.dataset.language === language));
+  render();
+}
+
+function renderLibrary() {
+  const cards = Object.entries(samples).map(([key, sample]) => {
+    const words = collectWordsForLanguage(key);
+    const known = Math.round(words.reduce((sum, item) => sum + item.knowledge, 0) / Math.max(1, words.length));
+    const card = document.createElement("article");
+    card.className = "library-card";
+    card.innerHTML = `
+      <div>
+        <div class="eyebrow">${escapeHtml(sample.languageName)} · ${sample.direction.toUpperCase()}</div>
+        <h3>${escapeHtml(sample.title)}</h3>
+      </div>
+      <p>${sample.sentences.length} sentences · ${words.length} tracked words · parser preview ready</p>
+      <div class="card-metrics">
+        <span><strong>${known}%</strong> known</span>
+        <span><strong>${sample.sentences.length}</strong> reading units</span>
+        <span><strong>${sample.direction.toUpperCase()}</strong> script</span>
+      </div>
+      <button type="button">Open reader</button>
+    `;
+    card.querySelector("button").addEventListener("click", () => {
+      switchLanguage(key);
+      switchView("reader");
+    });
+    return card;
+  });
+  libraryGrid.replaceChildren(...cards);
+}
+
+function renderImportPreview() {
+  const lines = importText.value
+    .split(/\n+/)
+    .flatMap((line) => line.split(/(?<=[.!?؟])\s+/))
+    .map((line) => line.trim())
+    .filter(Boolean);
+  importPreviewList.replaceChildren(
+    ...lines.map((line, index) => {
+      const item = document.createElement("li");
+      item.innerHTML = `<strong>${index + 1}</strong><span>${escapeHtml(line)}</span>`;
+      return item;
+    }),
+  );
+}
+
+const dictionaryEntities = [
+  {
+    label: "ev",
+    type: "Lemma",
+    language: "Turkish",
+    meaning: "house, home",
+    source: "Corpus-derived plus learner note",
+    examples: ["Evlerimizden geldik.", "Sonra evde kahve içeceğiz."],
+    related: ["Case=Abl", "Case=Loc", "Poss=1Pl"],
+  },
+  {
+    label: "k-t-b",
+    type: "Root",
+    language: "Arabic / Hebrew",
+    meaning: "writing, inscription",
+    source: "Parser-produced root with corpus examples",
+    examples: ["يكتب المعلّم الدرس.", "היא כותבת מכתב."],
+    related: ["כתב", "كتب", "Participle"],
+  },
+  {
+    label: "Case=Abl",
+    type: "Grammar feature",
+    language: "Language-independent",
+    meaning: "movement or origin away from a source",
+    source: "Grammar feature registry draft",
+    examples: ["Evlerimizden geldik.", "I went from the house."],
+    related: ["ev", "من", "ABL cloze"],
+  },
+];
+
+function renderDictionary(selected = dictionaryEntities[0]) {
+  const query = document.querySelector("#dictionary-search").value.toLowerCase();
+  const visible = dictionaryEntities.filter((entity) => `${entity.label} ${entity.type} ${entity.meaning}`.toLowerCase().includes(query));
+  const current = visible.some((entity) => entity.label === selected.label) ? selected : visible[0] || dictionaryEntities[0];
+  entityList.replaceChildren(
+    ...visible.map((entity) => {
+      const button = document.createElement("button");
+      button.className = `entity-row ${entity.label === current.label ? "is-active" : ""}`;
+      button.type = "button";
+      button.innerHTML = `<strong>${escapeHtml(entity.label)}</strong><span>${escapeHtml(entity.type)} · ${escapeHtml(entity.language)}</span>`;
+      button.addEventListener("click", () => renderDictionary(entity));
+      return button;
+    }),
+  );
+  renderEntityDetail(current);
+}
+
+function renderEntityDetail(entity) {
+  entityDetail.innerHTML = `
+    <div class="eyebrow">${escapeHtml(entity.type)}</div>
+    <h2>${escapeHtml(entity.label)}</h2>
+    <p class="entity-meaning">${escapeHtml(entity.meaning)}</p>
+    <dl class="detail-list">
+      <div><dt>Language</dt><dd>${escapeHtml(entity.language)}</dd></div>
+      <div><dt>Source layer</dt><dd>${escapeHtml(entity.source)}</dd></div>
+    </dl>
+    <h3>Corpus examples</h3>
+    <ul>${entity.examples.map((example) => `<li>${escapeHtml(example)}</li>`).join("")}</ul>
+    <h3>Related entities</h3>
+    <div class="tag-row">${entity.related.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
+  `;
+}
+
+function renderProgress() {
+  const allWords = Object.keys(samples).flatMap(collectWordsForLanguage);
+  const knownAverage = Math.round(allWords.reduce((sum, item) => sum + item.knowledge, 0) / Math.max(1, allWords.length));
+  const cards = [
+    ["Reading progress", "68%", "4 active texts, 10 sentences drafted"],
+    ["Known word score", `${knownAverage}%`, `${allWords.length} tracked lemmas across samples`],
+    ["Cloze success", "74%", "Word, gloss, and morpheme hiding modes"],
+    ["Speaking practice", "12", "Recorded attempts planned for TTS pass"],
+  ];
+  progressGrid.replaceChildren(
+    ...cards.map(([title, value, copy]) => {
+      const card = document.createElement("article");
+      card.className = "progress-card";
+      card.innerHTML = `<span>${escapeHtml(title)}</span><strong>${escapeHtml(value)}</strong><p>${escapeHtml(copy)}</p>`;
+      return card;
+    }),
+  );
+}
+
+function collectWordsForLanguage(language) {
+  const previous = state.language;
+  state.language = language;
+  const words = collectWords();
+  state.language = previous;
+  return words;
+}
+
 document.querySelectorAll(".tab").forEach((tab) => {
   tab.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach((item) => item.classList.remove("is-active"));
-    tab.classList.add("is-active");
-    state.language = tab.dataset.language;
-    state.activeSentence = 0;
-    state.progress = 0;
-    state.selected = null;
-    state.current = { sentenceIndex: 0, tokenIndex: 0 };
-    state.customSettings = false;
-    render();
+    switchLanguage(tab.dataset.language);
+    if (state.view === "library") renderLibrary();
   });
 });
+
+document.querySelectorAll(".app-nav-button").forEach((button) => {
+  button.addEventListener("click", () => switchView(button.dataset.view));
+});
+
+document.querySelectorAll("[data-switch-view]").forEach((button) => {
+  button.addEventListener("click", () => switchView(button.dataset.switchView));
+});
+
+importText.addEventListener("input", renderImportPreview);
+
+document.querySelector("#mock-import-confirm").addEventListener("click", () => {
+  document.querySelector("#import-title").value = document.querySelector("#import-title").value || "Untitled import";
+  switchView("library");
+});
+
+document.querySelector("#dictionary-search").addEventListener("input", () => renderDictionary());
 
 document.querySelectorAll("[data-row]").forEach((checkbox) => {
   checkbox.addEventListener("change", () => {
@@ -839,3 +1036,8 @@ document.addEventListener("keydown", (event) => {
 
 closeInspector();
 render();
+renderLibrary();
+renderImportPreview();
+renderDictionary();
+renderProgress();
+switchView("library");
