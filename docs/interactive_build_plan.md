@@ -2,6 +2,8 @@
 
 This plan turns the roadmap into a feedback-driven web app build sequence. The goal is to keep the project easy to review while the architecture is still forming: draft a usable web surface, gather feedback, then harden the data model and backend around the flows that work.
 
+Current draft UI feedback and next-iteration notes live in `docs/draft_ui_feedback_notes.md`.
+
 ## Working Method
 
 Build in short UI-first loops:
