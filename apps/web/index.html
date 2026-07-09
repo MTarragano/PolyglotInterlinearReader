@@ -29,6 +29,16 @@
           <button class="tab" data-language="turkish" type="button">Turkish</button>
         </nav>
 
+        <label class="language-select-control">
+          <span class="sr-only">Learning language</span>
+          <select id="language-select" aria-label="Learning language">
+            <option value="french">French</option>
+            <option value="hebrew">Hebrew</option>
+            <option value="arabic">Arabic</option>
+            <option value="turkish">Turkish</option>
+          </select>
+        </label>
+
         <button class="icon-button" id="settings-toggle" type="button" aria-expanded="false" aria-controls="settings-panel">
           <span aria-hidden="true">Aa</span>
           <span class="sr-only">Reader settings</span>
@@ -52,6 +62,31 @@
                 <h2>Texts ready for reading and practice</h2>
               </div>
               <button class="primary-action" type="button" data-switch-view="import">Import text</button>
+            </div>
+            <div class="library-controls">
+              <label>View
+                <select id="library-view-mode">
+                  <option value="table" selected>Table</option>
+                  <option value="cards">Cards</option>
+                </select>
+              </label>
+              <label>Sort
+                <select id="library-sort">
+                  <option value="language" selected>Language</option>
+                  <option value="progress">Progress</option>
+                  <option value="recent">Recent</option>
+                  <option value="due">Due next</option>
+                </select>
+              </label>
+              <label>Language
+                <select id="library-language-filter">
+                  <option value="all" selected>All active</option>
+                  <option value="french">French</option>
+                  <option value="hebrew">Hebrew</option>
+                  <option value="arabic">Arabic</option>
+                  <option value="turkish">Turkish</option>
+                </select>
+              </label>
             </div>
             <div class="library-grid" id="library-grid"></div>
           </div>
@@ -79,6 +114,17 @@
                 </label>
                 <label>Source <input type="text" value="Personal lesson draft" /></label>
                 <label>Tags <input type="text" value="dialogue, beginner, speaking" /></label>
+                <label>Original URL <input type="url" value="https://example.org/lesson/source" /></label>
+                <label>Record date <input type="date" value="2026-07-09" /></label>
+                <label class="file-field">Audio file <input type="file" accept="audio/*" /></label>
+                <label>Import purpose
+                  <select>
+                    <option>Reading + speaking practice</option>
+                    <option>Dictionary enrichment</option>
+                    <option>Teacher assignment</option>
+                    <option>External analysis</option>
+                  </select>
+                </label>
               </div>
               <label class="text-input-label">Original text
                 <textarea id="import-text" rows="9">Merhaba. Pazara gidiyorum.
@@ -111,7 +157,7 @@ Sonra evde kahve içeceğiz.</textarea>
 
             <label class="preset-control">
               View
-              <select id="row-preset">
+              <select id="row-preset" title="Choose a saved reader row arrangement">
                 <option value="reading">Reading</option>
                 <option value="interlinear" selected>Interlinear</option>
                 <option value="morphology">Morphology</option>
@@ -122,7 +168,7 @@ Sonra evde kahve içeceğiz.</textarea>
 
             <label class="preset-control">
               Cloze
-              <select id="cloze-mode">
+              <select id="cloze-mode" title="Hide reader fields for active recall">
                 <option value="off" selected>Off</option>
                 <option value="blank">Hide answer fields</option>
                 <option value="first">First character</option>
@@ -130,13 +176,13 @@ Sonra evde kahve içeceğiz.</textarea>
             </label>
 
             <div class="row-menu" aria-label="Visible interlinear rows">
-              <label><input type="checkbox" data-row="transliteration" checked /> Transliteration</label>
-              <label><input type="checkbox" data-row="morphs" checked /> Morphs</label>
-              <label><input type="checkbox" data-row="gloss" checked /> Gloss</label>
-              <label><input type="checkbox" data-row="lemma" checked /> Lemma</label>
-              <label><input type="checkbox" data-row="root" /> Root</label>
-              <label><input type="checkbox" data-row="pos" checked /> POS</label>
-              <label><input type="checkbox" data-row="features" checked /> Features</label>
+              <label class="row-chip transliteration-chip" title="Pronunciation or romanization row"><input type="checkbox" data-row="transliteration" checked /> Transliteration</label>
+              <label class="row-chip morphs-chip" title="Morpheme segmentation row"><input type="checkbox" data-row="morphs" checked /> Morphs</label>
+              <label class="row-chip gloss-chip" title="Short word-by-word meaning row"><input type="checkbox" data-row="gloss" checked /> Gloss</label>
+              <label class="row-chip lemma-chip" title="Dictionary headword row"><input type="checkbox" data-row="lemma" checked /> Lemma</label>
+              <label class="row-chip root-chip" title="Root or stem row when parser data exists"><input type="checkbox" data-row="root" /> Root</label>
+              <label class="row-chip pos-chip" title="Part of speech row"><input type="checkbox" data-row="pos" checked /> POS</label>
+              <label class="row-chip features-chip" title="Grammar feature row"><input type="checkbox" data-row="features" checked /> Features</label>
             </div>
           </div>
 
@@ -162,7 +208,7 @@ Sonra evde kahve içeceğiz.</textarea>
                   View
                   <select id="word-list-view">
                     <option value="compact">Compact</option>
-                    <option value="interlinear">Interlinear</option>
+                    <option value="interlinear" selected>Interlinear</option>
                     <option value="cloze">Cloze</option>
                   </select>
                 </label>
@@ -261,10 +307,28 @@ Sonra evde kahve içeceğiz.</textarea>
             <section>
               <div class="page-heading compact-heading">
                 <div>
-                  <div class="eyebrow">Dictionary</div>
-                  <h2>Entity knowledge pages</h2>
+                <div class="eyebrow">Dictionary</div>
+                  <h2>Recent words and entity knowledge</h2>
                 </div>
                 <input class="search-input" id="dictionary-search" type="search" placeholder="Search lemmas, roots, features" aria-label="Search dictionary" />
+              </div>
+              <div class="dictionary-controls">
+                <label>Scope
+                  <select id="dictionary-scope">
+                    <option value="recent" selected>Recent words</option>
+                    <option value="target">Target lexicon</option>
+                    <option value="all">Whole dictionary</option>
+                  </select>
+                </label>
+                <label>Filter
+                  <select id="dictionary-filter">
+                    <option value="all" selected>All entities</option>
+                    <option value="Lemma">Lemma</option>
+                    <option value="Root">Root</option>
+                    <option value="Grammar feature">Grammar feature</option>
+                    <option value="Morpheme">Morpheme</option>
+                  </select>
+                </label>
               </div>
               <div class="entity-list" id="entity-list"></div>
             </section>
@@ -282,6 +346,15 @@ Sonra evde kahve içeceğiz.</textarea>
               <button class="primary-action" type="button" data-switch-view="reader">Practice now</button>
             </div>
             <div class="progress-grid" id="progress-grid"></div>
+            <section class="schedule-panel" aria-label="User scheduling suggestions">
+              <div class="page-heading compact-heading">
+                <div>
+                  <div class="eyebrow">User Scheduling</div>
+                  <h2>Suggested next work</h2>
+                </div>
+              </div>
+              <div id="schedule-list" class="schedule-list"></div>
+            </section>
           </div>
         </section>
       </main>

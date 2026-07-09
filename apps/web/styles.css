@@ -103,6 +103,15 @@ button:focus-visible {
   border-radius: 8px;
 }
 
+.language-select-control select {
+  min-height: 34px;
+  min-width: 132px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+}
+
 .app-nav {
   display: flex;
   gap: 4px;
@@ -219,6 +228,76 @@ button:focus-visible {
   gap: 12px;
 }
 
+.library-controls,
+.dictionary-controls {
+  max-width: 1180px;
+  margin: 0 auto 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.library-controls label,
+.dictionary-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.library-controls select,
+.dictionary-controls select {
+  min-height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+}
+
+.library-grid.is-table {
+  display: block;
+}
+
+.library-table {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.library-table-head,
+.library-row {
+  display: grid;
+  grid-template-columns: 120px minmax(220px, 1.6fr) minmax(150px, 0.8fr) 100px 90px minmax(150px, 1fr) 70px;
+  gap: 10px;
+  align-items: center;
+  min-width: 940px;
+  padding: 10px 12px;
+}
+
+.library-table-head {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.library-row + .library-row {
+  border-top: 1px solid var(--line);
+}
+
+.library-row span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.library-row button {
+  min-height: 31px;
+  border-radius: 7px;
+}
+
 .library-card,
 .progress-card,
 .import-editor,
@@ -316,6 +395,7 @@ button:focus-visible {
 
 .form-grid input,
 .form-grid select,
+.file-field input,
 .search-input {
   min-height: 36px;
   padding: 7px 9px;
@@ -370,6 +450,43 @@ button:focus-visible {
   gap: 8px;
 }
 
+.entity-table {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.entity-table-head,
+.entity-table-row {
+  display: grid;
+  grid-template-columns: minmax(110px, 1fr) 120px minmax(110px, 0.8fr) 64px;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  min-width: 520px;
+  padding: 10px;
+  border: 0;
+  border-radius: 0;
+  text-align: left;
+}
+
+.entity-table-head {
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.entity-table-row + .entity-table-row {
+  border-top: 1px solid var(--line);
+}
+
+.entity-table-row.is-active {
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+
 .entity-row {
   display: grid;
   gap: 3px;
@@ -406,6 +523,40 @@ button:focus-visible {
 .progress-card strong {
   font-size: 34px;
   line-height: 1;
+}
+
+.schedule-panel {
+  max-width: 1180px;
+  margin: 14px auto 0;
+}
+
+.schedule-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.schedule-card {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.schedule-card span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.schedule-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .workspace {
@@ -469,6 +620,41 @@ button:focus-visible {
   gap: 4px;
   align-items: center;
   white-space: nowrap;
+}
+
+.row-chip {
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+}
+
+.transliteration-chip {
+  color: var(--transliteration-color);
+}
+
+.morphs-chip {
+  color: var(--morphs-color);
+}
+
+.gloss-chip {
+  color: var(--gloss-color);
+}
+
+.lemma-chip {
+  color: var(--lemma-color);
+}
+
+.root-chip {
+  color: var(--root-color);
+}
+
+.pos-chip {
+  color: var(--pos-color);
+}
+
+.features-chip {
+  color: var(--feature-color);
 }
 
 .preset-control {
@@ -898,7 +1084,20 @@ button:focus-visible {
 
 .word-card-interlinear,
 .word-card-cloze {
-  grid-template-columns: minmax(180px, 1.5fr) minmax(120px, 1fr) minmax(80px, 0.5fr) minmax(80px, 0.5fr);
+  grid-template-columns: minmax(190px, 1.6fr) minmax(120px, 1fr) minmax(76px, 0.45fr) minmax(76px, 0.45fr) minmax(76px, 0.45fr);
+}
+
+.mini-token {
+  display: grid;
+  gap: 2px;
+}
+
+.mini-token strong {
+  font-size: 19px;
+}
+
+.mini-token span {
+  font-size: 12px;
 }
 
 .meter {
@@ -1012,7 +1211,8 @@ button:focus-visible {
   }
 
   .library-grid,
-  .progress-grid {
+  .progress-grid,
+  .schedule-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1062,7 +1262,8 @@ button:focus-visible {
   .page-heading,
   .form-grid,
   .library-grid,
-  .progress-grid {
+  .progress-grid,
+  .schedule-list {
     grid-template-columns: 1fr;
   }
 

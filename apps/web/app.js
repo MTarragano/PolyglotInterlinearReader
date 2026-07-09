@@ -191,8 +191,12 @@ const state = {
   inspectorOpen: false,
   clozeMode: "off",
   rtlTransliterationMode: "normal",
+  clozeRevealed: false,
   wordSort: "knowledge",
-  wordListView: "compact",
+  wordListView: "interlinear",
+  libraryViewMode: "table",
+  librarySort: "language",
+  libraryLanguageFilter: "all",
   knowledge: {},
   visibleRows: new Set(["transliteration", "morphs", "gloss", "lemma", "pos", "features"]),
 };
@@ -220,6 +224,7 @@ const importPreviewList = document.querySelector("#import-preview-list");
 const entityList = document.querySelector("#entity-list");
 const entityDetail = document.querySelector("#entity-detail");
 const progressGrid = document.querySelector("#progress-grid");
+const scheduleList = document.querySelector("#schedule-list");
 let timer = null;
 
 const viewTitles = {
@@ -351,7 +356,7 @@ function entityButton(label, type, token) {
 }
 
 function clozeValue(rowName, value) {
-  if (state.clozeMode === "off" || !answerRevealingRows.has(rowName) || value === "." || value === "," || !value) {
+  if (state.clozeMode === "off" || state.clozeRevealed || !answerRevealingRows.has(rowName) || value === "." || value === "," || !value) {
     return value;
   }
   if (state.clozeMode === "first") {
@@ -513,6 +518,7 @@ function moveCurrent(delta) {
       state.current = { sentenceIndex, tokenIndex };
       state.activeSentence = sentenceIndex;
       state.selected = { sentenceIndex, tokenIndex };
+      state.clozeRevealed = false;
       inspect("token", sentences[sentenceIndex].tokens[tokenIndex].surface, sentences[sentenceIndex].tokens[tokenIndex]);
       render();
       scrollCurrentIntoView();
@@ -556,6 +562,7 @@ function updateKnowledge(delta) {
   if (!token || token.pos === "PUNCT") return;
   const key = knowledgeKey(token);
   state.knowledge[key] = Math.min(100, Math.max(0, knowledgeScore(token) + delta));
+  state.clozeRevealed = true;
   inspect("token", token.surface, token);
   render();
 }
@@ -599,6 +606,22 @@ function renderWordCard(word) {
   const card = document.createElement("article");
   card.className = `word-card word-card-${state.wordListView}`;
   const display = state.wordListView === "cloze" ? "_____" : word.token.surface;
+  const nextDue = word.knowledge < 35 ? "Today" : word.knowledge < 65 ? "Soon" : "Later";
+  if (state.wordListView === "interlinear" || state.wordListView === "cloze") {
+    card.innerHTML = `
+      <div class="mini-token">
+        <strong>${escapeHtml(display)}</strong>
+        <span class="transliteration">${escapeHtml(word.token.transliteration || "")}</span>
+        <span class="morphs">${escapeHtml(word.token.morphs || "")}</span>
+        <span class="gloss">${escapeHtml(word.token.gloss || "")}</span>
+        <span class="lemma">${escapeHtml(word.token.lemma || "")}</span>
+      </div>
+      <div><span>Knowledge</span><div class="meter"><i style="width:${word.knowledge}%"></i></div><span>${word.knowledge}/100</span></div>
+      <div><span>Due</span><strong>${nextDue}</strong></div>
+      <div><span>Seen</span><strong>${word.frequency}</strong></div>
+      <div><span>Target</span><strong>${word.target}</strong></div>
+    `;
+  } else {
   card.innerHTML = `
     <div>
       <strong>${escapeHtml(display)}</strong>
@@ -608,6 +631,7 @@ function renderWordCard(word) {
     <div><span>Target</span><strong>${word.target}</strong></div>
     <div><span>Text freq.</span><strong>${word.frequency}</strong></div>
   `;
+  }
   card.addEventListener("click", () => {
     const first = word.examples[0];
     selectToken(first.sentenceIndex, first.tokenIndex, word.token);
@@ -661,15 +685,69 @@ function switchLanguage(language) {
   state.progress = 0;
   state.selected = null;
   state.current = { sentenceIndex: 0, tokenIndex: 0 };
+  state.clozeRevealed = false;
   state.customSettings = false;
   document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("is-active", item.dataset.language === language));
+  document.querySelector("#language-select").value = language;
   render();
 }
 
 function renderLibrary() {
-  const cards = Object.entries(samples).map(([key, sample]) => {
+  let rows = Object.entries(samples)
+    .filter(([key]) => state.libraryLanguageFilter === "all" || key === state.libraryLanguageFilter)
+    .map(([key, sample], index) => {
     const words = collectWordsForLanguage(key);
     const known = Math.round(words.reduce((sum, item) => sum + item.knowledge, 0) / Math.max(1, words.length));
+      return {
+        key,
+        sample,
+        words,
+        known,
+        recent: ["Today", "Yesterday", "2 days ago", "Last week"][index],
+        due: known < 45 ? "Today" : known < 70 ? "Tomorrow" : "Later",
+        next: known < 45 ? "Review unknown words" : "Continue reading",
+      };
+    });
+
+  rows.sort((a, b) => {
+    if (state.librarySort === "progress") return a.known - b.known;
+    if (state.librarySort === "recent") return Object.keys(samples).indexOf(a.key) - Object.keys(samples).indexOf(b.key);
+    if (state.librarySort === "due") return a.due.localeCompare(b.due);
+    return a.sample.languageName.localeCompare(b.sample.languageName);
+  });
+
+  libraryGrid.classList.toggle("is-table", state.libraryViewMode === "table");
+  if (state.libraryViewMode === "table") {
+    const table = document.createElement("div");
+    table.className = "library-table";
+    table.innerHTML = `
+      <div class="library-table-head">
+        <span>Language</span><span>Text / lesson</span><span>Progress</span><span>Recent</span><span>Due</span><span>Next</span><span></span>
+      </div>
+    `;
+    rows.forEach(({ key, sample, words, known, recent, due, next }) => {
+      const row = document.createElement("article");
+      row.className = "library-row";
+      row.innerHTML = `
+        <span>${escapeHtml(sample.languageName)}</span>
+        <strong>${escapeHtml(sample.title)}</strong>
+        <span><div class="meter"><i style="width:${known}%"></i></div>${known}% · ${words.length} words</span>
+        <span>${escapeHtml(recent)}</span>
+        <span>${escapeHtml(due)}</span>
+        <span>${escapeHtml(next)}</span>
+        <button type="button">Open</button>
+      `;
+      row.querySelector("button").addEventListener("click", () => {
+        switchLanguage(key);
+        switchView("reader");
+      });
+      table.append(row);
+    });
+    libraryGrid.replaceChildren(table);
+    return;
+  }
+
+  const cards = rows.map(({ key, sample, words, known, due }) => {
     const card = document.createElement("article");
     card.className = "library-card";
     card.innerHTML = `
@@ -680,6 +758,7 @@ function renderLibrary() {
       <p>${sample.sentences.length} sentences · ${words.length} tracked words · parser preview ready</p>
       <div class="card-metrics">
         <span><strong>${known}%</strong> known</span>
+        <span><strong>${escapeHtml(due)}</strong> due</span>
         <span><strong>${sample.sentences.length}</strong> reading units</span>
         <span><strong>${sample.direction.toUpperCase()}</strong> script</span>
       </div>
@@ -707,6 +786,14 @@ function renderImportPreview() {
       return item;
     }),
   );
+  const validation = document.querySelector(".validation-list");
+  validation.innerHTML = `
+    <span>Language set</span>
+    <span>${lines.length} sentence candidates</span>
+    <span>Audio optional</span>
+    <span>Source URL captured</span>
+    <span>Ready for parser job</span>
+  `;
 }
 
 const dictionaryEntities = [
@@ -718,6 +805,9 @@ const dictionaryEntities = [
     source: "Corpus-derived plus learner note",
     examples: ["Evlerimizden geldik.", "Sonra evde kahve içeceğiz."],
     related: ["Case=Abl", "Case=Loc", "Poss=1Pl"],
+    progress: 42,
+    seen: 3,
+    editable: "Learner note, gloss, target-list state",
   },
   {
     label: "k-t-b",
@@ -727,6 +817,9 @@ const dictionaryEntities = [
     source: "Parser-produced root with corpus examples",
     examples: ["يكتب المعلّم الدرس.", "היא כותבת מכתב."],
     related: ["כתב", "كتب", "Participle"],
+    progress: 58,
+    seen: 4,
+    editable: "Examples, source links, notes",
   },
   {
     label: "Case=Abl",
@@ -736,22 +829,51 @@ const dictionaryEntities = [
     source: "Grammar feature registry draft",
     examples: ["Evlerimizden geldik.", "I went from the house."],
     related: ["ev", "من", "ABL cloze"],
+    progress: 31,
+    seen: 2,
+    editable: "Explanation, examples, teacher note",
+  },
+  {
+    label: "-ler",
+    type: "Morpheme",
+    language: "Turkish",
+    meaning: "plural suffix",
+    source: "Parser-produced morpheme plus grammar feature link",
+    examples: ["Evlerimizden geldik.", "Çocuklar bahçede oynuyor."],
+    related: ["Number=Plur", "suffix", "ev"],
+    progress: 66,
+    seen: 2,
+    editable: "Allomorph note, teaching examples",
   },
 ];
 
 function renderDictionary(selected = dictionaryEntities[0]) {
   const query = document.querySelector("#dictionary-search").value.toLowerCase();
-  const visible = dictionaryEntities.filter((entity) => `${entity.label} ${entity.type} ${entity.meaning}`.toLowerCase().includes(query));
+  const filter = document.querySelector("#dictionary-filter").value;
+  const visible = dictionaryEntities.filter((entity) => {
+    const queryMatch = `${entity.label} ${entity.type} ${entity.meaning} ${entity.related.join(" ")}`.toLowerCase().includes(query);
+    const typeMatch = filter === "all" || entity.type === filter;
+    return queryMatch && typeMatch;
+  });
   const current = visible.some((entity) => entity.label === selected.label) ? selected : visible[0] || dictionaryEntities[0];
+  const table = document.createElement("div");
+  table.className = "entity-table";
+  table.innerHTML = `<div class="entity-table-head"><span>Entity</span><span>Type</span><span>Progress</span><span>Seen</span></div>`;
+  visible.forEach((entity) => {
+    const button = document.createElement("button");
+    button.className = `entity-table-row ${entity.label === current.label ? "is-active" : ""}`;
+    button.type = "button";
+    button.innerHTML = `
+      <strong>${escapeHtml(entity.label)}</strong>
+      <span>${escapeHtml(entity.type)}</span>
+      <span><div class="meter"><i style="width:${entity.progress}%"></i></div>${entity.progress}%</span>
+      <span>${entity.seen}</span>
+    `;
+    button.addEventListener("click", () => renderDictionary(entity));
+    table.append(button);
+  });
   entityList.replaceChildren(
-    ...visible.map((entity) => {
-      const button = document.createElement("button");
-      button.className = `entity-row ${entity.label === current.label ? "is-active" : ""}`;
-      button.type = "button";
-      button.innerHTML = `<strong>${escapeHtml(entity.label)}</strong><span>${escapeHtml(entity.type)} · ${escapeHtml(entity.language)}</span>`;
-      button.addEventListener("click", () => renderDictionary(entity));
-      return button;
-    }),
+    table,
   );
   renderEntityDetail(current);
 }
@@ -764,6 +886,7 @@ function renderEntityDetail(entity) {
     <dl class="detail-list">
       <div><dt>Language</dt><dd>${escapeHtml(entity.language)}</dd></div>
       <div><dt>Source layer</dt><dd>${escapeHtml(entity.source)}</dd></div>
+      <div><dt>Editable fields</dt><dd>${escapeHtml(entity.editable)}</dd></div>
     </dl>
     <h3>Corpus examples</h3>
     <ul>${entity.examples.map((example) => `<li>${escapeHtml(example)}</li>`).join("")}</ul>
@@ -775,17 +898,35 @@ function renderEntityDetail(entity) {
 function renderProgress() {
   const allWords = Object.keys(samples).flatMap(collectWordsForLanguage);
   const knownAverage = Math.round(allWords.reduce((sum, item) => sum + item.knowledge, 0) / Math.max(1, allWords.length));
-  const cards = [
-    ["Reading progress", "68%", "4 active texts, 10 sentences drafted"],
-    ["Known word score", `${knownAverage}%`, `${allWords.length} tracked lemmas across samples`],
-    ["Cloze success", "74%", "Word, gloss, and morpheme hiding modes"],
-    ["Speaking practice", "12", "Recorded attempts planned for TTS pass"],
-  ];
+  const cards = Object.entries(samples).map(([key, sample]) => {
+    const words = collectWordsForLanguage(key);
+    const known = Math.round(words.reduce((sum, item) => sum + item.knowledge, 0) / Math.max(1, words.length));
+    return [sample.languageName, `${known}%`, `${words.length} target words · ${sample.sentences.length} reading units · ${key === state.language ? "active user focus" : "available"}`];
+  });
+  cards.unshift(["All languages", `${knownAverage}%`, `${allWords.length} tracked lemmas · target lexicon weighted draft score`]);
   progressGrid.replaceChildren(
     ...cards.map(([title, value, copy]) => {
       const card = document.createElement("article");
       card.className = "progress-card";
       card.innerHTML = `<span>${escapeHtml(title)}</span><strong>${escapeHtml(value)}</strong><p>${escapeHtml(copy)}</p>`;
+      return card;
+    }),
+  );
+  renderSchedule();
+}
+
+function renderSchedule() {
+  const suggestions = [
+    ["Due today", "Review unknown words in the current reader", "Spaced repetition + recent mistakes"],
+    ["Target lexicon", "Distill high-frequency words from imported texts", "Frequency data + teacher targets"],
+    ["Grammar pattern", "Practise ablative/source patterns", "Parser feature examples"],
+    ["Teacher/Maven", "Assign a short dialogue with audio", "Speaking practice schedule"],
+  ];
+  scheduleList.replaceChildren(
+    ...suggestions.map(([label, action, reason]) => {
+      const card = document.createElement("article");
+      card.className = "schedule-card";
+      card.innerHTML = `<span>${escapeHtml(label)}</span><strong>${escapeHtml(action)}</strong><p>${escapeHtml(reason)}</p>`;
       return card;
     }),
   );
@@ -806,6 +947,12 @@ document.querySelectorAll(".tab").forEach((tab) => {
   });
 });
 
+document.querySelector("#language-select").addEventListener("change", (event) => {
+  switchLanguage(event.target.value);
+  if (state.view === "library") renderLibrary();
+  if (state.view === "progress") renderProgress();
+});
+
 document.querySelectorAll(".app-nav-button").forEach((button) => {
   button.addEventListener("click", () => switchView(button.dataset.view));
 });
@@ -822,6 +969,23 @@ document.querySelector("#mock-import-confirm").addEventListener("click", () => {
 });
 
 document.querySelector("#dictionary-search").addEventListener("input", () => renderDictionary());
+document.querySelector("#dictionary-filter").addEventListener("change", () => renderDictionary());
+document.querySelector("#dictionary-scope").addEventListener("change", () => renderDictionary());
+
+document.querySelector("#library-view-mode").addEventListener("change", (event) => {
+  state.libraryViewMode = event.target.value;
+  renderLibrary();
+});
+
+document.querySelector("#library-sort").addEventListener("change", (event) => {
+  state.librarySort = event.target.value;
+  renderLibrary();
+});
+
+document.querySelector("#library-language-filter").addEventListener("change", (event) => {
+  state.libraryLanguageFilter = event.target.value;
+  renderLibrary();
+});
 
 document.querySelectorAll("[data-row]").forEach((checkbox) => {
   checkbox.addEventListener("change", () => {
@@ -854,12 +1018,14 @@ document.querySelector("#row-preset").addEventListener("change", (event) => {
   setVisibleRows(rowPresets[event.target.value]);
   if (event.target.value === "cloze") {
     state.clozeMode = "blank";
+    state.clozeRevealed = false;
     document.querySelector("#cloze-mode").value = "blank";
   }
 });
 
 document.querySelector("#cloze-mode").addEventListener("change", (event) => {
   state.clozeMode = event.target.value;
+  state.clozeRevealed = false;
   render();
 });
 
@@ -896,6 +1062,8 @@ inspectorToggle.addEventListener("click", () => {
 });
 
 document.querySelector("#inspector-close").addEventListener("click", closeInspector);
+
+document.querySelector("#mark-known").addEventListener("click", () => updateKnowledge(12));
 
 [
   ["target-size", "--target-size", "px"],
