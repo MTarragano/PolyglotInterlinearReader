@@ -51,7 +51,7 @@ Turn Import into a three-stage review workspace:
 2. Structure review: paragraphs and sentence candidates with split, merge, and reorder controls.
 3. Annotation review: editable sentence translations, tokens, transliterations, glosses, lemmas, and morphology beside an interlinear preview.
 
-The final review should keep editable import data and the resulting reader visible together. Actions should include Back to source, Re-run parsing, Save draft, Confirm import, and Open in Reader.
+The layout is not yet confirmed. The current preference is to place the editable import review and resulting reader preview underneath the source form, where they can use the available page width. A side-by-side arrangement may still be tried on a wide screen for comparison, but it should be treated as an experiment rather than an agreed direction. Actions should include Back to source, Re-run parsing, Save draft, Confirm import, and Open in Reader.
 
 ### Knowledge and review state
 
@@ -118,7 +118,7 @@ Several of these controls will be redesigned by the product changes above, but t
 3. Replace `Known` and numeric knowledge with four learning stages.
 4. Make Dictionary language-first and word-first.
 5. Add the new-language import path.
-6. Build the split import/review workspace.
+6. Build the import/review workspace with the review initially underneath the source form; optionally try a wide-screen side-by-side variant for comparison.
 7. Replace embedded toy data with representative fixture data.
 8. Make all visible scope, filter, and sorting controls truthful and functional.
 
@@ -128,6 +128,6 @@ Defer the final spaced-repetition algorithm, backend persistence, teacher permis
 
 - Whether the four proposed learning-stage labels are correct.
 - Whether Reader should switch by language, by text, or primarily by Library navigation.
-- The exact layout of the side-by-side import correction and reader preview.
+- Whether the import correction and reader preview work best underneath the source form, or responsively side-by-side on sufficiently wide screens; the present preference is underneath.
 - Which sample files should form the first representative fixture set.
 - Which Dictionary fields learners, teachers, and administrators may edit.
