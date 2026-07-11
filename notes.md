@@ -75,9 +75,9 @@ Dictionary should be language-first and word-first for ordinary learners:
 - Exactly one language selected by default.
 - Words/lemmas as the default content.
 - Recent words as the default scope.
-- Suggested primary columns: Word, Meaning, Learning stage, Frequency, Last seen, Next review, and Source text.
+- Suggested primary columns: Word, Meaning, Root, Morpheme form/type, POS, Learning stage, Frequency, Last seen, Next review, and Source text.
 
-Roots, morphemes, grammar features, and structural entities should sit behind an `Advanced linguistic structure` view, especially for teachers and administrators.
+Root and morpheme information should remain visible, searchable, and filterable in the normal word table. This supports queries such as finding every word with a matching root, morpheme, or morpheme type. An `Expanded structural detail` view may add denser feature, allomorph, relation, and editing columns; it should not hide the most useful structural matching information from the ordinary learner view.
 
 Editing should eventually distinguish:
 
@@ -97,7 +97,7 @@ A useful initial subset would contain:
 - Available sentence translations, tokens, transliterations, lemmas, glosses, and morphology.
 - Source and provenance metadata.
 
-Missing information should remain visibly absent rather than being replaced with invented progress, recency, due-date, or annotation values. Source material can initially arrive as JSON, CSV/TSV, spreadsheets, or structured documents and be normalised for the prototype.
+Missing information should remain visibly absent rather than being replaced with invented progress, recency, due-date, or annotation values. UTF-8 TSV exports are preferred for the first fixture import: one file per source table, stable IDs, column headers, and a short description of keys and relationships. A schema-only SQL export is useful alongside the TSV files for understanding database relationships. The existing GitHub repository can be used as the source when it is ready to share; credentials and production data dumps should not be committed.
 
 ## Confirmed Review Defects to Fix
 
@@ -119,15 +119,30 @@ Several of these controls will be redesigned by the product changes above, but t
 4. Make Dictionary language-first and word-first.
 5. Add the new-language import path.
 6. Build the import/review workspace with the review initially underneath the source form; optionally try a wide-screen side-by-side variant for comparison.
-7. Replace embedded toy data with representative fixture data.
+7. Replace embedded toy data with representative fixture data after sample texts and dictionary exports are supplied.
 8. Make all visible scope, filter, and sorting controls truthful and functional.
 
 Defer the final spaced-repetition algorithm, backend persistence, teacher permissions, competitive progress, and final scoring formulas until the core workflows and terminology are agreed.
+
+## Next Feedback Draft Implementation Status
+
+The local interactive draft now implements the agreed direction for another feedback pass:
+
+- The duplicate language-button row has been removed, and each page shows only its relevant language control.
+- Import offers `Add a new language...`, collects basic language defaults, and can create an in-memory generic-tokenized sample.
+- Structure and annotation review appear underneath the source form. The alternative side-by-side arrangement remains uncommitted.
+- Knowledge uses `New`, `Learning`, `Acquainted`, and `Well known`; up/down actions reveal cloze answers and remain synchronized with the selected token.
+- Dictionary is language-first and word-first, with visible Root and Morphology columns plus working filters for root, morpheme/type, POS, scope, and general search.
+- Expanded structural detail adds feature and surface-form columns instead of hiding root/morpheme matching from the normal table.
+- Library recency assignment and due sorting, Dictionary scopes, Inspector targeting, and cloze reset behaviour have been corrected.
+- Parser-level split/merge editing and Save draft are visibly marked as unavailable until parser and persistence services are connected.
+
+Representative real fixture data remains pending delivery of the sample texts and dictionary exports.
 
 ## Decisions Still Open for Discussion
 
 - Whether the four proposed learning-stage labels are correct.
 - Whether Reader should switch by language, by text, or primarily by Library navigation.
 - Whether the import correction and reader preview work best underneath the source form, or responsively side-by-side on sufficiently wide screens; the present preference is underneath.
-- Which sample files should form the first representative fixture set.
+- Which TSV tables and sample records should form the first representative fixture set; sample texts and dictionary data will be supplied later.
 - Which Dictionary fields learners, teachers, and administrators may edit.

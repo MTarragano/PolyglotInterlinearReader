@@ -198,8 +198,13 @@ const state = {
   librarySort: "language",
   libraryLanguageFilter: "all",
   knowledge: {},
+  reviewEvents: [],
+  importStage: "source",
   visibleRows: new Set(["transliteration", "morphs", "gloss", "lemma", "pos", "features"]),
 };
+
+const learningStages = ["New", "Learning", "Acquainted", "Well known"];
+const stageProgress = [0, 34, 67, 100];
 
 const appShell = document.querySelector(".app-shell");
 const reader = document.querySelector("#reader");
@@ -225,6 +230,10 @@ const entityList = document.querySelector("#entity-list");
 const entityDetail = document.querySelector("#entity-detail");
 const progressGrid = document.querySelector("#progress-grid");
 const scheduleList = document.querySelector("#schedule-list");
+const knowledgeStageLabel = document.querySelector("#knowledge-stage");
+const knowledgeDown = document.querySelector("#knowledge-down");
+const knowledgeUp = document.querySelector("#knowledge-up");
+const annotationList = document.querySelector("#import-annotation-list");
 let timer = null;
 
 const viewTitles = {
@@ -301,30 +310,30 @@ function renderToken(token, sentenceIndex, tokenIndex) {
   stack.dataset.sentence = String(sentenceIndex);
   stack.dataset.token = String(tokenIndex);
 
-  stack.append(row("surface", entityButton(clozeValue("surface", token.surface), "token", token)));
+  stack.append(row("surface", entityButton(clozeValue("surface", token.surface), "token", token, sentenceIndex, tokenIndex)));
 
   if (state.visibleRows.has("transliteration") && token.transliteration) {
     stack.append(row("transliteration", clozeValue("transliteration", transformTransliteration(token.transliteration))));
   }
   if (state.visibleRows.has("morphs") && token.morphs) {
     const morphText = clozeValue("morphs", transformTransliteration(token.morphs));
-    stack.append(row("morphs", state.clozeMode === "off" ? morphemeButtons(morphText, token) : morphText));
+    stack.append(row("morphs", state.clozeMode === "off" ? morphemeButtons(morphText, token, sentenceIndex, tokenIndex) : morphText));
   }
   if (state.visibleRows.has("gloss") && token.gloss) {
     stack.append(row("gloss", token.gloss));
   }
   if (state.visibleRows.has("lemma") && token.lemma) {
-    stack.append(row("lemma", entityButton(clozeValue("lemma", transformTransliteration(token.lemma)), "lemma", token)));
+    stack.append(row("lemma", entityButton(clozeValue("lemma", transformTransliteration(token.lemma)), "lemma", token, sentenceIndex, tokenIndex)));
   }
   if (state.visibleRows.has("root") && token.root) {
-    stack.append(row("root", entityButton(clozeValue("root", transformTransliteration(token.root)), "root", token)));
+    stack.append(row("root", entityButton(clozeValue("root", transformTransliteration(token.root)), "root", token, sentenceIndex, tokenIndex)));
   }
   if (state.visibleRows.has("pos") && token.pos) {
-    stack.append(row("pos", entityButton(token.pos, "part of speech", token)));
+    stack.append(row("pos", entityButton(token.pos, "part of speech", token, sentenceIndex, tokenIndex)));
   }
   if (state.visibleRows.has("features") && token.features.length) {
     const holder = document.createElement("span");
-    token.features.forEach((feature) => holder.append(featureButton(feature, token)));
+    token.features.forEach((feature) => holder.append(featureButton(feature, token, sentenceIndex, tokenIndex)));
     stack.append(row("features", holder));
   }
 
@@ -343,14 +352,16 @@ function row(className, content) {
   return div;
 }
 
-function entityButton(label, type, token) {
+function entityButton(label, type, token, sentenceIndex, tokenIndex) {
   const button = document.createElement("button");
   button.className = "clickable";
   button.type = "button";
   button.textContent = label;
   button.addEventListener("click", (event) => {
     event.stopPropagation();
+    activateToken(sentenceIndex, tokenIndex);
     inspect(type, label, token);
+    render();
   });
   return button;
 }
@@ -386,31 +397,38 @@ function reverseText(value) {
   return Array.from(value).reverse().join("");
 }
 
-function morphemeButtons(value, token) {
+function morphemeButtons(value, token, sentenceIndex, tokenIndex) {
   const span = document.createElement("span");
   value.split("-").forEach((piece, index, all) => {
-    span.append(entityButton(piece, "morpheme", token));
+    span.append(entityButton(piece, "morpheme", token, sentenceIndex, tokenIndex));
     if (index < all.length - 1) span.append("-");
   });
   return span;
 }
 
-function featureButton(feature, token) {
+function featureButton(feature, token, sentenceIndex, tokenIndex) {
   const button = document.createElement("button");
   button.className = "clickable feature-pill";
   button.type = "button";
   button.textContent = feature;
   button.addEventListener("click", (event) => {
     event.stopPropagation();
+    activateToken(sentenceIndex, tokenIndex);
     inspect("grammar feature", feature, token);
+    render();
   });
   return button;
 }
 
-function selectToken(sentenceIndex, tokenIndex, token) {
+function activateToken(sentenceIndex, tokenIndex) {
   state.selected = { sentenceIndex, tokenIndex };
   state.current = { sentenceIndex, tokenIndex };
   state.activeSentence = sentenceIndex;
+  state.clozeRevealed = false;
+}
+
+function selectToken(sentenceIndex, tokenIndex, token) {
+  activateToken(sentenceIndex, tokenIndex);
   inspect("token", token.surface, token);
   render();
 }
@@ -418,6 +436,7 @@ function selectToken(sentenceIndex, tokenIndex, token) {
 function inspect(type, label, token) {
   openInspector();
   inspectTitle.textContent = label;
+  updateKnowledgeControls(token);
   const details = [
     ["Type", type],
     ["Lemma", token.lemma || "—"],
@@ -544,31 +563,51 @@ function knowledgeKey(token) {
   return `${state.language}:${token.lemma || token.surface}`;
 }
 
-function baseKnowledge(token) {
-  const seed = Array.from(`${state.language}:${token.lemma || token.surface}`).reduce((sum, char) => sum + char.charCodeAt(0), 0);
-  return Math.min(95, Math.max(5, seed % 100));
-}
-
-function knowledgeScore(token) {
+function knowledgeStageIndex(token) {
   const key = knowledgeKey(token);
   if (state.knowledge[key] === undefined) {
-    state.knowledge[key] = baseKnowledge(token);
+    state.knowledge[key] = 0;
   }
   return state.knowledge[key];
+}
+
+function knowledgeStage(token) {
+  return learningStages[knowledgeStageIndex(token)];
+}
+
+function knowledgeProgress(token) {
+  return stageProgress[knowledgeStageIndex(token)];
+}
+
+function updateKnowledgeControls(token) {
+  const adjustable = token && token.pos !== "PUNCT";
+  const index = adjustable ? knowledgeStageIndex(token) : 0;
+  knowledgeStageLabel.textContent = adjustable ? learningStages[index] : "Not scored";
+  knowledgeDown.disabled = !adjustable || index === 0;
+  knowledgeUp.disabled = !adjustable || index === learningStages.length - 1;
 }
 
 function updateKnowledge(delta) {
   const token = currentToken();
   if (!token || token.pos === "PUNCT") return;
   const key = knowledgeKey(token);
-  state.knowledge[key] = Math.min(100, Math.max(0, knowledgeScore(token) + delta));
+  const previous = knowledgeStageIndex(token);
+  const next = Math.min(learningStages.length - 1, Math.max(0, previous + delta));
+  state.knowledge[key] = next;
+  state.reviewEvents.push({
+    key,
+    from: learningStages[previous],
+    to: learningStages[next],
+    recalled: delta > 0,
+    reviewedAt: new Date().toISOString(),
+  });
   state.clozeRevealed = true;
   inspect("token", token.surface, token);
   render();
 }
 
 function targetValue(token, frequency) {
-  return Math.min(100, Math.round((100 - knowledgeScore(token)) * 0.55 + frequency * 12));
+  return Math.min(100, (learningStages.length - 1 - knowledgeStageIndex(token)) * 25 + frequency * 8);
 }
 
 function collectWords() {
@@ -585,7 +624,9 @@ function collectWords() {
   });
   return Array.from(map.values()).map((item) => ({
     ...item,
-    knowledge: knowledgeScore(item.token),
+    knowledge: knowledgeProgress(item.token),
+    stageIndex: knowledgeStageIndex(item.token),
+    stage: knowledgeStage(item.token),
     target: targetValue(item.token, item.frequency),
   }));
 }
@@ -596,7 +637,7 @@ function renderWordList() {
     if (state.wordSort === "target") return b.target - a.target;
     if (state.wordSort === "frequency") return b.frequency - a.frequency;
     if (state.wordSort === "alphabetic") return (a.token.lemma || a.token.surface).localeCompare(b.token.lemma || b.token.surface);
-    return a.knowledge - b.knowledge;
+    return a.stageIndex - b.stageIndex;
   });
 
   wordListContent.replaceChildren(...words.map(renderWordCard));
@@ -606,7 +647,7 @@ function renderWordCard(word) {
   const card = document.createElement("article");
   card.className = `word-card word-card-${state.wordListView}`;
   const display = state.wordListView === "cloze" ? "_____" : word.token.surface;
-  const nextDue = word.knowledge < 35 ? "Today" : word.knowledge < 65 ? "Soon" : "Later";
+  const nextDue = word.stageIndex < 2 ? "Today" : word.stageIndex === 2 ? "Soon" : "Not scheduled";
   if (state.wordListView === "interlinear" || state.wordListView === "cloze") {
     card.innerHTML = `
       <div class="mini-token">
@@ -616,7 +657,7 @@ function renderWordCard(word) {
         <span class="gloss">${escapeHtml(word.token.gloss || "")}</span>
         <span class="lemma">${escapeHtml(word.token.lemma || "")}</span>
       </div>
-      <div><span>Knowledge</span><div class="meter"><i style="width:${word.knowledge}%"></i></div><span>${word.knowledge}/100</span></div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:${word.knowledge}%"></i></div><strong>${escapeHtml(word.stage)}</strong></div>
       <div><span>Due</span><strong>${nextDue}</strong></div>
       <div><span>Seen</span><strong>${word.frequency}</strong></div>
       <div><span>Target</span><strong>${word.target}</strong></div>
@@ -627,7 +668,7 @@ function renderWordCard(word) {
       <strong>${escapeHtml(display)}</strong>
       <span>${escapeHtml(word.token.lemma)} · ${escapeHtml(word.token.gloss)}</span>
     </div>
-    <div><span>Knowledge</span><div class="meter"><i style="width:${word.knowledge}%"></i></div><span>${word.knowledge}/100</span></div>
+    <div><span>Learning stage</span><div class="meter"><i style="width:${word.knowledge}%"></i></div><strong>${escapeHtml(word.stage)}</strong></div>
     <div><span>Target</span><strong>${word.target}</strong></div>
     <div><span>Text freq.</span><strong>${word.frequency}</strong></div>
   `;
@@ -676,7 +717,7 @@ function updateViewChrome() {
   document.querySelector("#settings-toggle").hidden = !isReader;
   document.querySelector("#word-list-toggle").hidden = !isReader;
   inspectorToggle.hidden = !isReader;
-  document.querySelector(".language-tabs").hidden = !isReader && state.view !== "library";
+  document.querySelector(".language-select-control").hidden = !isReader && state.view !== "progress";
 }
 
 function switchLanguage(language) {
@@ -687,32 +728,36 @@ function switchLanguage(language) {
   state.current = { sentenceIndex: 0, tokenIndex: 0 };
   state.clozeRevealed = false;
   state.customSettings = false;
-  document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("is-active", item.dataset.language === language));
   document.querySelector("#language-select").value = language;
+  document.querySelector("#dictionary-language").value = language;
   render();
 }
 
 function renderLibrary() {
   let rows = Object.entries(samples)
-    .filter(([key]) => state.libraryLanguageFilter === "all" || key === state.libraryLanguageFilter)
     .map(([key, sample], index) => {
-    const words = collectWordsForLanguage(key);
-    const known = Math.round(words.reduce((sum, item) => sum + item.knowledge, 0) / Math.max(1, words.length));
+      const words = collectWordsForLanguage(key);
+      const known = Math.round(words.reduce((sum, item) => sum + item.knowledge, 0) / Math.max(1, words.length));
       return {
         key,
         sample,
         words,
         known,
-        recent: ["Today", "Yesterday", "2 days ago", "Last week"][index],
+        recentOrder: index,
+        recent: ["Today", "Yesterday", "2 days ago", "Last week"][index] || "Just imported",
         due: known < 45 ? "Today" : known < 70 ? "Tomorrow" : "Later",
         next: known < 45 ? "Review unknown words" : "Continue reading",
       };
-    });
+    })
+    .filter(({ key }) => state.libraryLanguageFilter === "all" || key === state.libraryLanguageFilter);
 
   rows.sort((a, b) => {
     if (state.librarySort === "progress") return a.known - b.known;
-    if (state.librarySort === "recent") return Object.keys(samples).indexOf(a.key) - Object.keys(samples).indexOf(b.key);
-    if (state.librarySort === "due") return a.due.localeCompare(b.due);
+    if (state.librarySort === "recent") return a.recentOrder - b.recentOrder;
+    if (state.librarySort === "due") {
+      const dueRank = { Today: 0, Tomorrow: 1, Later: 2 };
+      return dueRank[a.due] - dueRank[b.due];
+    }
     return a.sample.languageName.localeCompare(b.sample.languageName);
   });
 
@@ -774,124 +819,245 @@ function renderLibrary() {
 }
 
 function renderImportPreview() {
-  const lines = importText.value
+  const lines = importSentenceCandidates();
+  importPreviewList.replaceChildren(
+    ...lines.map((line, index) => {
+      const item = document.createElement("li");
+      item.innerHTML = `
+        <strong>${index + 1}</strong>
+        <span>${escapeHtml(line)}</span>
+        <span class="candidate-actions"><button type="button" disabled title="Parser editing is not connected yet">Split</button><button type="button" disabled title="Parser editing is not connected yet">Merge</button></span>
+      `;
+      return item;
+    }),
+  );
+  const selectedLanguage = document.querySelector("#import-language").value;
+  const languageReady = selectedLanguage !== "new" || document.querySelector("#new-language-name").value.trim();
+  const validation = document.querySelector(".validation-list");
+  validation.innerHTML = `
+    <span>${languageReady ? "Language set" : "New language name required"}</span>
+    <span>${lines.length} sentence candidates</span>
+    <span>Audio optional</span>
+    <span>Source URL captured</span>
+    <span>${languageReady && lines.length ? "Ready for parser job" : "Needs attention"}</span>
+  `;
+  renderImportAnnotations(lines);
+}
+
+function importSentenceCandidates() {
+  return importText.value
     .split(/\n+/)
     .flatMap((line) => line.split(/(?<=[.!?؟])\s+/))
     .map((line) => line.trim())
     .filter(Boolean);
-  importPreviewList.replaceChildren(
-    ...lines.map((line, index) => {
-      const item = document.createElement("li");
-      item.innerHTML = `<strong>${index + 1}</strong><span>${escapeHtml(line)}</span>`;
-      return item;
-    }),
-  );
-  const validation = document.querySelector(".validation-list");
-  validation.innerHTML = `
-    <span>Language set</span>
-    <span>${lines.length} sentence candidates</span>
-    <span>Audio optional</span>
-    <span>Source URL captured</span>
-    <span>Ready for parser job</span>
-  `;
 }
 
-const dictionaryEntities = [
-  {
-    label: "ev",
-    type: "Lemma",
-    language: "Turkish",
-    meaning: "house, home",
-    source: "Corpus-derived plus learner note",
-    examples: ["Evlerimizden geldik.", "Sonra evde kahve içeceğiz."],
-    related: ["Case=Abl", "Case=Loc", "Poss=1Pl"],
-    progress: 42,
-    seen: 3,
-    editable: "Learner note, gloss, target-list state",
-  },
-  {
-    label: "k-t-b",
-    type: "Root",
-    language: "Arabic / Hebrew",
-    meaning: "writing, inscription",
-    source: "Parser-produced root with corpus examples",
-    examples: ["يكتب المعلّم الدرس.", "היא כותבת מכתב."],
-    related: ["כתב", "كتب", "Participle"],
-    progress: 58,
-    seen: 4,
-    editable: "Examples, source links, notes",
-  },
-  {
-    label: "Case=Abl",
-    type: "Grammar feature",
-    language: "Language-independent",
-    meaning: "movement or origin away from a source",
-    source: "Grammar feature registry draft",
-    examples: ["Evlerimizden geldik.", "I went from the house."],
-    related: ["ev", "من", "ABL cloze"],
-    progress: 31,
-    seen: 2,
-    editable: "Explanation, examples, teacher note",
-  },
-  {
-    label: "-ler",
-    type: "Morpheme",
-    language: "Turkish",
-    meaning: "plural suffix",
-    source: "Parser-produced morpheme plus grammar feature link",
-    examples: ["Evlerimizden geldik.", "Çocuklar bahçede oynuyor."],
-    related: ["Number=Plur", "suffix", "ev"],
-    progress: 66,
-    seen: 2,
-    editable: "Allomorph note, teaching examples",
-  },
-];
+function renderImportAnnotations(lines = importSentenceCandidates()) {
+  annotationList.replaceChildren(
+    ...lines.map((line, index) => {
+      const section = document.createElement("article");
+      section.className = "annotation-review-row";
+      section.innerHTML = `
+        <div><span>Sentence ${index + 1}</span><strong>${escapeHtml(line)}</strong></div>
+        <label>Translation <input type="text" placeholder="Add or correct sentence translation" /></label>
+        <label>Token / lemma / gloss notes <textarea rows="2" placeholder="Parser output will appear here for correction"></textarea></label>
+        <div class="annotation-reader-preview"><span>Reader preview</span><p>${escapeHtml(line)}</p></div>
+      `;
+      return section;
+    }),
+  );
+}
 
-function renderDictionary(selected = dictionaryEntities[0]) {
-  const query = document.querySelector("#dictionary-search").value.toLowerCase();
-  const filter = document.querySelector("#dictionary-filter").value;
-  const visible = dictionaryEntities.filter((entity) => {
-    const queryMatch = `${entity.label} ${entity.type} ${entity.meaning} ${entity.related.join(" ")}`.toLowerCase().includes(query);
-    const typeMatch = filter === "all" || entity.type === filter;
-    return queryMatch && typeMatch;
+function setImportStage(stage) {
+  state.importStage = stage;
+  document.querySelectorAll("[data-import-stage]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.importStage === stage);
   });
-  const current = visible.some((entity) => entity.label === selected.label) ? selected : visible[0] || dictionaryEntities[0];
+  document.querySelector("#structure-review").hidden = stage !== "structure";
+  document.querySelector("#annotation-review").hidden = stage !== "annotations";
+  if (stage !== "source") renderImportPreview();
+}
+
+function addLanguageOption(selectId, key, name, beforeValue = "") {
+  const select = document.querySelector(selectId);
+  if (Array.from(select.options).some((option) => option.value === key)) return;
+  const option = document.createElement("option");
+  option.value = key;
+  option.textContent = name;
+  const before = beforeValue ? Array.from(select.options).find((item) => item.value === beforeValue) : null;
+  select.add(option, before || null);
+}
+
+function createImportedLanguage() {
+  const name = document.querySelector("#new-language-name").value.trim() || "Imported language";
+  const requestedCode = document.querySelector("#new-language-code").value.trim().toLowerCase();
+  const baseKey = (requestedCode || name.toLowerCase()).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "imported";
+  let key = baseKey;
+  let suffix = 2;
+  while (samples[key]) {
+    key = `${baseKey}-${suffix}`;
+    suffix += 1;
+  }
+  const sentences = importSentenceCandidates().map((line) => {
+    const pieces = line.match(/\p{L}[\p{L}\p{M}'’\-]*|[^\s\p{L}\p{M}]/gu) || [];
+    return {
+      translation: "Translation not supplied",
+      tokens: pieces.map((piece) => {
+        const punctuation = /^[^\p{L}\p{M}]+$/u.test(piece);
+        return t(piece, "", piece, "", punctuation ? piece : piece.toLocaleLowerCase(), punctuation ? "PUNCT" : "X", []);
+      }),
+    };
+  });
+  samples[key] = {
+    title: document.querySelector("#import-title").value.trim() || "Untitled import",
+    languageName: name,
+    direction: document.querySelector("#new-language-direction").value,
+    defaultSettings: {
+      targetSize: 28,
+      annotationSize: 13,
+      tokenGap: 18,
+      rowGap: 4,
+      originalColor: "#13201b",
+      glossColor: "#42526b",
+      featureColor: "#315b9d",
+    },
+    sentences,
+  };
+  addLanguageOption("#language-select", key, name);
+  addLanguageOption("#library-language-filter", key, name);
+  addLanguageOption("#dictionary-language", key, name);
+  addLanguageOption("#import-language", key, name, "new");
+  return key;
+}
+
+function collectDictionaryWords(language) {
+  const sample = samples[language];
+  const previousLanguage = state.language;
+  state.language = language;
+  const map = new Map();
+  let encounterIndex = 0;
+  sample.sentences.forEach((sentence) => {
+    const sentenceText = sentence.tokens.map((token) => token.surface).join(" ").replace(/\s+([.,!?؟])/g, "$1");
+    sentence.tokens.forEach((token) => {
+      if (token.pos === "PUNCT") return;
+      encounterIndex += 1;
+      const key = token.lemma || token.surface;
+      const entry = map.get(key) || {
+        key,
+        label: key,
+        language: sample.languageName,
+        meaning: token.gloss || "—",
+        root: token.root || "—",
+        morphs: new Set(),
+        forms: new Set(),
+        features: new Set(),
+        pos: token.pos || "—",
+        seen: 0,
+        examples: [],
+        token,
+        source: sample.title,
+        lastEncounter: encounterIndex,
+      };
+      entry.seen += 1;
+      entry.lastEncounter = encounterIndex;
+      entry.forms.add(token.surface);
+      if (token.morphs) entry.morphs.add(token.morphs);
+      token.features.forEach((feature) => entry.features.add(feature));
+      if (!entry.examples.includes(sentenceText)) entry.examples.push(sentenceText);
+      map.set(key, entry);
+    });
+  });
+  const entries = Array.from(map.values()).map((entry) => ({
+    ...entry,
+    morphs: Array.from(entry.morphs),
+    forms: Array.from(entry.forms),
+    features: Array.from(entry.features),
+    stage: knowledgeStage(entry.token),
+    stageIndex: knowledgeStageIndex(entry.token),
+    progress: knowledgeProgress(entry.token),
+    target: targetValue(entry.token, entry.seen),
+    targetList: entry.seen > 1 || ["NOUN", "VERB"].includes(entry.pos),
+    recent: entry.lastEncounter >= Math.max(1, encounterIndex - 11),
+  }));
+  state.language = previousLanguage;
+  return entries;
+}
+
+function renderDictionary(selectedKey = "") {
+  const language = document.querySelector("#dictionary-language").value;
+  const query = document.querySelector("#dictionary-search").value.toLowerCase();
+  const scope = document.querySelector("#dictionary-scope").value;
+  const rootFilter = document.querySelector("#dictionary-root-filter").value.toLowerCase();
+  const morphFilter = document.querySelector("#dictionary-morph-filter").value.toLowerCase();
+  const posFilter = document.querySelector("#dictionary-pos-filter").value;
+  const advanced = document.querySelector("#dictionary-advanced").checked;
+  const entries = collectDictionaryWords(language);
+  const visible = entries.filter((entry) => {
+    const searchable = `${entry.label} ${entry.meaning} ${entry.root} ${entry.morphs.join(" ")} ${entry.features.join(" ")} ${entry.forms.join(" ")}`.toLowerCase();
+    const queryMatch = searchable.includes(query);
+    const rootMatch = !rootFilter || entry.root.toLowerCase().includes(rootFilter);
+    const morphMatch = !morphFilter || `${entry.morphs.join(" ")} ${entry.features.join(" ")}`.toLowerCase().includes(morphFilter);
+    const posMatch = posFilter === "all" || (posFilter === "other" ? !["NOUN", "VERB", "ADJ", "PRON"].includes(entry.pos) : entry.pos === posFilter);
+    const scopeMatch = scope === "recent" ? entry.recent : scope === "target" ? entry.targetList : true;
+    return queryMatch && rootMatch && morphMatch && posMatch && scopeMatch;
+  });
+  const current = visible.find((entry) => entry.key === selectedKey) || visible[0];
   const table = document.createElement("div");
-  table.className = "entity-table";
-  table.innerHTML = `<div class="entity-table-head"><span>Entity</span><span>Type</span><span>Progress</span><span>Seen</span></div>`;
-  visible.forEach((entity) => {
+  table.className = `entity-table word-dictionary-table ${advanced ? "is-advanced" : ""}`;
+  table.innerHTML = `
+    <div class="entity-table-head">
+      <span>Word / lemma</span><span>Meaning</span><span>Root</span><span>Morphology</span><span>POS</span><span>Learning stage</span><span>Seen</span><span>Source</span>
+      ${advanced ? "<span>Features</span><span>Forms</span>" : ""}
+    </div>
+  `;
+  visible.forEach((entry) => {
     const button = document.createElement("button");
-    button.className = `entity-table-row ${entity.label === current.label ? "is-active" : ""}`;
+    button.className = `entity-table-row ${entry.key === current?.key ? "is-active" : ""}`;
     button.type = "button";
     button.innerHTML = `
-      <strong>${escapeHtml(entity.label)}</strong>
-      <span>${escapeHtml(entity.type)}</span>
-      <span><div class="meter"><i style="width:${entity.progress}%"></i></div>${entity.progress}%</span>
-      <span>${entity.seen}</span>
+      <strong>${escapeHtml(entry.label)}</strong>
+      <span>${escapeHtml(entry.meaning)}</span>
+      <span>${escapeHtml(entry.root)}</span>
+      <span>${escapeHtml(entry.morphs.join(", ") || "—")}</span>
+      <span>${escapeHtml(entry.pos)}</span>
+      <span><div class="meter"><i style="width:${entry.progress}%"></i></div>${escapeHtml(entry.stage)}</span>
+      <span>${entry.seen}</span>
+      <span>${escapeHtml(entry.source)}</span>
+      ${advanced ? `<span>${escapeHtml(entry.features.join(", ") || "—")}</span><span>${escapeHtml(entry.forms.join(", "))}</span>` : ""}
     `;
-    button.addEventListener("click", () => renderDictionary(entity));
+    button.addEventListener("click", () => renderDictionary(entry.key));
     table.append(button);
   });
-  entityList.replaceChildren(
-    table,
-  );
+  if (!visible.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty-state";
+    empty.textContent = "No words match these filters in the current sample data.";
+    entityList.replaceChildren(empty);
+    entityDetail.innerHTML = `<div class="eyebrow">Dictionary</div><h2>No selection</h2><p>Clear one or more filters to continue.</p>`;
+    return;
+  }
+  entityList.replaceChildren(table);
   renderEntityDetail(current);
 }
 
-function renderEntityDetail(entity) {
+function renderEntityDetail(entry) {
   entityDetail.innerHTML = `
-    <div class="eyebrow">${escapeHtml(entity.type)}</div>
-    <h2>${escapeHtml(entity.label)}</h2>
-    <p class="entity-meaning">${escapeHtml(entity.meaning)}</p>
+    <div class="eyebrow">${escapeHtml(entry.language)} word</div>
+    <h2>${escapeHtml(entry.label)}</h2>
+    <p class="entity-meaning">${escapeHtml(entry.meaning)}</p>
     <dl class="detail-list">
-      <div><dt>Language</dt><dd>${escapeHtml(entity.language)}</dd></div>
-      <div><dt>Source layer</dt><dd>${escapeHtml(entity.source)}</dd></div>
-      <div><dt>Editable fields</dt><dd>${escapeHtml(entity.editable)}</dd></div>
+      <div><dt>Learning stage</dt><dd>${escapeHtml(entry.stage)}</dd></div>
+      <div><dt>Root</dt><dd>${escapeHtml(entry.root)}</dd></div>
+      <div><dt>Morphology</dt><dd>${escapeHtml(entry.morphs.join(", ") || "—")}</dd></div>
+      <div><dt>Features</dt><dd>${escapeHtml(entry.features.join(", ") || "—")}</dd></div>
+      <div><dt>Source text</dt><dd>${escapeHtml(entry.source)}</dd></div>
+      <div><dt>Personal editing</dt><dd>Learner note, preferred gloss, learning stage</dd></div>
+      <div><dt>Shared editing</dt><dd>Requires later permissions and provenance rules</dd></div>
     </dl>
     <h3>Corpus examples</h3>
-    <ul>${entity.examples.map((example) => `<li>${escapeHtml(example)}</li>`).join("")}</ul>
-    <h3>Related entities</h3>
-    <div class="tag-row">${entity.related.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
+    <ul>${entry.examples.map((example) => `<li>${escapeHtml(example)}</li>`).join("")}</ul>
+    <h3>Forms and structural matches</h3>
+    <div class="tag-row">${[...entry.forms, ...entry.features].map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
   `;
 }
 
@@ -901,9 +1067,9 @@ function renderProgress() {
   const cards = Object.entries(samples).map(([key, sample]) => {
     const words = collectWordsForLanguage(key);
     const known = Math.round(words.reduce((sum, item) => sum + item.knowledge, 0) / Math.max(1, words.length));
-    return [sample.languageName, `${known}%`, `${words.length} target words · ${sample.sentences.length} reading units · ${key === state.language ? "active user focus" : "available"}`];
+    return [sample.languageName, `${known}% stage progress`, `${words.length} tracked words · ${sample.sentences.length} reading units · ${key === state.language ? "active language" : "available"}`];
   });
-  cards.unshift(["All languages", `${knownAverage}%`, `${allWords.length} tracked lemmas · target lexicon weighted draft score`]);
+  cards.unshift(["All languages", `${knownAverage}% stage progress`, `${allWords.length} tracked lemmas · derived only from New/Learning/Acquainted/Well known stages`]);
   progressGrid.replaceChildren(
     ...cards.map(([title, value, copy]) => {
       const card = document.createElement("article");
@@ -917,7 +1083,7 @@ function renderProgress() {
 
 function renderSchedule() {
   const suggestions = [
-    ["Due today", "Review unknown words in the current reader", "Spaced repetition + recent mistakes"],
+    ["Review candidate", "Review New and Learning words in the current reader", "Stage-based placeholder; scheduling method not yet selected"],
     ["Target lexicon", "Distill high-frequency words from imported texts", "Frequency data + teacher targets"],
     ["Grammar pattern", "Practise ablative/source patterns", "Parser feature examples"],
     ["Teacher/Maven", "Assign a short dialogue with audio", "Speaking practice schedule"],
@@ -940,13 +1106,6 @@ function collectWordsForLanguage(language) {
   return words;
 }
 
-document.querySelectorAll(".tab").forEach((tab) => {
-  tab.addEventListener("click", () => {
-    switchLanguage(tab.dataset.language);
-    if (state.view === "library") renderLibrary();
-  });
-});
-
 document.querySelector("#language-select").addEventListener("change", (event) => {
   switchLanguage(event.target.value);
   if (state.view === "library") renderLibrary();
@@ -963,14 +1122,43 @@ document.querySelectorAll("[data-switch-view]").forEach((button) => {
 
 importText.addEventListener("input", renderImportPreview);
 
+document.querySelectorAll("[data-import-stage]").forEach((button) => {
+  button.addEventListener("click", () => setImportStage(button.dataset.importStage));
+});
+
+document.querySelector("#review-import").addEventListener("click", () => setImportStage("structure"));
+document.querySelector("#rerun-import-preview").addEventListener("click", renderImportPreview);
+
+document.querySelector("#import-language").addEventListener("change", (event) => {
+  document.querySelector("#new-language-panel").hidden = event.target.value !== "new";
+  renderImportPreview();
+});
+
+document.querySelector("#new-language-name").addEventListener("input", renderImportPreview);
+
 document.querySelector("#mock-import-confirm").addEventListener("click", () => {
   document.querySelector("#import-title").value = document.querySelector("#import-title").value || "Untitled import";
+  if (document.querySelector("#import-language").value === "new") {
+    const language = createImportedLanguage();
+    document.querySelector("#import-language").value = language;
+    switchLanguage(language);
+  }
   switchView("library");
 });
 
+document.querySelector("#open-import-reader").addEventListener("click", () => {
+  const language = document.querySelector("#import-language").value;
+  if (samples[language]) switchLanguage(language);
+  switchView("reader");
+});
+
 document.querySelector("#dictionary-search").addEventListener("input", () => renderDictionary());
-document.querySelector("#dictionary-filter").addEventListener("change", () => renderDictionary());
 document.querySelector("#dictionary-scope").addEventListener("change", () => renderDictionary());
+document.querySelector("#dictionary-language").addEventListener("change", () => renderDictionary());
+document.querySelector("#dictionary-root-filter").addEventListener("input", () => renderDictionary());
+document.querySelector("#dictionary-morph-filter").addEventListener("input", () => renderDictionary());
+document.querySelector("#dictionary-pos-filter").addEventListener("change", () => renderDictionary());
+document.querySelector("#dictionary-advanced").addEventListener("change", () => renderDictionary());
 
 document.querySelector("#library-view-mode").addEventListener("change", (event) => {
   state.libraryViewMode = event.target.value;
@@ -1015,12 +1203,12 @@ function setVisibleRows(rows) {
 }
 
 document.querySelector("#row-preset").addEventListener("change", (event) => {
-  setVisibleRows(rowPresets[event.target.value]);
   if (event.target.value === "cloze") {
     state.clozeMode = "blank";
     state.clozeRevealed = false;
     document.querySelector("#cloze-mode").value = "blank";
   }
+  setVisibleRows(rowPresets[event.target.value]);
 });
 
 document.querySelector("#cloze-mode").addEventListener("change", (event) => {
@@ -1063,7 +1251,8 @@ inspectorToggle.addEventListener("click", () => {
 
 document.querySelector("#inspector-close").addEventListener("click", closeInspector);
 
-document.querySelector("#mark-known").addEventListener("click", () => updateKnowledge(12));
+knowledgeDown.addEventListener("click", () => updateKnowledge(-1));
+knowledgeUp.addEventListener("click", () => updateKnowledge(1));
 
 [
   ["target-size", "--target-size", "px"],
@@ -1195,10 +1384,10 @@ document.addEventListener("keydown", (event) => {
     moveCurrent(-1);
   } else if (event.key === "ArrowUp") {
     event.preventDefault();
-    updateKnowledge(8);
+    updateKnowledge(1);
   } else if (event.key === "ArrowDown") {
     event.preventDefault();
-    updateKnowledge(-8);
+    updateKnowledge(-1);
   }
 });
 
@@ -1206,6 +1395,7 @@ closeInspector();
 render();
 renderLibrary();
 renderImportPreview();
+setImportStage("source");
 renderDictionary();
 renderProgress();
 switchView("library");
