@@ -833,7 +833,7 @@ function renderImportPreview() {
   );
   const selectedLanguage = document.querySelector("#import-language").value;
   const languageReady = selectedLanguage !== "new" || document.querySelector("#new-language-name").value.trim();
-  const validation = document.querySelector(".validation-list");
+  const validation = document.querySelector("#structure-review .validation-list");
   validation.innerHTML = `
     <span>${languageReady ? "Language set" : "New language name required"}</span>
     <span>${lines.length} sentence candidates</span>
@@ -841,6 +841,15 @@ function renderImportPreview() {
     <span>Source URL captured</span>
     <span>${languageReady && lines.length ? "Ready for parser job" : "Needs attention"}</span>
   `;
+  const languageSelect = document.querySelector("#import-language");
+  const languageLabel = languageSelect.selectedOptions[0]?.textContent || "Language needed";
+  const wordCount = importText.value.trim() ? importText.value.trim().split(/\s+/).length : 0;
+  document.querySelector("#import-source-summary").textContent = `${languageLabel} · ${wordCount} words`;
+  document.querySelector("#import-structure-summary").textContent = lines.length ? `${lines.length} sentence candidates` : "Needs source text";
+  document.querySelector("#import-annotation-summary").textContent = lines.length ? `${lines.length} sentences · draft rows` : "Waiting for structure";
+  document.querySelector("#import-reader-summary").textContent = lines.length ? `${languageLabel} · ready after review` : "Waiting for source";
+  document.querySelector("#import-ready-title").textContent = document.querySelector("#import-title").value.trim() || "Untitled import";
+  document.querySelector("#import-ready-description").textContent = `${languageLabel} · ${lines.length} sentence${lines.length === 1 ? "" : "s"} · annotation draft available`;
   renderImportAnnotations(lines);
 }
 
@@ -858,10 +867,13 @@ function renderImportAnnotations(lines = importSentenceCandidates()) {
       const section = document.createElement("article");
       section.className = "annotation-review-row";
       section.innerHTML = `
-        <div><span>Sentence ${index + 1}</span><strong>${escapeHtml(line)}</strong></div>
-        <label>Translation <input type="text" placeholder="Add or correct sentence translation" /></label>
-        <label>Token / lemma / gloss notes <textarea rows="2" placeholder="Parser output will appear here for correction"></textarea></label>
-        <div class="annotation-reader-preview"><span>Reader preview</span><p>${escapeHtml(line)}</p></div>
+        <div class="annotation-source-line"><span>Sentence ${index + 1} · original</span><strong>${escapeHtml(line)}</strong></div>
+        <div class="annotation-field-grid">
+          <label>Transliteration <input type="text" placeholder="Automatic draft or correction" /></label>
+          <label>Translation / gloss <input type="text" placeholder="Add or correct meaning" /></label>
+          <label>Morphology / lemma / root notes <textarea rows="2" placeholder="Parser rows will be editable here"></textarea></label>
+        </div>
+        <span class="annotation-status">Automatic draft · review optional</span>
       `;
       return section;
     }),
@@ -873,9 +885,52 @@ function setImportStage(stage) {
   document.querySelectorAll("[data-import-stage]").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.importStage === stage);
   });
-  document.querySelector("#structure-review").hidden = stage !== "structure";
-  document.querySelector("#annotation-review").hidden = stage !== "annotations";
+  const sourcePanel = document.querySelector('[data-import-panel="source"]');
+  const reviewFlow = document.querySelector("#import-review-flow");
+  sourcePanel.hidden = stage !== "source";
+  reviewFlow.hidden = stage === "source";
+  reviewFlow.querySelectorAll("[data-import-panel]").forEach((panel) => {
+    panel.hidden = panel.dataset.importPanel !== stage;
+  });
   if (stage !== "source") renderImportPreview();
+  const activePanel = document.querySelector(`[data-import-panel="${stage}"]`);
+  if (activePanel) activePanel.scrollIntoView({ block: "start", behavior: "smooth" });
+}
+
+function importedSentenceDrafts() {
+  return importSentenceCandidates().map((line) => {
+    const pieces = line.match(/\p{L}[\p{L}\p{M}'’\-]*|[^\s\p{L}\p{M}]/gu) || [];
+    return {
+      translation: "Translation pending",
+      tokens: pieces.map((piece) => {
+        const punctuation = /^[^\p{L}\p{M}]+$/u.test(piece);
+        return t(piece, "", piece, "", punctuation ? piece : piece.toLocaleLowerCase(), punctuation ? "PUNCT" : "X", []);
+      }),
+    };
+  });
+}
+
+function createImportDraftDocument() {
+  const selectedLanguage = document.querySelector("#import-language").value;
+  if (selectedLanguage === "new") {
+    const key = createImportedLanguage();
+    document.querySelector("#import-language").value = key;
+    return key;
+  }
+
+  const base = samples[selectedLanguage];
+  const key = `import-draft-${selectedLanguage}`;
+  samples[key] = {
+    title: document.querySelector("#import-title").value.trim() || "Untitled import",
+    languageName: base.languageName,
+    direction: base.direction,
+    defaultSettings: { ...base.defaultSettings },
+    sentences: importedSentenceDrafts(),
+  };
+  addLanguageOption("#language-select", key, `${base.languageName} · imported draft`);
+  addLanguageOption("#library-language-filter", key, `${base.languageName} · imported draft`);
+  addLanguageOption("#dictionary-language", key, `${base.languageName} · imported draft`);
+  return key;
 }
 
 function addLanguageOption(selectId, key, name, beforeValue = "") {
@@ -1120,13 +1175,21 @@ document.querySelectorAll("[data-switch-view]").forEach((button) => {
   button.addEventListener("click", () => switchView(button.dataset.switchView));
 });
 
-importText.addEventListener("input", renderImportPreview);
+importText.addEventListener("input", () => {
+  document.querySelector("#import-save-state").textContent = "Draft saved on this device";
+  renderImportPreview();
+});
 
 document.querySelectorAll("[data-import-stage]").forEach((button) => {
   button.addEventListener("click", () => setImportStage(button.dataset.importStage));
 });
 
 document.querySelector("#review-import").addEventListener("click", () => setImportStage("structure"));
+document.querySelector("#quick-read-import").addEventListener("click", () => {
+  const language = createImportDraftDocument();
+  switchLanguage(language);
+  switchView("reader");
+});
 document.querySelector("#rerun-import-preview").addEventListener("click", renderImportPreview);
 
 document.querySelector("#import-language").addEventListener("change", (event) => {
@@ -1135,21 +1198,27 @@ document.querySelector("#import-language").addEventListener("change", (event) =>
 });
 
 document.querySelector("#new-language-name").addEventListener("input", renderImportPreview);
+document.querySelector("#import-title").addEventListener("input", renderImportPreview);
 
 document.querySelector("#mock-import-confirm").addEventListener("click", () => {
   document.querySelector("#import-title").value = document.querySelector("#import-title").value || "Untitled import";
-  if (document.querySelector("#import-language").value === "new") {
-    const language = createImportedLanguage();
-    document.querySelector("#import-language").value = language;
-    switchLanguage(language);
-  }
+  const language = createImportDraftDocument();
+  switchLanguage(language);
+  renderLibrary();
   switchView("library");
 });
 
 document.querySelector("#open-import-reader").addEventListener("click", () => {
-  const language = document.querySelector("#import-language").value;
-  if (samples[language]) switchLanguage(language);
+  const language = createImportDraftDocument();
+  switchLanguage(language);
   switchView("reader");
+});
+
+document.querySelectorAll("[data-edit-import-stage]").forEach((button) => {
+  button.addEventListener("click", () => {
+    switchView("import");
+    setImportStage(button.dataset.editImportStage);
+  });
 });
 
 document.querySelector("#dictionary-search").addEventListener("input", () => renderDictionary());
@@ -1372,7 +1441,7 @@ document.querySelector("#ab-clear").addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.target.matches("input, select, textarea")) return;
+  if (event.target.matches("input, select, textarea, button") || document.body.classList.contains("feedback-dialog-open")) return;
   if (event.key === "Tab") {
     event.preventDefault();
     moveCurrent(event.shiftKey ? -1 : 1);
@@ -1391,6 +1460,571 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+const feedbackStorageKey = "polyglot-reader-ui-feedback-v1";
+const feedbackRepositoryUrl = "https://github.com/MTarragano/PolyglotInterlinearReader";
+const feedbackToggle = document.querySelector("#feedback-toggle");
+const feedbackReviewToggle = document.querySelector("#feedback-review-toggle");
+const feedbackPanel = document.querySelector("#feedback-panel");
+const feedbackDialog = document.querySelector("#feedback-dialog");
+const feedbackForm = document.querySelector("#feedback-form");
+const feedbackComment = document.querySelector("#feedback-comment");
+const feedbackTargetSummary = document.querySelector("#feedback-target-summary");
+const feedbackList = document.querySelector("#feedback-list");
+const feedbackCount = document.querySelector("#feedback-count");
+const feedbackPinLayer = document.querySelector("#feedback-pin-layer");
+const feedbackStatus = document.querySelector("#feedback-status");
+const feedbackLocalCount = document.querySelector("#feedback-local-count");
+const feedbackSubmittedCount = document.querySelector("#feedback-submitted-count");
+const feedbackGithubDialog = document.querySelector("#feedback-github-dialog");
+const feedbackGithubSummary = document.querySelector("#feedback-github-summary");
+const feedbackGithubBatches = document.querySelector("#feedback-github-batches");
+
+let feedbackMode = false;
+let feedbackHoverTarget = null;
+let pendingFeedbackTarget = null;
+let feedbackPinFrame = null;
+let feedbackComments = loadFeedbackComments();
+let preparedFeedbackBatches = [];
+
+function normalizeFeedbackComment(item) {
+  return {
+    id: item.id || `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    view: item.view || "Unknown view",
+    selector: item.selector || "",
+    element: item.element || "Unknown element",
+    comment: item.comment || "",
+    viewport: item.viewport || "Unknown viewport",
+    path: item.path || "/",
+    createdAt: item.createdAt || new Date().toISOString(),
+    submittedIssueUrl: item.submittedIssueUrl || "",
+    submittedAt: item.submittedAt || "",
+  };
+}
+
+function loadFeedbackComments() {
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(feedbackStorageKey) || "[]");
+    return Array.isArray(saved) ? saved.map(normalizeFeedbackComment) : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function setFeedbackStatus(message, tone = "") {
+  feedbackStatus.textContent = message;
+  if (tone) feedbackStatus.dataset.tone = tone;
+  else feedbackStatus.removeAttribute("data-tone");
+}
+
+function saveFeedbackComments() {
+  try {
+    window.localStorage.setItem(feedbackStorageKey, JSON.stringify(feedbackComments));
+    renderFeedback();
+    return true;
+  } catch (error) {
+    setFeedbackStatus("These notes could not be saved in this browser. Export them before leaving the page.", "warning");
+    return false;
+  }
+}
+
+function escapeCssValue(value) {
+  if (window.CSS && typeof window.CSS.escape === "function") return window.CSS.escape(value);
+  return String(value).replace(/[^a-zA-Z0-9_-]/g, (character) => `\\${character}`);
+}
+
+function feedbackSelectorFor(element) {
+  if (element.id) return `#${escapeCssValue(element.id)}`;
+
+  const path = [];
+  let current = element;
+  while (current && current !== document.body && path.length < 6) {
+    if (current.id) {
+      path.unshift(`#${escapeCssValue(current.id)}`);
+      break;
+    }
+
+    let segment = current.tagName.toLowerCase();
+    const stableAttribute = ["data-view", "data-switch-view", "data-row", "data-density", "data-import-stage"]
+      .find((name) => current.hasAttribute(name));
+
+    if (stableAttribute) {
+      const value = escapeCssValue(current.getAttribute(stableAttribute));
+      segment += `[${stableAttribute}="${value}"]`;
+    } else {
+      const stableClass = [...current.classList].find((name) => !name.startsWith("is-") && !name.startsWith("feedback-"));
+      if (stableClass) segment += `.${escapeCssValue(stableClass)}`;
+
+      const siblings = current.parentElement
+        ? [...current.parentElement.children].filter((child) => child.tagName === current.tagName)
+        : [];
+      if (siblings.length > 1) segment += `:nth-of-type(${siblings.indexOf(current) + 1})`;
+    }
+
+    path.unshift(segment);
+    current = current.parentElement;
+  }
+
+  return path.join(" > ");
+}
+
+function feedbackElementLabel(element) {
+  const labelled = element.getAttribute("aria-label") || element.getAttribute("title");
+  const text = labelled || element.innerText || element.textContent || element.tagName;
+  return text.replace(/\s+/g, " ").trim().slice(0, 140) || element.tagName.toLowerCase();
+}
+
+function currentFeedbackView() {
+  const activeView = document.querySelector(".app-view.is-active");
+  const ariaLabel = activeView && activeView.getAttribute("aria-label");
+  return ariaLabel || `${state.view.charAt(0).toUpperCase()}${state.view.slice(1)}`;
+}
+
+function setFeedbackMode(active) {
+  feedbackMode = active;
+  document.body.classList.toggle("feedback-mode-active", active);
+  feedbackToggle.setAttribute("aria-pressed", String(active));
+  feedbackToggle.querySelector("span:last-child").textContent = active ? "Selecting…" : "Add feedback";
+  feedbackReviewToggle.classList.toggle("is-selecting", active);
+  feedbackReviewToggle.setAttribute("aria-pressed", String(active));
+  feedbackReviewToggle.querySelector("span:nth-child(2)").textContent = active ? "Cancel" : "Feedback";
+  if (active) closeFeedbackPanel();
+  if (!active && feedbackHoverTarget) {
+    feedbackHoverTarget.classList.remove("feedback-hover-target");
+    feedbackHoverTarget = null;
+  }
+  scheduleFeedbackPins();
+}
+
+function openFeedbackDialog(element) {
+  pendingFeedbackTarget = element;
+  feedbackTargetSummary.textContent = `${currentFeedbackView()} · ${feedbackElementLabel(element)}`;
+  feedbackComment.value = "";
+  document.body.classList.add("feedback-dialog-open");
+  feedbackDialog.showModal();
+  window.setTimeout(() => feedbackComment.focus(), 0);
+}
+
+function closeFeedbackDialog() {
+  pendingFeedbackTarget = null;
+  document.body.classList.remove("feedback-dialog-open");
+  if (feedbackDialog.open) feedbackDialog.close();
+}
+
+function addFeedbackComment() {
+  const comment = feedbackComment.value.trim();
+  if (!comment || !pendingFeedbackTarget) return;
+
+  const item = normalizeFeedbackComment({
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    view: currentFeedbackView(),
+    selector: feedbackSelectorFor(pendingFeedbackTarget),
+    element: feedbackElementLabel(pendingFeedbackTarget),
+    comment,
+    viewport: `${window.innerWidth}×${window.innerHeight}`,
+    path: window.location.pathname,
+    createdAt: new Date().toISOString(),
+  });
+  feedbackComments.push(item);
+  const saved = saveFeedbackComments();
+  closeFeedbackDialog();
+  setFeedbackMode(false);
+  openFeedbackPanel(item.id);
+  if (saved) setFeedbackStatus("Saved on this device — not yet sent to GitHub.", "success");
+}
+
+function scheduleFeedbackPins() {
+  if (feedbackPinFrame) return;
+  feedbackPinFrame = window.requestAnimationFrame(() => {
+    feedbackPinFrame = null;
+    renderFeedbackPins();
+  });
+}
+
+function renderFeedbackPins() {
+  feedbackPinLayer.replaceChildren();
+  if (!feedbackMode && feedbackPanel.hidden) return;
+  feedbackComments.forEach((item, index) => {
+    let target;
+    try {
+      target = document.querySelector(item.selector);
+    } catch (error) {
+      target = null;
+    }
+    if (!target) return;
+
+    const rect = target.getBoundingClientRect();
+    if (!rect.width || !rect.height || rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+    const pin = document.createElement("button");
+    pin.className = "feedback-pin";
+    pin.type = "button";
+    pin.textContent = String(index + 1);
+    pin.setAttribute("aria-label", `Review feedback ${index + 1}: ${item.comment}`);
+    pin.style.left = `${Math.min(window.innerWidth - 16, rect.right)}px`;
+    pin.style.top = `${Math.max(16, rect.top)}px`;
+    pin.addEventListener("click", () => openFeedbackPanel(item.id));
+    feedbackPinLayer.append(pin);
+  });
+}
+
+function makeFeedbackItem(item, index) {
+  const article = document.createElement("article");
+  article.className = `feedback-item${item.submittedIssueUrl ? " is-submitted" : ""}`;
+  article.dataset.feedbackId = item.id;
+
+  const header = document.createElement("div");
+  header.className = "feedback-item-header";
+  const title = document.createElement("strong");
+  title.textContent = `${index + 1}. ${item.view}`;
+  header.append(title);
+
+  const stateBadge = document.createElement("span");
+  stateBadge.className = `feedback-state-badge${item.submittedIssueUrl ? " is-submitted" : ""}`;
+  const issueNumber = item.submittedIssueUrl ? feedbackIssueNumber(item.submittedIssueUrl) : "";
+  stateBadge.textContent = issueNumber ? `GitHub #${issueNumber}` : "Saved on this device";
+
+  const target = document.createElement("div");
+  target.className = "feedback-item-meta";
+  target.textContent = item.element;
+  const comment = document.createElement("p");
+  comment.textContent = item.comment;
+  article.append(header, stateBadge, target, comment);
+  if (item.submittedIssueUrl) {
+    const issueLink = document.createElement("a");
+    issueLink.className = "feedback-issue-link";
+    issueLink.href = item.submittedIssueUrl;
+    issueLink.target = "_blank";
+    issueLink.rel = "noopener";
+    issueLink.textContent = `Open submitted issue #${item.submittedIssueUrl.split("/").pop()}`;
+    article.append(issueLink);
+  }
+  return article;
+}
+
+function renderFeedback() {
+  const unsentCount = feedbackComments.filter((item) => !item.submittedIssueUrl).length;
+  const submittedCount = feedbackComments.filter((item) => item.submittedIssueUrl).length;
+  feedbackCount.textContent = String(feedbackComments.length);
+  feedbackLocalCount.textContent = String(feedbackComments.length);
+  feedbackSubmittedCount.textContent = String(submittedCount);
+  feedbackList.replaceChildren();
+  if (!feedbackComments.length) {
+    const empty = document.createElement("p");
+    empty.className = "feedback-empty";
+    empty.textContent = "No notes yet. Add feedback, then tap any part of the draft.";
+    feedbackList.append(empty);
+  } else {
+    feedbackComments.forEach((item, index) => feedbackList.append(makeFeedbackItem(item, index)));
+  }
+  const prepareButton = document.querySelector("#feedback-send-github");
+  prepareButton.disabled = !unsentCount;
+  prepareButton.textContent = unsentCount
+    ? `Send ${unsentCount} unsent note${unsentCount === 1 ? "" : "s"} to GitHub`
+    : "All notes linked to GitHub";
+  document.querySelector("#feedback-copy").disabled = !feedbackComments.length;
+  document.querySelector("#feedback-export").disabled = !feedbackComments.length;
+  scheduleFeedbackPins();
+}
+
+function openFeedbackPanel(focusId = "") {
+  feedbackPanel.hidden = false;
+  feedbackReviewToggle.setAttribute("aria-expanded", "true");
+  scheduleFeedbackPins();
+  if (focusId) {
+    window.setTimeout(() => {
+      const item = feedbackPanel.querySelector(`[data-feedback-id="${escapeCssValue(focusId)}"]`);
+      if (item) item.scrollIntoView({ block: "center", behavior: "smooth" });
+    }, 0);
+  }
+}
+
+function closeFeedbackPanel() {
+  feedbackPanel.hidden = true;
+  feedbackReviewToggle.setAttribute("aria-expanded", "false");
+  scheduleFeedbackPins();
+}
+
+function selectedFeedbackComments() {
+  return feedbackComments.filter((item) => !item.submittedIssueUrl);
+}
+
+function markdownFeedback(items) {
+  const views = [...new Set(items.map((item) => item.view))].join(", ");
+  const lines = [
+    "## UI feedback",
+    "",
+    `Views reviewed: ${views}`,
+    `Submitted from: ${window.location.href}`,
+    "",
+  ];
+
+  items.forEach((item, index) => {
+    lines.push(
+      `### ${index + 1}. ${item.view}`,
+      "",
+      `- **Element:** ${item.element}`,
+      `- **Selector:** \`${item.selector.replace(/`/g, "\\`")}\``,
+      `- **Viewport:** ${item.viewport}`,
+      `- **Comment:** ${item.comment}`,
+      "",
+    );
+  });
+  lines.push("Please address each numbered comment and summarize the result before closing this issue.");
+  return lines.join("\n");
+}
+
+function feedbackIssueUrl(items) {
+  const viewNames = [...new Set(items.map((item) => item.view))];
+  const titleView = viewNames.length === 1 ? viewNames[0] : `${viewNames.length} views`;
+  const parameters = new URLSearchParams({
+    title: `[UI feedback] ${titleView} — ${items.length} comment${items.length === 1 ? "" : "s"}`,
+    body: markdownFeedback(items),
+    labels: "ui-feedback",
+  });
+  return `${feedbackRepositoryUrl}/issues/new?${parameters.toString()}`;
+}
+
+async function copyFeedbackText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (error) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.append(textarea);
+    textarea.select();
+    const copied = document.execCommand("copy");
+    textarea.remove();
+    return copied;
+  }
+}
+
+async function copySelectedFeedback() {
+  const items = feedbackComments;
+  if (!items.length) return;
+  const text = markdownFeedback(items);
+  const copied = await copyFeedbackText(text);
+  if (copied) {
+    setFeedbackStatus(`Copied all ${items.length} note${items.length === 1 ? "" : "s"}. Copying does not send or change their status.`, "success");
+  } else {
+    setFeedbackStatus("Clipboard access failed. Export the selected notes instead.", "warning");
+  }
+}
+
+function exportSelectedFeedback() {
+  const items = feedbackComments;
+  if (!items.length) return;
+  const payload = JSON.stringify({
+    format: "polyglot-ui-feedback-v2",
+    exportedAt: new Date().toISOString(),
+    repository: feedbackRepositoryUrl,
+    comments: items,
+  }, null, 2);
+  const blob = new Blob([payload], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `polyglot-ui-feedback-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 0);
+  setFeedbackStatus(`Exported a backup of all ${items.length} note${items.length === 1 ? "" : "s"}. Their status did not change.`, "success");
+}
+
+function buildFeedbackBatches(items) {
+  const maxPreparedUrlLength = 6500;
+  const grouped = new Map();
+  items.forEach((item) => {
+    if (!grouped.has(item.view)) grouped.set(item.view, []);
+    grouped.get(item.view).push(item);
+  });
+
+  const batches = [];
+  grouped.forEach((groupItems, view) => {
+    let current = [];
+    groupItems.forEach((item) => {
+      const candidate = [...current, item];
+      if (current.length && feedbackIssueUrl(candidate).length > maxPreparedUrlLength) {
+        batches.push({ view, comments: current });
+        current = [item];
+      } else {
+        current = candidate;
+      }
+    });
+    if (current.length) batches.push({ view, comments: current });
+  });
+
+  return batches.map((batch, index) => ({
+    ...batch,
+    id: `batch-${index + 1}`,
+    issueUrl: feedbackIssueUrl(batch.comments),
+    requiresClipboard: feedbackIssueUrl(batch.comments).length > maxPreparedUrlLength,
+  }));
+}
+
+function feedbackIssueNumber(issueUrl) {
+  const match = issueUrl.match(/^https:\/\/github\.com\/MTarragano\/PolyglotInterlinearReader\/issues\/(\d+)(?:[/?#].*)?$/i);
+  return match ? match[1] : "";
+}
+
+function renderPreparedFeedbackBatches() {
+  feedbackGithubBatches.replaceChildren();
+  feedbackGithubSummary.textContent = `${preparedFeedbackBatches.reduce((total, batch) => total + batch.comments.length, 0)} unsent notes need ${preparedFeedbackBatches.length} GitHub ${preparedFeedbackBatches.length === 1 ? "issue" : "issues"}. Open and submit each one on GitHub.`;
+
+  preparedFeedbackBatches.forEach((batch, index) => {
+    const submittedUrls = [...new Set(batch.comments.map((item) => item.submittedIssueUrl).filter(Boolean))];
+    const allSubmitted = batch.comments.every((item) => item.submittedIssueUrl);
+    const card = document.createElement("article");
+    card.className = `feedback-github-batch${allSubmitted ? " is-submitted" : ""}`;
+    const title = document.createElement("h3");
+    title.textContent = `Issue ${index + 1}: ${batch.view}`;
+    const detail = document.createElement("p");
+    detail.textContent = `${batch.comments.length} note${batch.comments.length === 1 ? "" : "s"}${batch.requiresClipboard ? " · too large for URL prefill" : " · safely prefilled"}`;
+    const actions = document.createElement("div");
+    actions.className = "feedback-github-actions";
+    const open = document.createElement("button");
+    open.type = "button";
+    open.className = "primary-action";
+    open.disabled = allSubmitted;
+    open.textContent = batch.requiresClipboard ? "Copy batch and open GitHub" : "Open prefilled GitHub issue";
+    open.addEventListener("click", () => {
+      if (batch.requiresClipboard) {
+        window.open(`${feedbackRepositoryUrl}/issues/new`, "_blank", "noopener");
+        copyFeedbackText(markdownFeedback(batch.comments)).then((copied) => {
+          setFeedbackStatus(copied
+            ? `Issue ${index + 1} was copied to the clipboard and GitHub was opened. Paste, review and submit it.`
+            : `Clipboard access failed for issue ${index + 1}. Export the notes before continuing.`, "warning");
+        });
+      } else {
+        window.open(batch.issueUrl, "_blank", "noopener");
+        setFeedbackStatus(`Issue ${index + 1} opened prefilled. Review and submit it on GitHub, then return with its issue URL.`, "warning");
+      }
+    });
+    actions.append(open);
+    card.append(title, detail, actions);
+
+    if (allSubmitted) {
+      submittedUrls.forEach((url) => {
+        const link = document.createElement("a");
+        link.className = "feedback-issue-link";
+        link.href = url;
+        link.target = "_blank";
+        link.rel = "noopener";
+        link.textContent = `Submitted as issue #${feedbackIssueNumber(url)}`;
+        card.append(link);
+      });
+    } else {
+      const confirmation = document.createElement("div");
+      confirmation.className = "feedback-github-confirm";
+      const input = document.createElement("input");
+      input.type = "url";
+      input.placeholder = `${feedbackRepositoryUrl}/issues/123`;
+      input.setAttribute("aria-label", `Submitted issue URL for issue ${index + 1}`);
+      const mark = document.createElement("button");
+      mark.type = "button";
+      mark.textContent = "Mark submitted";
+      mark.addEventListener("click", () => {
+        const issueUrl = input.value.trim();
+        const issueNumber = feedbackIssueNumber(issueUrl);
+        if (!issueNumber) {
+          setFeedbackStatus("Paste a valid issue URL from this repository before marking notes submitted.", "warning");
+          input.focus();
+          return;
+        }
+        batch.comments.forEach((item) => {
+          item.submittedIssueUrl = issueUrl;
+          item.submittedAt = new Date().toISOString();
+        });
+        saveFeedbackComments();
+        renderPreparedFeedbackBatches();
+        setFeedbackStatus(`Marked ${batch.comments.length} note${batch.comments.length === 1 ? "" : "s"} submitted in GitHub issue #${issueNumber}.`, "success");
+      });
+      confirmation.append(input, mark);
+      card.append(confirmation);
+    }
+    feedbackGithubBatches.append(card);
+  });
+}
+
+function prepareSelectedFeedbackForGithub() {
+  const items = selectedFeedbackComments();
+  if (!items.length) return;
+  preparedFeedbackBatches = buildFeedbackBatches(items);
+  renderPreparedFeedbackBatches();
+  feedbackGithubDialog.showModal();
+  document.body.classList.add("feedback-dialog-open");
+  setFeedbackStatus(`Prepared ${items.length} unsent note${items.length === 1 ? "" : "s"}. Nothing has been submitted yet.`, "warning");
+}
+
+function closeFeedbackGithubDialog() {
+  if (feedbackGithubDialog.open) feedbackGithubDialog.close();
+  document.body.classList.remove("feedback-dialog-open");
+}
+
+feedbackToggle.addEventListener("click", () => setFeedbackMode(true));
+feedbackReviewToggle.addEventListener("click", () => {
+  if (feedbackMode) {
+    setFeedbackMode(false);
+    return;
+  }
+  if (feedbackPanel.hidden) openFeedbackPanel();
+  else closeFeedbackPanel();
+});
+document.querySelector("#feedback-panel-close").addEventListener("click", closeFeedbackPanel);
+document.querySelector("#feedback-cancel").addEventListener("click", () => {
+  closeFeedbackDialog();
+  setFeedbackMode(false);
+  openFeedbackPanel();
+});
+feedbackDialog.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeFeedbackDialog();
+  setFeedbackMode(false);
+  openFeedbackPanel();
+});
+feedbackForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  addFeedbackComment();
+});
+
+document.querySelector("#feedback-copy").addEventListener("click", copySelectedFeedback);
+document.querySelector("#feedback-export").addEventListener("click", exportSelectedFeedback);
+document.querySelector("#feedback-send-github").addEventListener("click", prepareSelectedFeedbackForGithub);
+document.querySelector("#feedback-github-close").addEventListener("click", closeFeedbackGithubDialog);
+feedbackGithubDialog.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeFeedbackGithubDialog();
+});
+
+document.querySelector("#feedback-clear").addEventListener("click", () => {
+  if (!feedbackComments.length || !window.confirm("Permanently delete every locally saved feedback note, including submitted-note history?")) return;
+  feedbackComments = [];
+  saveFeedbackComments();
+  setFeedbackStatus("All locally saved feedback was deleted.", "warning");
+});
+
+document.addEventListener("pointermove", (event) => {
+  if (!feedbackMode || event.pointerType === "touch" || event.target.closest("[data-feedback-ui]")) return;
+  if (feedbackHoverTarget === event.target) return;
+  if (feedbackHoverTarget) feedbackHoverTarget.classList.remove("feedback-hover-target");
+  feedbackHoverTarget = event.target;
+  feedbackHoverTarget.classList.add("feedback-hover-target");
+}, { passive: true });
+
+document.addEventListener("click", (event) => {
+  if (!feedbackMode || event.target.closest("[data-feedback-ui]")) return;
+  event.preventDefault();
+  event.stopPropagation();
+  openFeedbackDialog(event.target);
+}, true);
+
+window.addEventListener("resize", scheduleFeedbackPins);
+window.addEventListener("scroll", scheduleFeedbackPins, true);
+document.addEventListener("click", () => window.setTimeout(scheduleFeedbackPins, 0));
+
 closeInspector();
 render();
 renderLibrary();
@@ -1399,3 +2033,4 @@ setImportStage("source");
 renderDictionary();
 renderProgress();
 switchView("library");
+renderFeedback();

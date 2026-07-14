@@ -133,6 +133,8 @@ Goal: Let users import, export, share, and eventually sell prepared interlinear 
 
 Scope should begin with free/private package sharing before paid commerce:
 
+- Share to Polyglot Reader intake from mobile share sheets and browser text selections
+- Transcript and closed-caption acquisition, including YouTube where access and licensing permit
 - Package manifest schema
 - Interlinear lesson import/export
 - Audio/video media assets

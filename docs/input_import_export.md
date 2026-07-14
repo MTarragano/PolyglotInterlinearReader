@@ -25,6 +25,20 @@ The application should support these input modes:
 - Import generated AI content as corpus documents.
 - Later: import packaged interlinear lessons with media and metadata.
 
+## Source Acquisition Channels
+
+The main app should plan a **Share to Polyglot Reader** intake route, especially for mobile and browser workflows. A user should be able to select text in another app or web page, share it to Polyglot Reader, and arrive at the same paste-first Source stage with available provenance proposed for confirmation.
+
+Planned acquisition channels include:
+
+- Android/iOS share-sheet and browser share actions for selected text and page URLs.
+- Web-page text selections with page title, URL, language hints, and available media metadata.
+- YouTube transcripts and closed-caption/subtitle tracks when access and licensing permit.
+- Uploaded SRT, VTT, transcript, document, spreadsheet, audio, and video files.
+- Shared lessons and packages from a future Polyglot Interlinear Reader library/marketplace.
+
+Every acquisition channel should converge on the same Source → Structure → Annotations → Reader workflow. Automatically captured title, URL, transcript/caption source, authorship, license, and media details must remain editable and require user confirmation where provenance is uncertain.
+
 ## Text Entry Facility
 
 The text entry screen should include:
@@ -260,6 +274,13 @@ The import UI should include:
 - Validation warnings.
 - Confirm import button.
 - Save mapping preset action.
+
+The default text workflow should be paste-first and offer two routes:
+
+- Quick read: text plus language is sufficient to open Reader while a recoverable draft is retained.
+- Review import: progressively review collapsible Source, Structure, Annotations, and Reader stages.
+
+Reader documents created through either route should link back to the relevant import stages for source/provenance editing, structure correction, annotation correction, and reprocessing.
 
 The export UI should include:
 
