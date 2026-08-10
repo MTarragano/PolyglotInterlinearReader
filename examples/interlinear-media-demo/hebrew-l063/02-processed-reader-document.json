@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "polyglot-reader-document/0.2",
+  "status": "provisional-needs-human-linguistic-review",
+  "language": {"code": "he", "name": "Hebrew", "direction": "rtl"},
+  "document": {
+    "externalId": "he-assimil-l063",
+    "title": "שיעור שישים ושלוש — חזרה",
+    "titleTranslation": {"language": "en", "text": "Lesson sixty-three — Review"},
+    "displayOrthography": "undotted",
+    "preservedSourceOrthography": "pointed-when-present",
+    "audioRef": "audio-l063"
+  },
+  "annotationPolicy": {
+    "transliterationScheme": "he-Latn-learner-provisional-v1",
+    "canonicalTransliterationDirection": "ltr",
+    "sentenceTranslationLanguage": "en",
+    "wordTranslationLanguage": "en",
+    "glossConvention": "compact-interlinear",
+    "reviewRule": "All enriched fields in this trial are provisional Codex candidates derived from the local LWT text; no Hebrew parser or dictionary has yet verified them."
+  },
+  "units": [
+    {
+      "id":"l063-title","kind":"title","sourcePointed":"שִׁעוּר שִׁשִׁים וְשָׁלוֹש","surface":"שיעור שישים ושלוש","translation":"Lesson sixty-three",
+      "tokens":[
+        {"surface":"שיעור","transliteration":"shiur","lemma":"שיעור","root":"ש־ע־ר","upos":"NOUN","morph":{"Gender":"Masc","Number":"Sing"},"gloss":"lesson","translations":["lesson","class"],"confidence":"medium"},
+        {"surface":"שישים","transliteration":"shishim","lemma":"שישים","root":null,"upos":"NUM","morph":{"NumType":"Card"},"gloss":"sixty","translations":["sixty"],"confidence":"high"},
+        {"surface":"ושלוש","transliteration":"ve-shalosh","lemma":"שלוש","root":null,"upos":"NUM","morph":{"NumType":"Card"},"gloss":"and-three","translations":["and three"],"confidence":"high"}
+      ]
+    },
+    {
+      "id":"l063-heading","kind":"section-heading","sourcePointed":"חֲזָרָ","surface":"חזרה","translation":"Review",
+      "tokens":[{"surface":"חזרה","transliteration":"khazara","lemma":"חזרה","root":"ח־ז־ר","upos":"NOUN","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"review","translations":["review","revision","return"],"confidence":"medium","reviewNote":"Normalized final ה is absent in the extracted pointed source."}]
+    },
+    {
+      "id":"l063-s01","kind":"exercise-sentence","surface":"סבי לא היה בלשן, אבל הוא דיבר חמש שפות","translation":"My grandfather was not a linguist, but he spoke five languages.",
+      "tokens":[
+        {"surface":"סבי","transliteration":"savi","lemma":"סב","root":"ס־ב","upos":"NOUN","morph":{"Gender":"Masc","Number":"Sing","Poss":"1SG"},"gloss":"grandfather-POSS.1SG","translations":["my grandfather","my grandparent"],"confidence":"medium"},
+        {"surface":"לא","transliteration":"lo","lemma":"לא","root":null,"upos":"PART","morph":{"Polarity":"Neg"},"gloss":"NEG","translations":["not","no"],"confidence":"high"},
+        {"surface":"היה","transliteration":"haya","lemma":"היה","root":"ה־י־ה","upos":"AUX","morph":{"Binyan":"Paal","Tense":"Past","Person":"3","Gender":"Masc","Number":"Sing"},"gloss":"be.PST.3MSG","translations":["was","existed","happened"],"confidence":"high"},
+        {"surface":"בלשן","transliteration":"balshan","lemma":"בלשן","root":"ל־ש־ן","upos":"NOUN","morph":{"Gender":"Masc","Number":"Sing"},"gloss":"linguist.M.SG","translations":["linguist","philologist"],"confidence":"medium"},
+        {"surface":"אבל","transliteration":"aval","lemma":"אבל","root":null,"upos":"CCONJ","morph":{},"gloss":"but","translations":["but","however"],"confidence":"high"},
+        {"surface":"הוא","transliteration":"hu","lemma":"הוא","root":null,"upos":"PRON","morph":{"Person":"3","Gender":"Masc","Number":"Sing"},"gloss":"3MSG","translations":["he","it"],"confidence":"high"},
+        {"surface":"דיבר","transliteration":"diber","lemma":"דיבר","root":"ד־ב־ר","upos":"VERB","morph":{"Binyan":"Piel","Tense":"Past","Person":"3","Gender":"Masc","Number":"Sing"},"gloss":"speak.PIEL.PST.3MSG","translations":["spoke","talked","discussed"],"confidence":"high"},
+        {"surface":"חמש","transliteration":"khamesh","lemma":"חמש","root":null,"upos":"NUM","morph":{"NumType":"Card"},"gloss":"five","translations":["five"],"confidence":"high"},
+        {"surface":"שפות","transliteration":"safot","lemma":"שפה","root":"ש־פ־ה","upos":"NOUN","morph":{"Gender":"Fem","Number":"Plur"},"gloss":"language-PL","translations":["languages","tongues","edges","lips"],"confidence":"medium","reviewNote":"Several lexical senses share the undotted spelling; the sentence selects languages."}
+      ]
+    },
+    {
+      "id":"l063-s02","kind":"exercise-sentence","surface":"סבתא שלי היתה תלת-לשונית ובלשנית חובבת","translation":"My grandmother was trilingual and an amateur linguist.",
+      "tokens":[
+        {"surface":"סבתא","transliteration":"savta","lemma":"סבתא","root":"ס־ב","upos":"NOUN","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"grandmother","translations":["grandmother","grandma"],"confidence":"high"},
+        {"surface":"שלי","transliteration":"sheli","lemma":"של","root":null,"upos":"PRON","morph":{"Person":"1","Number":"Sing","Poss":"Yes"},"gloss":"of-1SG","translations":["my","mine","of me"],"confidence":"high"},
+        {"surface":"היתה","transliteration":"hayta","lemma":"היה","root":"ה־י־ה","upos":"AUX","morph":{"Binyan":"Paal","Tense":"Past","Person":"3","Gender":"Fem","Number":"Sing"},"gloss":"be.PST.3FSG","translations":["was","existed","happened"],"confidence":"high"},
+        {"surface":"תלת-לשונית","transliteration":"tlat-leshonit","lemma":"תלת-לשוני","root":"ל־ש־ן","upos":"ADJ","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"three-language.F.SG","translations":["trilingual","three-language"],"confidence":"medium"},
+        {"surface":"ובלשנית","transliteration":"u-valshanit","lemma":"בלשנית","root":"ל־ש־ן","upos":"NOUN","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"and-linguist.F.SG","translations":["and a linguist","and a philologist"],"confidence":"medium"},
+        {"surface":"חובבת","transliteration":"khovevet","lemma":"חובב","root":"ח־ב־ב","upos":"ADJ","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"amateur.F.SG","translations":["amateur","enthusiast","fond of"],"confidence":"medium"}
+      ]
+    },
+    {
+      "id":"l063-s03","kind":"exercise-sentence","surface":"אני דו-לשונית ושפת האם שלי עברית","translation":"I am bilingual, and my mother tongue is Hebrew.",
+      "tokens":[
+        {"surface":"אני","transliteration":"ani","lemma":"אני","root":null,"upos":"PRON","morph":{"Person":"1","Number":"Sing"},"gloss":"1SG","translations":["I","me"],"confidence":"high"},
+        {"surface":"דו-לשונית","transliteration":"du-leshonit","lemma":"דו-לשוני","root":"ל־ש־ן","upos":"ADJ","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"two-language.F.SG","translations":["bilingual","two-language"],"confidence":"high"},
+        {"surface":"ושפת","transliteration":"u-sfat","lemma":"שפה","root":"ש־פ־ה","upos":"NOUN","morph":{"Gender":"Fem","Number":"Sing","State":"Construct"},"gloss":"and-language.CSTR","translations":["and the language of","and the tongue of","and the edge of"],"confidence":"medium"},
+        {"surface":"האם","transliteration":"ha-em","lemma":"אם","root":"א־מ","upos":"NOUN","morph":{"Definite":"Def","Gender":"Fem","Number":"Sing"},"gloss":"DEF-mother","translations":["the mother","mother"],"confidence":"high"},
+        {"surface":"שלי","transliteration":"sheli","lemma":"של","root":null,"upos":"PRON","morph":{"Person":"1","Number":"Sing","Poss":"Yes"},"gloss":"of-1SG","translations":["my","mine","of me"],"confidence":"high"},
+        {"surface":"עברית","transliteration":"ivrit","lemma":"עברית","root":"ע־ב־ר","upos":"PROPN","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"Hebrew","translations":["Hebrew","Hebrew language"],"confidence":"high"}
+      ]
+    },
+    {
+      "id":"l063-s04","kind":"exercise-sentence","surface":"הילדים שלי מדברים רק עברית, אבל הם לומדים אנגלית בבית הספר","translation":"My children speak only Hebrew, but they learn English at school.",
+      "tokens":[
+        {"surface":"הילדים","transliteration":"ha-yeladim","lemma":"ילד","root":"י־ל־ד","upos":"NOUN","morph":{"Definite":"Def","Gender":"Masc","Number":"Plur"},"gloss":"DEF-child-PL","translations":["the children","the boys","the kids"],"confidence":"high"},
+        {"surface":"שלי","transliteration":"sheli","lemma":"של","root":null,"upos":"PRON","morph":{"Person":"1","Number":"Sing","Poss":"Yes"},"gloss":"of-1SG","translations":["my","mine","of me"],"confidence":"high"},
+        {"surface":"מדברים","transliteration":"medabrim","lemma":"דיבר","root":"ד־ב־ר","upos":"VERB","morph":{"Binyan":"Piel","VerbForm":"Part","Tense":"Pres","Gender":"Masc","Number":"Plur"},"gloss":"speak.PIEL.PTCP.M.PL","translations":["speak","talk","are speaking"],"confidence":"high"},
+        {"surface":"רק","transliteration":"rak","lemma":"רק","root":null,"upos":"ADV","morph":{},"gloss":"only","translations":["only","just","merely"],"confidence":"high"},
+        {"surface":"עברית","transliteration":"ivrit","lemma":"עברית","root":"ע־ב־ר","upos":"PROPN","morph":{},"gloss":"Hebrew","translations":["Hebrew","Hebrew language"],"confidence":"high"},
+        {"surface":"אבל","transliteration":"aval","lemma":"אבל","root":null,"upos":"CCONJ","morph":{},"gloss":"but","translations":["but","however"],"confidence":"high"},
+        {"surface":"הם","transliteration":"hem","lemma":"הוא","root":null,"upos":"PRON","morph":{"Person":"3","Gender":"Masc","Number":"Plur"},"gloss":"3MPL","translations":["they","are"],"confidence":"high"},
+        {"surface":"לומדים","transliteration":"lomdim","lemma":"למד","root":"ל־מ־ד","upos":"VERB","morph":{"Binyan":"Paal","VerbForm":"Part","Tense":"Pres","Gender":"Masc","Number":"Plur"},"gloss":"learn.PAAL.PTCP.M.PL","translations":["learn","study","are learning"],"confidence":"high"},
+        {"surface":"אנגלית","transliteration":"anglit","lemma":"אנגלית","root":null,"upos":"PROPN","morph":{},"gloss":"English","translations":["English","English language"],"confidence":"high"},
+        {"surface":"בבית","transliteration":"be-veit","lemma":"בית","root":"ב־י־ת","upos":"NOUN","morph":{"Gender":"Masc","Number":"Sing","State":"Construct"},"gloss":"in-house.CSTR","translations":["in the house of","at the house of","in"],"confidence":"medium"},
+        {"surface":"הספר","transliteration":"ha-sefer","lemma":"ספר","root":"ס־פ־ר","upos":"NOUN","morph":{"Definite":"Def","Gender":"Masc","Number":"Sing"},"gloss":"DEF-book","translations":["the book","school (in the compound בית הספר)","the barber"],"confidence":"medium","reviewNote":"Compound meaning school belongs to בית הספר; surface spelling also supports other lexical readings."}
+      ]
+    },
+    {
+      "id":"l063-s05","kind":"exercise-sentence","surface":"פה לא מגדל בבל, אבל בארץ הרבה אנשים מדברים הרבה שפות","translation":"This is not the Tower of Babel, but in Israel many people speak many languages.",
+      "tokens":[
+        {"surface":"פה","transliteration":"po","lemma":"פה","root":null,"upos":"ADV","morph":{},"gloss":"here","translations":["here","mouth"],"confidence":"medium","reviewNote":"Undotted spelling is polysemous; context selects here."},
+        {"surface":"לא","transliteration":"lo","lemma":"לא","root":null,"upos":"PART","morph":{"Polarity":"Neg"},"gloss":"NEG","translations":["not","no"],"confidence":"high"},
+        {"surface":"מגדל","transliteration":"migdal","lemma":"מגדל","root":"ג־ד־ל","upos":"NOUN","morph":{"Gender":"Masc","Number":"Sing"},"gloss":"tower","translations":["tower","raises","grows","breeder"],"confidence":"medium"},
+        {"surface":"בבל","transliteration":"Bavel","lemma":"בבל","root":null,"upos":"PROPN","morph":{},"gloss":"Babel","translations":["Babel","Babylon"],"confidence":"high"},
+        {"surface":"אבל","transliteration":"aval","lemma":"אבל","root":null,"upos":"CCONJ","morph":{},"gloss":"but","translations":["but","however","mourner"],"confidence":"medium"},
+        {"surface":"בארץ","transliteration":"ba-arets","lemma":"ארץ","root":"א־ר־ץ","upos":"NOUN","morph":{"Definite":"Def","Gender":"Fem","Number":"Sing"},"gloss":"in-DEF-land","translations":["in Israel","in the country","in the land","on earth"],"confidence":"high"},
+        {"surface":"הרבה","transliteration":"harbe","lemma":"הרבה","root":null,"upos":"DET","morph":{"PronType":"Ind"},"gloss":"many","translations":["many","much","a lot"],"confidence":"high"},
+        {"surface":"אנשים","transliteration":"anashim","lemma":"איש","root":"א־נ־ש","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"person-PL","translations":["people","men","persons"],"confidence":"medium"},
+        {"surface":"מדברים","transliteration":"medabrim","lemma":"דיבר","root":"ד־ב־ר","upos":"VERB","morph":{"Binyan":"Piel","VerbForm":"Part","Tense":"Pres","Gender":"Masc","Number":"Plur"},"gloss":"speak.PIEL.PTCP.M.PL","translations":["speak","talk","are speaking"],"confidence":"high"},
+        {"surface":"הרבה","transliteration":"harbe","lemma":"הרבה","root":null,"upos":"DET","morph":{"PronType":"Ind"},"gloss":"many","translations":["many","much","a lot"],"confidence":"high"},
+        {"surface":"שפות","transliteration":"safot","lemma":"שפה","root":"ש־פ־ה","upos":"NOUN","morph":{"Gender":"Fem","Number":"Plur"},"gloss":"language-PL","translations":["languages","tongues","edges","lips"],"confidence":"medium"}
+      ]
+    },
+    {
+      "id":"l063-s06","kind":"exercise-sentence","surface":"לבלשנים יכולה להיות פה עבודה מעניינת","translation":"There can be interesting work here for linguists.",
+      "tokens":[
+        {"surface":"לבלשנים","transliteration":"le-valshanim","lemma":"בלשן","root":"ל־ש־ן","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"for-linguist-PL","translations":["for linguists","to linguists","for philologists"],"confidence":"medium"},
+        {"surface":"יכולה","transliteration":"yekhola","lemma":"יכול","root":"י־כ־ל","upos":"AUX","morph":{"VerbForm":"Part","Tense":"Pres","Gender":"Fem","Number":"Sing"},"gloss":"can.PTCP.F.SG","translations":["can","is able","may"],"confidence":"high"},
+        {"surface":"להיות","transliteration":"lihyot","lemma":"היה","root":"ה־י־ה","upos":"AUX","morph":{"VerbForm":"Inf"},"gloss":"be.INF","translations":["to be","to exist","to become"],"confidence":"high"},
+        {"surface":"פה","transliteration":"po","lemma":"פה","root":null,"upos":"ADV","morph":{},"gloss":"here","translations":["here","mouth"],"confidence":"medium"},
+        {"surface":"עבודה","transliteration":"avoda","lemma":"עבודה","root":"ע־ב־ד","upos":"NOUN","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"work","translations":["work","job","labour","worship"],"confidence":"medium"},
+        {"surface":"מעניינת","transliteration":"meanyenet","lemma":"מעניין","root":"ע־נ־י־ן","upos":"ADJ","morph":{"Binyan":"Piel","VerbForm":"Part","Gender":"Fem","Number":"Sing"},"gloss":"interesting.F.SG","translations":["interesting","engaging"],"confidence":"medium"}
+      ]
+    },
+    {
+      "id":"l063-s07","kind":"exercise-sentence","surface":"אני אוהבת לקרוא תנ״ך, שירים וגם לפתור תשבצים ותשחצים בעיתונים","translation":"I like reading the Bible and poems, and also solving crosswords and arrowword puzzles in newspapers.",
+      "tokens":[
+        {"surface":"אני","transliteration":"ani","lemma":"אני","root":null,"upos":"PRON","morph":{"Person":"1","Number":"Sing"},"gloss":"1SG","translations":["I","me"],"confidence":"high"},
+        {"surface":"אוהבת","transliteration":"ohevet","lemma":"אהב","root":"א־ה־ב","upos":"VERB","morph":{"Binyan":"Paal","VerbForm":"Part","Tense":"Pres","Gender":"Fem","Number":"Sing"},"gloss":"love.PAAL.PTCP.F.SG","translations":["likes","loves","is fond of"],"confidence":"high"},
+        {"surface":"לקרוא","transliteration":"likro","lemma":"קרא","root":"ק־ר־א","upos":"VERB","morph":{"Binyan":"Paal","VerbForm":"Inf"},"gloss":"read.INF","translations":["to read","to call","to name"],"confidence":"high"},
+        {"surface":"תנ״ך","transliteration":"Tanakh","lemma":"תנ״ך","root":null,"upos":"PROPN","morph":{},"gloss":"Hebrew.Bible","translations":["the Hebrew Bible","the Tanakh","Scripture"],"confidence":"high"},
+        {"surface":"שירים","transliteration":"shirim","lemma":"שיר","root":"ש־י־ר","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"poem/song-PL","translations":["poems","songs","verses"],"confidence":"high"},
+        {"surface":"וגם","transliteration":"ve-gam","lemma":"גם","root":null,"upos":"ADV","morph":{},"gloss":"and-also","translations":["and also","as well"],"confidence":"high"},
+        {"surface":"לפתור","transliteration":"liftor","lemma":"פתר","root":"פ־ת־ר","upos":"VERB","morph":{"Binyan":"Paal","VerbForm":"Inf"},"gloss":"solve.INF","translations":["to solve","to resolve","to interpret"],"confidence":"high"},
+        {"surface":"תשבצים","transliteration":"tashbetsim","lemma":"תשבץ","root":"ש־ב־ץ","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"crossword-PL","translations":["crosswords","crossword puzzles"],"confidence":"medium"},
+        {"surface":"ותשחצים","transliteration":"ve-tashkhetsim","lemma":"תשחץ","root":"ש־ח־ץ","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"and-arrowword-PL","translations":["and arrowwords","and arrowword puzzles"],"confidence":"low"},
+        {"surface":"בעיתונים","transliteration":"ba-itonim","lemma":"עיתון","root":"ע־ת־ן","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"in-DEF-newspaper-PL","translations":["in newspapers","in the newspapers"],"confidence":"medium"}
+      ]
+    },
+    {
+      "id":"l063-s08","kind":"exercise-sentence","surface":"לילדים בארץ יש שמות תנ״כיים, אופנתיים וקצרים","translation":"Children in Israel have biblical, fashionable and short names.",
+      "tokens":[
+        {"surface":"לילדים","transliteration":"la-yeladim","lemma":"ילד","root":"י־ל־ד","upos":"NOUN","morph":{"Definite":"Def","Gender":"Masc","Number":"Plur"},"gloss":"to-DEF-child-PL","translations":["children have","for the children","to the children"],"confidence":"medium"},
+        {"surface":"בארץ","transliteration":"ba-arets","lemma":"ארץ","root":"א־ר־ץ","upos":"NOUN","morph":{"Definite":"Def","Gender":"Fem","Number":"Sing"},"gloss":"in-DEF-land","translations":["in Israel","in the country","in the land","on earth"],"confidence":"high"},
+        {"surface":"יש","transliteration":"yesh","lemma":"יש","root":null,"upos":"VERB","morph":{},"gloss":"EXIST","translations":["there is","there are","has","have"],"confidence":"high"},
+        {"surface":"שמות","transliteration":"shemot","lemma":"שם","root":"ש־מ","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"name-PL","translations":["names","reputations"],"confidence":"medium"},
+        {"surface":"תנ״כיים","transliteration":"tanakhiyim","lemma":"תנ״כי","root":null,"upos":"ADJ","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"biblical.M.PL","translations":["biblical","from the Hebrew Bible"],"confidence":"high"},
+        {"surface":"אופנתיים","transliteration":"ofnatiyim","lemma":"אופנתי","root":"א־פ־ן","upos":"ADJ","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"fashionable.M.PL","translations":["fashionable","trendy","stylish"],"confidence":"medium"},
+        {"surface":"וקצרים","transliteration":"u-ktsarim","lemma":"קצר","root":"ק־צ־ר","upos":"ADJ","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"and-short.M.PL","translations":["and short","and brief"],"confidence":"high"}
+      ]
+    }
+  ],
+  "media":[{"id":"audio-l063","kind":"document-audio","mediaType":"audio/mpeg","path":"/Users/m.tarraganogmail.com/Sites/media/Hebrew/drive-download-20260728T153518Z-1-001/L063-LESSON.mp3","durationMs":95922,"alignment":{"granularity":"none","status":"pending"}}]
+}

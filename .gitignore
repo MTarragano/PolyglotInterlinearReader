@@ -1,1 +1,25 @@
 .DS_Store
+
+# Local secrets and dependency/build caches
+.env
+.env.*
+!.env.example
+!.env.template
+node_modules/
+__pycache__/
+*.py[cod]
+
+# Large audio/video and proprietary working files are not part of the Git backup.
+*.mp4
+*.m4v
+*.mov
+*.webm
+*.avi
+*.mkv
+*.mp3
+*.m4a
+*.aac
+*.wav
+*.flac
+*.ogg
+*.pages

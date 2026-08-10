@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "interlinear-media-export-profile/0.1",
+  "status": "draft-user-preference-captured",
+  "name": "Hebrew shadowing — didactic morphology",
+  "sourceDocumentExternalId": "he-assimil-l064",
+  "rows": [
+    {"id":"sentence-translation","source":"sentence.translation","language":"en","visible":true},
+    {"id":"original","source":"sentence.tokens.surface","orthography":"undotted","direction":"rtl","visible":true},
+    {"id":"didactic-transliteration","source":"token.transliteration + token.segments + token.root","storedDirection":"ltr","displayTransform":"reverse-mirrored-graphemes-experimental","rootEmphasis":"uppercase-root-consonants","morphemeBoundary":"thin-space","visible":true},
+    {"id":"root-morphology-gloss","source":"token.root + token.morph + token.gloss","include":["root","binyan-or-noun-form","person","gender","number","tense-or-verb-form"],"visible":true},
+    {"id":"word-translations","source":"token.translations","language":"en","polysemy":"show-contextual-sense-first-and-at-most-one-short-alternative; retain-all-senses-in-library","visible":true}
+  ],
+  "layout": {
+    "model":"non-interactive-reader-pages",
+    "focusMarker":"outside-text-gutter",
+    "focusColouring":false,
+    "blockSeparator":"thin-rule-or-minimal-gap",
+    "pageCapacity":"fit-by-measured-block-height",
+    "showPreviousAndNextBlocks":true
+  },
+  "timing": {
+    "source":"audio-alignments",
+    "currentStatus":"missing",
+    "allowFabricatedWordTiming":false,
+    "minimumForFirstRender":"reviewed sentence-level cues"
+  },
+  "notes": [
+    "This profile is presentation data; it does not mutate canonical transliteration or source Hebrew.",
+    "Strict grapheme reversal remains experimental. Segment-aligned RTL can be added as a second transform without changing linguistic data.",
+    "Word translations and compact grammatical glosses remain separate rows even when both are English.",
+    "The MP4 should not dump every dictionary sense for a polysemous word; it shows the contextual sense and, when genuinely useful and short, one alternative. The Reader/library retains all sourced senses."
+  ]
+}

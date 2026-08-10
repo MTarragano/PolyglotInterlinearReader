@@ -1,0 +1,26 @@
+WEBVTT
+
+NOTE
+This track uses labelled lines because WebVTT cannot reliably preserve
+token columns across all players. The JSON demo supplies true token stacks.
+
+0072
+00:00:00.000 --> 00:00:07.001 line:68% position:50% align:center
+原文  我　学习　英语。
+拼音  wǒ · xuéxí · Yīngyǔ
+词注  1SG · learn · English
+意译  I learn English.
+
+0955
+00:00:09.001 --> 00:00:14.774 line:68% position:50% align:center
+原文  我　是　初学者。
+拼音  wǒ · shì · chūxuézhě
+词注  1SG · COP · beginner
+意译  I'm only a beginner.
+
+0450
+00:00:16.774 --> 00:00:24.976 line:61% position:50% align:center
+原文  我　还　会　出　很多　错误。
+拼音  wǒ · hái · huì · chū · hěn duō · cuòwù
+词注  1SG · still · MOD · produce · many · error
+意译  I still make many mistakes.

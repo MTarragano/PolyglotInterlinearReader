@@ -71,11 +71,11 @@ const samples = {
       {
         translation: "The child reads a new book in the room.",
         tokens: [
-          t("הילד", "ha-yeled", "ha-yeled", "the-child", "ילד", "NOUN", ["Masc", "Sing", "Definite"], "y-l-d"),
-          t("קורא", "kore", "kor-e", "read-MSG", "קרא", "VERB", ["Participle", "Masc", "Sing"], "q-r-ʾ"),
-          t("ספר", "sefer", "sefer", "book", "ספר", "NOUN", ["Masc", "Sing"], "s-p-r"),
-          t("חדש", "chadash", "chadash", "new", "חדש", "ADJ", ["Masc", "Sing"], "ḥ-d-sh"),
-          t("בחדר", "ba-cheder", "b-a-cheder", "in-the-room", "חדר", "NOUN", ["Masc", "Sing", "Prep=b"], "ḥ-d-r"),
+          t("הילד", "ha-yeled", "ha-yeled", "the-child", "ילד", "NOUN", ["Masc", "Sing", "Definite"], "y-l-d", "י־ל־ד"),
+          t("קורא", "kore", "kor-e", "read-MSG", "קרא", "VERB", ["Participle", "Masc", "Sing"], "q-r-ʾ", "ק־ר־א"),
+          t("ספר", "sefer", "sefer", "book", "ספר", "NOUN", ["Masc", "Sing"], "s-p-r", "ס־פ־ר"),
+          t("חדש", "chadash", "chadash", "new", "חדש", "ADJ", ["Masc", "Sing"], "ḥ-d-sh", "ח־ד־ש"),
+          t("בחדר", "ba-cheder", "b-a-cheder", "in-the-room", "חדר", "NOUN", ["Masc", "Sing", "Prep=b"], "ḥ-d-r", "ח־ד־ר"),
           t(".", "", ".", ".", ".", "PUNCT", []),
         ],
       },
@@ -83,9 +83,9 @@ const samples = {
         translation: "She writes a letter to her friend.",
         tokens: [
           t("היא", "hi", "hi", "she", "היא", "PRON", ["Fem", "Sing"]),
-          t("כותבת", "kotevet", "kot-ev-et", "write-PTCP-FSG", "כתב", "VERB", ["Participle", "Fem", "Sing"], "k-t-v"),
-          t("מכתב", "mikhtav", "mikhtav", "letter", "מכתב", "NOUN", ["Masc", "Sing"], "k-t-v"),
-          t("לחברה", "la-chavera", "l-a-chavera", "to-the-friend", "חברה", "NOUN", ["Fem", "Sing", "Prep=l"], "ḥ-v-r"),
+          t("כותבת", "kotevet", "kot-ev-et", "write-PTCP-FSG", "כתב", "VERB", ["Participle", "Fem", "Sing"], "k-t-v", "כ־ת־ב"),
+          t("מכתב", "mikhtav", "mikhtav", "letter", "מכתב", "NOUN", ["Masc", "Sing"], "k-t-v", "כ־ת־ב"),
+          t("לחברה", "la-chavera", "l-a-chavera", "to-the-friend", "חברה", "NOUN", ["Fem", "Sing", "Prep=l"], "ḥ-v-r", "ח־ב־ר"),
           t("שלה", "shela", "shel-a", "of-3FSG", "של", "PRON", ["Poss", "3FSG"]),
           t(".", "", ".", ".", ".", "PUNCT", []),
         ],
@@ -109,22 +109,22 @@ const samples = {
       {
         translation: "The teacher writes the lesson on the board.",
         tokens: [
-          t("يكتب", "yaktubu", "ya-ktub-u", "3MS-write-IND", "كتب", "VERB", ["Imperf", "3MS", "Ind"], "k-t-b"),
-          t("المعلّم", "al-muʿallim", "al-muʿallim", "the-teacher", "معلّم", "NOUN", ["Masc", "Sing", "Definite"], "ʿ-l-m"),
-          t("الدرس", "ad-dars", "al-dars", "the-lesson", "درس", "NOUN", ["Masc", "Sing", "Definite"], "d-r-s"),
+          t("يكتب", "yaktubu", "ya-ktub-u", "3MS-write-IND", "كتب", "VERB", ["Imperf", "3MS", "Ind"], "k-t-b", "كـتـب"),
+          t("المعلّم", "al-muʿallim", "al-muʿallim", "the-teacher", "معلّم", "NOUN", ["Masc", "Sing", "Definite"], "ʿ-l-m", "عـلـم"),
+          t("الدرس", "ad-dars", "al-dars", "the-lesson", "درس", "NOUN", ["Masc", "Sing", "Definite"], "d-r-s", "دـرـس"),
           t("على", "ʿalā", "ʿalā", "on", "على", "ADP", []),
-          t("السبورة", "as-sabbūra", "al-sabbūra", "the-board", "سبورة", "NOUN", ["Fem", "Sing", "Definite"], "s-b-r"),
+          t("السبورة", "as-sabbūra", "al-sabbūra", "the-board", "سبورة", "NOUN", ["Fem", "Sing", "Definite"], "s-b-r", "سـبـر"),
           t(".", "", ".", ".", ".", "PUNCT", []),
         ],
       },
       {
         translation: "I went from the house to the market.",
         tokens: [
-          t("ذهبتُ", "dhahabtu", "dhahab-tu", "go.PAST-1SG", "ذهب", "VERB", ["Past", "1SG"], "dh-h-b"),
+          t("ذهبتُ", "dhahabtu", "dhahab-tu", "go.PAST-1SG", "ذهب", "VERB", ["Past", "1SG"], "dh-h-b", "ذهـب"),
           t("من", "min", "min", "from", "من", "ADP", []),
-          t("البيت", "al-bayt", "al-bayt", "the-house", "بيت", "NOUN", ["Masc", "Sing", "Definite"], "b-y-t"),
+          t("البيت", "al-bayt", "al-bayt", "the-house", "بيت", "NOUN", ["Masc", "Sing", "Definite"], "b-y-t", "بـيـت"),
           t("إلى", "ilā", "ilā", "to", "إلى", "ADP", []),
-          t("السوق", "as-sūq", "al-sūq", "the-market", "سوق", "NOUN", ["Masc", "Sing", "Definite"], "s-w-q"),
+          t("السوق", "as-sūq", "al-sūq", "the-market", "سوق", "NOUN", ["Masc", "Sing", "Definite"], "s-w-q", "سـوـق"),
           t(".", "", ".", ".", ".", "PUNCT", []),
         ],
       },
@@ -172,8 +172,155 @@ const samples = {
   },
 };
 
-function t(surface, transliteration, morphs, gloss, lemma, pos, features, root = "") {
-  return { surface, transliteration, morphs, gloss, lemma, pos, features, root };
+function t(surface, transliteration, morphs, gloss, lemma, pos, features, rootTransliteration = "", rootScript = "", translations = []) {
+  return { surface, transliteration, morphs, gloss, lemma, pos, features, rootTransliteration, rootScript, translations };
+}
+
+const hebrewTrialDocuments = [
+  {
+    key: "hebrew63",
+    label: "Hebrew — Lesson 63",
+    path: "../../examples/interlinear-media-demo/hebrew-l063/02-processed-reader-document.json",
+  },
+  {
+    key: "hebrew64",
+    label: "Hebrew — Lesson 64",
+    path: "../../examples/interlinear-media-demo/hebrew-l064/02-processed-reader-document.json",
+  },
+];
+
+const hebrewRootLatin = {
+  א: ["a", "ʾ"], ב: ["b", "v"], ג: ["g"], ד: ["d"], ה: ["h"], ו: ["v", "o", "u"],
+  ז: ["z"], ח: ["kh", "h"], ט: ["t"], י: ["y", "i"], כ: ["kh", "k"], ך: ["kh", "k"],
+  ל: ["l"], מ: ["m"], ם: ["m"], נ: ["n"], ן: ["n"], ס: ["s"], ע: ["a", "ʿ"],
+  פ: ["f", "p"], ף: ["f", "p"], צ: ["ts", "z"], ץ: ["ts", "z"], ק: ["k", "q"],
+  ר: ["r"], ש: ["sh", "s"], ת: ["t"],
+};
+
+function hebrewRootLetters(root) {
+  return root ? Array.from(root).filter((character) => hebrewRootLatin[character]) : [];
+}
+
+function rootTransliteration(root) {
+  return hebrewRootLetters(root).map((letter) => hebrewRootLatin[letter][0]).join("-");
+}
+
+function capitalizeHebrewRoot(transliteration, root) {
+  if (!transliteration || !root) return transliteration || "";
+  let result = transliteration;
+  let searchFrom = 0;
+  hebrewRootLetters(root).forEach((letter) => {
+    const lower = result.toLocaleLowerCase();
+    const match = hebrewRootLatin[letter]
+      .map((candidate) => ({ candidate, index: lower.indexOf(candidate.toLocaleLowerCase(), searchFrom) }))
+      .filter(({ index }) => index >= 0)
+      .sort((a, b) => a.index - b.index || b.candidate.length - a.candidate.length)[0];
+    if (!match) return;
+    const end = match.index + match.candidate.length;
+    result = `${result.slice(0, match.index)}${result.slice(match.index, end).toLocaleUpperCase()}${result.slice(end)}`;
+    searchFrom = end;
+  });
+  return result;
+}
+
+function didacticTransliteration(token) {
+  const capitalized = capitalizeHebrewRoot(token.transliteration, token.root);
+  return capitalized.replaceAll("-", "\u2009·\u2009");
+}
+
+function featureLabel([name, value]) {
+  const exact = {
+    "Binyan:Paal": "Paal",
+    "Binyan:Piel": "Piel",
+    "VerbForm:Part": "participle",
+    "VerbForm:Inf": "infinitive",
+    "Mood:Imp": "imperative",
+    "Tense:Past": "past",
+    "Tense:Pres": "present",
+    "Gender:Masc": "masculine",
+    "Gender:Fem": "feminine",
+    "Number:Sing": "singular",
+    "Number:Plur": "plural",
+    "State:Construct": "construct",
+    "Definite:Def": "definite",
+    "Voice:Pass": "passive",
+    "Person:1": "1st person",
+    "Person:2": "2nd person",
+    "Person:3": "3rd person",
+  };
+  return exact[`${name}:${value}`] || `${name}=${value}`;
+}
+
+function trialToken(token) {
+  const features = Object.entries(token.morph || {}).map(featureLabel);
+  const morphs = token.segments?.map((segment) => segment.gloss).filter(Boolean).join("-") || "";
+  return {
+    surface: token.surface,
+    transliteration: didacticTransliteration(token),
+    canonicalTransliteration: token.transliteration,
+    morphs,
+    gloss: token.gloss || "",
+    translations: token.translations || [],
+    lemma: token.lemma || "",
+    pos: token.upos || "",
+    features,
+    rootTransliteration: rootTransliteration(token.root),
+    rootScript: token.root || "",
+    confidence: token.confidence || "unrated",
+    reviewNote: token.reviewNote || "",
+    provenance: "Codex provisional candidate",
+  };
+}
+
+function trialSample(documentPackage) {
+  return {
+    title: documentPackage.document.title,
+    languageName: "Hebrew",
+    languageCode: "he",
+    direction: "rtl",
+    documentExternalId: documentPackage.document.externalId,
+    annotationStatus: "Provisional annotations · local LWT text · not parser/dictionary verified",
+    audio: documentPackage.media?.[0] || null,
+    defaultVisibleRows: ["translation", "surface", "transliteration", "gloss", "wordTranslations", "root", "features"],
+    defaultSettings: {
+      targetSize: 29,
+      annotationSize: 14,
+      tokenGap: 16,
+      rowGap: 3,
+      originalColor: "#162018",
+      glossColor: "#4e5f75",
+      featureColor: "#6246a8",
+    },
+    sentences: documentPackage.units.map((unit) => ({
+      id: unit.id,
+      kind: unit.kind,
+      translation: unit.translation || "",
+      tokens: unit.tokens.map(trialToken),
+    })),
+  };
+}
+
+function replaceSelectOption(select, oldValue, entries) {
+  select.querySelector(`option[value="${oldValue}"]`)?.remove();
+  entries.forEach(({ key, label }) => {
+    if (select.querySelector(`option[value="${key}"]`)) return;
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = label;
+    select.append(option);
+  });
+}
+
+async function loadHebrewTrialDocuments() {
+  const loaded = await Promise.all(hebrewTrialDocuments.map(async (config) => {
+    const response = await fetch(config.path);
+    if (!response.ok) throw new Error(`Could not load ${config.label}: ${response.status}`);
+    samples[config.key] = trialSample(await response.json());
+    return config;
+  }));
+  samples.hebrew.hiddenFromLibrary = true;
+  replaceSelectOption(document.querySelector("#language-select"), "hebrew", loaded);
+  replaceSelectOption(document.querySelector("#dictionary-language"), "hebrew", loaded);
 }
 
 const state = {
@@ -190,7 +337,6 @@ const state = {
   customSettings: false,
   inspectorOpen: false,
   clozeMode: "off",
-  rtlTransliterationMode: "normal",
   clozeRevealed: false,
   wordSort: "knowledge",
   wordListView: "interlinear",
@@ -200,8 +346,20 @@ const state = {
   knowledge: {},
   reviewEvents: [],
   importStage: "source",
-  visibleRows: new Set(["transliteration", "morphs", "gloss", "lemma", "pos", "features"]),
+  visibleRows: new Set(["translation", "surface", "transliteration", "morphs", "gloss", "lemma", "pos", "features"]),
 };
+
+const readerRowDefinitions = [
+  { id: "surface", className: "surface", label: "Original" },
+  { id: "transliteration", className: "transliteration", label: "Transliteration" },
+  { id: "morphs", className: "morphs", label: "Morphs" },
+  { id: "gloss", className: "gloss", label: "Grammar gloss" },
+  { id: "wordTranslations", className: "word-translations", label: "Word meanings" },
+  { id: "lemma", className: "lemma", label: "Lemma" },
+  { id: "root", className: "root", label: "Root" },
+  { id: "pos", className: "pos", label: "POS" },
+  { id: "features", className: "features", label: "Features" },
+];
 
 const learningStages = ["New", "Learning", "Acquainted", "Well known"];
 const stageProgress = [0, 34, 67, 100];
@@ -251,7 +409,7 @@ function render() {
   sentenceCount.textContent = `${sample.sentences.length} sentences`;
   directionLabel.textContent = sample.direction.toUpperCase();
   reader.dir = sample.direction;
-  reader.className = `reader ${sample.direction === "rtl" ? "rtl" : "ltr"} ${state.rtlTransliterationMode === "reverse" ? "reverse-transliteration" : ""}`;
+  reader.className = `reader ${sample.direction === "rtl" ? "rtl" : "ltr"}`;
   workspace.classList.toggle("inspector-collapsed", !state.inspectorOpen);
 
   if (!state.customSettings) {
@@ -261,6 +419,13 @@ function render() {
   const inner = document.createElement("div");
   inner.className = "reader-inner";
 
+  if (sample.annotationStatus) {
+    const notice = document.createElement("aside");
+    notice.className = "reader-data-notice";
+    notice.innerHTML = `<strong>Trial data</strong><span>${escapeHtml(sample.annotationStatus)}</span>`;
+    inner.append(notice);
+  }
+
   sample.sentences.forEach((sentence, sentenceIndex) => {
     const section = document.createElement("section");
     section.className = `sentence ${sentenceIndex === state.activeSentence ? "is-active" : ""}`;
@@ -268,13 +433,19 @@ function render() {
 
     const progress = document.createElement("div");
     progress.className = "sentence-progress";
-    progress.textContent = sentenceIndex === state.activeSentence ? "Active sentence" : `Sentence ${sentenceIndex + 1}`;
+    const unitLabel = sentence.kind ? sentence.kind.replaceAll("-", " ") : "sentence";
+    progress.textContent = sentenceIndex === state.activeSentence ? `Active · ${unitLabel}` : `${unitLabel} ${sentenceIndex + 1}`;
     section.append(progress);
 
-    const translation = document.createElement("p");
-    translation.className = "sentence-translation";
-    translation.textContent = sentence.translation;
-    section.append(translation);
+    if (state.visibleRows.has("translation")) {
+      const translationLayout = document.createElement("div");
+      translationLayout.className = "sentence-translation-layout";
+      const translation = document.createElement("p");
+      translation.className = "sentence-translation";
+      translation.textContent = sentence.translation;
+      translationLayout.append(translation, renderRowLabel({ id: "translation", label: "Translation" }));
+      section.append(translationLayout);
+    }
 
     const tokenList = document.createElement("div");
     tokenList.className = "sentence-tokens";
@@ -283,7 +454,15 @@ function render() {
       tokenList.append(renderToken(token, sentenceIndex, tokenIndex));
     });
 
-    section.append(tokenList);
+    const interlinearLayout = document.createElement("div");
+    interlinearLayout.className = "sentence-interlinear-layout";
+    const rowLabels = document.createElement("div");
+    rowLabels.className = "sentence-row-labels";
+    readerRowDefinitions
+      .filter(({ id }) => state.visibleRows.has(id))
+      .forEach((definition) => rowLabels.append(renderRowLabel(definition)));
+    interlinearLayout.append(tokenList, rowLabels);
+    section.append(interlinearLayout);
     inner.append(section);
   });
 
@@ -297,6 +476,7 @@ function render() {
   inner.append(endActions);
 
   reader.replaceChildren(inner);
+  window.requestAnimationFrame(alignReaderRows);
   renderWordList();
   updateAudio();
   updateViewChrome();
@@ -310,40 +490,53 @@ function renderToken(token, sentenceIndex, tokenIndex) {
   stack.dataset.sentence = String(sentenceIndex);
   stack.dataset.token = String(tokenIndex);
 
-  stack.append(row("surface", entityButton(clozeValue("surface", token.surface), "token", token, sentenceIndex, tokenIndex)));
-
-  if (state.visibleRows.has("transliteration") && token.transliteration) {
-    stack.append(row("transliteration", clozeValue("transliteration", transformTransliteration(token.transliteration))));
+  if (state.visibleRows.has("surface")) {
+    stack.append(row("surface", entityButton(clozeValue("surface", token.surface), "token", token, sentenceIndex, tokenIndex), "surface"));
   }
-  if (state.visibleRows.has("morphs") && token.morphs) {
-    const morphText = clozeValue("morphs", transformTransliteration(token.morphs));
-    stack.append(row("morphs", state.clozeMode === "off" ? morphemeButtons(morphText, token, sentenceIndex, tokenIndex) : morphText));
+  if (state.visibleRows.has("transliteration")) {
+    stack.append(row("transliteration", clozeValue("transliteration", displayLatinAnnotation(token.transliteration) || ""), "transliteration"));
   }
-  if (state.visibleRows.has("gloss") && token.gloss) {
-    stack.append(row("gloss", token.gloss));
+  if (state.visibleRows.has("morphs")) {
+    const morphText = clozeValue("morphs", displayLatinAnnotation(token.morphs));
+    const morphContent = token.morphs && state.clozeMode === "off" ? morphemeButtons(token.morphs, token, sentenceIndex, tokenIndex) : morphText || "";
+    stack.append(row("morphs", morphContent, "morphs"));
   }
-  if (state.visibleRows.has("lemma") && token.lemma) {
-    stack.append(row("lemma", entityButton(clozeValue("lemma", transformTransliteration(token.lemma)), "lemma", token, sentenceIndex, tokenIndex)));
+  if (state.visibleRows.has("gloss")) {
+    stack.append(row("gloss", displayGloss(token.gloss) || "", "gloss"));
   }
-  if (state.visibleRows.has("root") && token.root) {
-    stack.append(row("root", entityButton(clozeValue("root", transformTransliteration(token.root)), "root", token, sentenceIndex, tokenIndex)));
+  if (state.visibleRows.has("wordTranslations")) {
+    stack.append(row("word-translations", token.translations?.join(" · ") || "", "wordTranslations"));
   }
-  if (state.visibleRows.has("pos") && token.pos) {
-    stack.append(row("pos", entityButton(token.pos, "part of speech", token, sentenceIndex, tokenIndex)));
+  if (state.visibleRows.has("lemma")) {
+    const lemmaContent = token.lemma ? entityButton(clozeValue("lemma", token.lemma), "lemma", token, sentenceIndex, tokenIndex) : "";
+    stack.append(row("lemma", lemmaContent, "lemma"));
   }
-  if (state.visibleRows.has("features") && token.features.length) {
+  if (state.visibleRows.has("root")) {
+    const hasRoot = token.rootScript || token.rootTransliteration;
+    const rootContent = hasRoot && state.clozeMode === "off"
+      ? rootButton(token, sentenceIndex, tokenIndex)
+      : hasRoot ? clozeValue("root", displayRootTransliteration(token.rootTransliteration) || token.rootScript) : "";
+    stack.append(row("root", rootContent, "root"));
+  }
+  if (state.visibleRows.has("pos")) {
+    const posContent = token.pos ? entityButton(token.pos, "part of speech", token, sentenceIndex, tokenIndex) : "";
+    stack.append(row("pos", posContent, "pos"));
+  }
+  if (state.visibleRows.has("features")) {
     const holder = document.createElement("span");
-    token.features.forEach((feature) => holder.append(featureButton(feature, token, sentenceIndex, tokenIndex)));
-    stack.append(row("features", holder));
+    token.features?.forEach((feature) => holder.append(featureButton(feature, token, sentenceIndex, tokenIndex)));
+    stack.append(row("features", holder, "features"));
   }
 
   stack.addEventListener("click", () => selectToken(sentenceIndex, tokenIndex, token));
   return stack;
 }
 
-function row(className, content) {
+function row(className, content, rowId = className) {
   const div = document.createElement("div");
   div.className = `token-row ${className}`;
+  div.dataset.rowId = rowId;
+  if (!content || (content instanceof HTMLElement && !content.textContent)) div.classList.add("is-empty");
   if (typeof content === "string") {
     div.textContent = content;
   } else {
@@ -352,15 +545,57 @@ function row(className, content) {
   return div;
 }
 
-function entityButton(label, type, token, sentenceIndex, tokenIndex) {
+function updateRowVisibility(rowId, checked) {
+  if (checked) state.visibleRows.add(rowId);
+  else state.visibleRows.delete(rowId);
+  syncRowCheckboxes();
+  render();
+}
+
+function syncRowCheckboxes() {
+  document.querySelectorAll("[data-row]").forEach((checkbox) => {
+    checkbox.checked = state.visibleRows.has(checkbox.dataset.row);
+  });
+}
+
+function renderRowLabel(definition) {
+  const label = document.createElement("label");
+  label.className = `interlinear-row-label row-label-${definition.id} ${definition.id === "translation" ? "translation-label" : ""}`;
+  label.dataset.rowId = definition.id;
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.dataset.row = definition.id;
+  checkbox.checked = state.visibleRows.has(definition.id);
+  checkbox.addEventListener("change", () => updateRowVisibility(definition.id, checkbox.checked));
+  const text = document.createElement("span");
+  text.textContent = definition.label;
+  label.append(checkbox, text);
+  return label;
+}
+
+function alignReaderRows() {
+  reader.querySelectorAll(".sentence").forEach((sentence) => {
+    readerRowDefinitions
+      .filter(({ id }) => state.visibleRows.has(id))
+      .forEach(({ id }) => {
+        const cells = sentence.querySelectorAll(`[data-row-id="${id}"]`);
+        cells.forEach((cell) => { cell.style.height = "auto"; });
+        const height = Math.max(...Array.from(cells, (cell) => cell.scrollHeight), 0);
+        cells.forEach((cell) => { cell.style.height = `${height}px`; });
+      });
+  });
+}
+
+function entityButton(label, type, token, sentenceIndex, tokenIndex, accessibleLabel = label) {
   const button = document.createElement("button");
   button.className = "clickable";
   button.type = "button";
   button.textContent = label;
+  if (accessibleLabel !== label) button.setAttribute("aria-label", accessibleLabel);
   button.addEventListener("click", (event) => {
     event.stopPropagation();
     activateToken(sentenceIndex, tokenIndex);
-    inspect(type, label, token);
+    inspect(type, accessibleLabel, token);
     render();
   });
   return button;
@@ -379,31 +614,81 @@ function clozeValue(rowName, value) {
 
 const answerRevealingRows = new Set(["surface", "transliteration", "morphs", "lemma", "root"]);
 
-function transformTransliteration(value) {
-  if (samples[state.language].direction !== "rtl") return value;
-  if (state.rtlTransliterationMode === "reverse") {
-    return reverseText(value);
-  }
-  if (state.rtlTransliterationMode === "morpheme") {
-    return value
-      .split("-")
-      .map((part) => reverseText(part))
-      .join("-");
-  }
-  return value;
+function isRtlDirection(direction = samples[state.language].direction) {
+  return direction === "rtl";
 }
 
-function reverseText(value) {
-  return Array.from(value).reverse().join("");
+function graphemes(value) {
+  if (typeof Intl !== "undefined" && typeof Intl.Segmenter === "function") {
+    const segmenter = new Intl.Segmenter(undefined, { granularity: "grapheme" });
+    return [...segmenter.segment(value)].map(({ segment }) => segment);
+  }
+  return Array.from(value);
+}
+
+function reverseGraphemes(value) {
+  return graphemes(value).reverse().join("");
+}
+
+function displayLatinAnnotation(value, direction = samples[state.language].direction) {
+  if (!value || !isRtlDirection(direction)) return value;
+  return reverseGraphemes(value);
+}
+
+function displayRootTransliteration(value, direction = samples[state.language].direction) {
+  const displayed = displayLatinAnnotation(value, direction);
+  return isRtlDirection(direction) ? displayed.toLocaleUpperCase() : displayed;
+}
+
+function displayGloss(value, direction = samples[state.language].direction) {
+  if (!value || !isRtlDirection(direction)) return value;
+  return value.split("-").reverse().join("-");
 }
 
 function morphemeButtons(value, token, sentenceIndex, tokenIndex) {
   const span = document.createElement("span");
-  value.split("-").forEach((piece, index, all) => {
-    span.append(entityButton(piece, "morpheme", token, sentenceIndex, tokenIndex));
-    if (index < all.length - 1) span.append("-");
+  const pieces = value.split("-");
+  const displayPieces = isRtlDirection() ? [...pieces].reverse() : pieces;
+  displayPieces.forEach((piece, index) => {
+    const displayPiece = isRtlDirection() ? reverseGraphemes(piece) : piece;
+    span.append(entityButton(displayPiece, "morpheme", token, sentenceIndex, tokenIndex, piece));
+    if (index < displayPieces.length - 1) span.append("-");
   });
   return span;
+}
+
+function rootButton(token, sentenceIndex, tokenIndex) {
+  const button = document.createElement("button");
+  button.className = "clickable root-entity";
+  button.type = "button";
+  const accessibleParts = [];
+
+  if (token.rootScript) {
+    const source = document.createElement("span");
+    source.className = "root-script";
+    source.dir = samples[state.language].direction;
+    source.textContent = token.rootScript;
+    button.append(source);
+    accessibleParts.push(token.rootScript);
+  }
+
+  if (token.rootTransliteration) {
+    const transliteration = document.createElement("span");
+    transliteration.className = "root-transliteration";
+    transliteration.dir = "ltr";
+    transliteration.textContent = displayRootTransliteration(token.rootTransliteration);
+    button.append(transliteration);
+    accessibleParts.push(`transliteration ${token.rootTransliteration.toLocaleUpperCase()}`);
+  }
+
+  button.setAttribute("aria-label", `Root ${accessibleParts.join(", ")}`);
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    activateToken(sentenceIndex, tokenIndex);
+    inspect("root", token.rootScript || token.rootTransliteration, token);
+    render();
+  });
+  return button;
 }
 
 function featureButton(feature, token, sentenceIndex, tokenIndex) {
@@ -439,12 +724,18 @@ function inspect(type, label, token) {
   updateKnowledgeControls(token);
   const details = [
     ["Type", type],
+    ["Transliteration", displayLatinAnnotation(token.transliteration) || "—"],
+    ["Word meanings", token.translations?.join(" · ") || "—"],
+    ["Grammar gloss", displayGloss(token.gloss) || "—"],
+    ["Root", token.rootScript || "—"],
+    ["Root transliteration", displayRootTransliteration(token.rootTransliteration) || "—"],
+    ["Grammar", token.features.length ? token.features.join(", ") : "—"],
     ["Lemma", token.lemma || "—"],
-    ["Root", token.root || "—"],
-    ["Morphs", token.morphs || "—"],
-    ["Gloss", token.gloss || "—"],
+    ["Morpheme segmentation", displayLatinAnnotation(token.morphs) || "—"],
     ["Part of speech", token.pos || "—"],
-    ["Features", token.features.length ? token.features.join(", ") : "—"],
+    ["Annotation source", token.provenance || "Prototype sample"],
+    ["Confidence", token.confidence || "—"],
+    ["Review note", token.reviewNote || "—"],
   ];
 
   inspectDetails.replaceChildren(
@@ -454,6 +745,13 @@ function inspect(type, label, token) {
       const dd = document.createElement("dd");
       dt.textContent = term;
       dd.textContent = value;
+      if (isRtlDirection() && ["Transliteration", "Morpheme segmentation", "Grammar gloss", "Root transliteration"].includes(term)) {
+        dd.classList.add("latin-annotation");
+      }
+      if (term === "Root" && token.rootScript) {
+        dd.classList.add("inspector-root-script");
+        dd.dir = samples[state.language].direction;
+      }
       wrapper.append(dt, dd);
       return wrapper;
     }),
@@ -652,9 +950,10 @@ function renderWordCard(word) {
     card.innerHTML = `
       <div class="mini-token">
         <strong>${escapeHtml(display)}</strong>
-        <span class="transliteration">${escapeHtml(word.token.transliteration || "")}</span>
-        <span class="morphs">${escapeHtml(word.token.morphs || "")}</span>
-        <span class="gloss">${escapeHtml(word.token.gloss || "")}</span>
+        <span class="transliteration">${escapeHtml(displayLatinAnnotation(word.token.transliteration) || "")}</span>
+        <span class="morphs">${escapeHtml(displayLatinAnnotation(word.token.morphs) || "")}</span>
+        <span class="gloss">${escapeHtml(displayGloss(word.token.gloss) || "")}</span>
+        <span class="word-translations">${escapeHtml(word.token.translations?.join(" · ") || "")}</span>
         <span class="lemma">${escapeHtml(word.token.lemma || "")}</span>
       </div>
       <div><span>Learning stage</span><div class="meter"><i style="width:${word.knowledge}%"></i></div><strong>${escapeHtml(word.stage)}</strong></div>
@@ -666,7 +965,7 @@ function renderWordCard(word) {
   card.innerHTML = `
     <div>
       <strong>${escapeHtml(display)}</strong>
-      <span>${escapeHtml(word.token.lemma)} · ${escapeHtml(word.token.gloss)}</span>
+      <span>${escapeHtml(word.token.lemma)} · ${escapeHtml(word.token.translations?.join(" · ") || displayGloss(word.token.gloss))}</span>
     </div>
     <div><span>Learning stage</span><div class="meter"><i style="width:${word.knowledge}%"></i></div><strong>${escapeHtml(word.stage)}</strong></div>
     <div><span>Target</span><strong>${word.target}</strong></div>
@@ -728,6 +1027,8 @@ function switchLanguage(language) {
   state.current = { sentenceIndex: 0, tokenIndex: 0 };
   state.clozeRevealed = false;
   state.customSettings = false;
+  state.visibleRows = new Set(samples[language].defaultVisibleRows || ["translation", "surface", "transliteration", "morphs", "gloss", "lemma", "pos", "features"]);
+  syncRowCheckboxes();
   document.querySelector("#language-select").value = language;
   document.querySelector("#dictionary-language").value = language;
   render();
@@ -735,6 +1036,7 @@ function switchLanguage(language) {
 
 function renderLibrary() {
   let rows = Object.entries(samples)
+    .filter(([, sample]) => !sample.hiddenFromLibrary)
     .map(([key, sample], index) => {
       const words = collectWordsForLanguage(key);
       const known = Math.round(words.reduce((sum, item) => sum + item.knowledge, 0) / Math.max(1, words.length));
@@ -749,7 +1051,7 @@ function renderLibrary() {
         next: known < 45 ? "Review unknown words" : "Continue reading",
       };
     })
-    .filter(({ key }) => state.libraryLanguageFilter === "all" || key === state.libraryLanguageFilter);
+    .filter(({ key, sample }) => state.libraryLanguageFilter === "all" || key === state.libraryLanguageFilter || sample.languageCode === state.libraryLanguageFilter);
 
   rows.sort((a, b) => {
     if (state.librarySort === "progress") return a.known - b.known;
@@ -1001,8 +1303,9 @@ function collectDictionaryWords(language) {
         key,
         label: key,
         language: sample.languageName,
-        meaning: token.gloss || "—",
-        root: token.root || "—",
+        meaning: token.translations?.join(" · ") || token.gloss || "—",
+        root: token.rootScript || token.rootTransliteration || "—",
+        rootTransliteration: token.rootTransliteration || "",
         morphs: new Set(),
         forms: new Set(),
         features: new Set(),
@@ -1048,9 +1351,9 @@ function renderDictionary(selectedKey = "") {
   const advanced = document.querySelector("#dictionary-advanced").checked;
   const entries = collectDictionaryWords(language);
   const visible = entries.filter((entry) => {
-    const searchable = `${entry.label} ${entry.meaning} ${entry.root} ${entry.morphs.join(" ")} ${entry.features.join(" ")} ${entry.forms.join(" ")}`.toLowerCase();
+    const searchable = `${entry.label} ${entry.meaning} ${entry.root} ${entry.rootTransliteration} ${entry.morphs.join(" ")} ${entry.features.join(" ")} ${entry.forms.join(" ")}`.toLowerCase();
     const queryMatch = searchable.includes(query);
-    const rootMatch = !rootFilter || entry.root.toLowerCase().includes(rootFilter);
+    const rootMatch = !rootFilter || `${entry.root} ${entry.rootTransliteration}`.toLowerCase().includes(rootFilter);
     const morphMatch = !morphFilter || `${entry.morphs.join(" ")} ${entry.features.join(" ")}`.toLowerCase().includes(morphFilter);
     const posMatch = posFilter === "all" || (posFilter === "other" ? !["NOUN", "VERB", "ADJ", "PRON"].includes(entry.pos) : entry.pos === posFilter);
     const scopeMatch = scope === "recent" ? entry.recent : scope === "target" ? entry.targetList : true;
@@ -1069,11 +1372,15 @@ function renderDictionary(selectedKey = "") {
     const button = document.createElement("button");
     button.className = `entity-table-row ${entry.key === current?.key ? "is-active" : ""}`;
     button.type = "button";
+    const direction = samples[language].direction;
+    const rootTransliteration = displayRootTransliteration(entry.rootTransliteration, direction);
+    const displayedMeaning = displayGloss(entry.meaning, direction);
+    const displayedMorphs = entry.morphs.map((value) => displayLatinAnnotation(value, direction)).join(", ");
     button.innerHTML = `
       <strong>${escapeHtml(entry.label)}</strong>
-      <span>${escapeHtml(entry.meaning)}</span>
-      <span>${escapeHtml(entry.root)}</span>
-      <span>${escapeHtml(entry.morphs.join(", ") || "—")}</span>
+      <span>${escapeHtml(displayedMeaning)}</span>
+      <span class="dictionary-root">${escapeHtml(entry.root)}${rootTransliteration ? `<small>${escapeHtml(rootTransliteration)}</small>` : ""}</span>
+      <span>${escapeHtml(displayedMorphs || "—")}</span>
       <span>${escapeHtml(entry.pos)}</span>
       <span><div class="meter"><i style="width:${entry.progress}%"></i></div>${escapeHtml(entry.stage)}</span>
       <span>${entry.seen}</span>
@@ -1092,18 +1399,22 @@ function renderDictionary(selectedKey = "") {
     return;
   }
   entityList.replaceChildren(table);
-  renderEntityDetail(current);
+  renderEntityDetail(current, samples[language].direction);
 }
 
-function renderEntityDetail(entry) {
+function renderEntityDetail(entry, direction) {
+  const rootTransliteration = displayRootTransliteration(entry.rootTransliteration, direction);
+  const displayedMeaning = displayGloss(entry.meaning, direction);
+  const displayedMorphs = entry.morphs.map((value) => displayLatinAnnotation(value, direction)).join(", ");
   entityDetail.innerHTML = `
     <div class="eyebrow">${escapeHtml(entry.language)} word</div>
     <h2>${escapeHtml(entry.label)}</h2>
-    <p class="entity-meaning">${escapeHtml(entry.meaning)}</p>
+    <p class="entity-meaning">${escapeHtml(displayedMeaning)}</p>
     <dl class="detail-list">
       <div><dt>Learning stage</dt><dd>${escapeHtml(entry.stage)}</dd></div>
       <div><dt>Root</dt><dd>${escapeHtml(entry.root)}</dd></div>
-      <div><dt>Morphology</dt><dd>${escapeHtml(entry.morphs.join(", ") || "—")}</dd></div>
+      <div><dt>Root transliteration</dt><dd class="latin-annotation">${escapeHtml(rootTransliteration || "—")}</dd></div>
+      <div><dt>Morphology</dt><dd class="latin-annotation">${escapeHtml(displayedMorphs || "—")}</dd></div>
       <div><dt>Features</dt><dd>${escapeHtml(entry.features.join(", ") || "—")}</dd></div>
       <div><dt>Source text</dt><dd>${escapeHtml(entry.source)}</dd></div>
       <div><dt>Personal editing</dt><dd>Learner note, preferred gloss, learning stage</dd></div>
@@ -1256,18 +1567,16 @@ document.querySelectorAll("[data-row]").forEach((checkbox) => {
 });
 
 const rowPresets = {
-  reading: ["gloss"],
-  interlinear: ["transliteration", "morphs", "gloss", "lemma", "pos", "features"],
-  morphology: ["transliteration", "morphs", "gloss", "lemma", "root", "pos", "features"],
-  cloze: ["transliteration", "morphs", "gloss", "lemma", "root", "pos", "features"],
-  minimal: [],
+  reading: ["translation", "surface", "gloss"],
+  interlinear: ["translation", "surface", "transliteration", "morphs", "gloss", "wordTranslations", "lemma", "pos", "features"],
+  morphology: ["translation", "surface", "transliteration", "morphs", "gloss", "wordTranslations", "lemma", "root", "pos", "features"],
+  cloze: ["translation", "surface", "transliteration", "morphs", "gloss", "wordTranslations", "lemma", "root", "pos", "features"],
+  minimal: ["surface"],
 };
 
 function setVisibleRows(rows) {
   state.visibleRows = new Set(rows);
-  document.querySelectorAll("[data-row]").forEach((checkbox) => {
-    checkbox.checked = state.visibleRows.has(checkbox.dataset.row);
-  });
+  syncRowCheckboxes();
   render();
 }
 
@@ -1343,11 +1652,6 @@ knowledgeUp.addEventListener("click", () => updateKnowledge(1));
     state.customSettings = true;
     document.documentElement.style.setProperty(property, `${event.target.value}${unit}`);
   });
-});
-
-document.querySelector("#rtl-transliteration-mode").addEventListener("change", (event) => {
-  state.rtlTransliterationMode = event.target.value;
-  render();
 });
 
 const densityPresets = {
@@ -2025,12 +2329,21 @@ window.addEventListener("resize", scheduleFeedbackPins);
 window.addEventListener("scroll", scheduleFeedbackPins, true);
 document.addEventListener("click", () => window.setTimeout(scheduleFeedbackPins, 0));
 
-closeInspector();
-render();
-renderLibrary();
-renderImportPreview();
-setImportStage("source");
-renderDictionary();
-renderProgress();
-switchView("library");
-renderFeedback();
+async function initializeApp() {
+  try {
+    await loadHebrewTrialDocuments();
+  } catch (error) {
+    console.error(error);
+  }
+  closeInspector();
+  render();
+  renderLibrary();
+  renderImportPreview();
+  setImportStage("source");
+  renderDictionary();
+  renderProgress();
+  switchView("library");
+  renderFeedback();
+}
+
+initializeApp();

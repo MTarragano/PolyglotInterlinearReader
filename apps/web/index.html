@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Polyglot Interlinear Reader Draft</title>
-    <link rel="stylesheet" href="./styles.css?v=simple-feedback-import-v2" />
+    <link rel="stylesheet" href="./styles.css?v=rtl-row-label-wrap-v2" />
   </head>
   <body>
     <div class="app-shell">
@@ -23,8 +23,8 @@
         </nav>
 
         <label class="language-select-control">
-          <span>Language</span>
-          <select id="language-select" aria-label="Learning language">
+          <span>Text</span>
+          <select id="language-select" aria-label="Reader text">
             <option value="french">French</option>
             <option value="hebrew">Hebrew</option>
             <option value="arabic">Arabic</option>
@@ -75,7 +75,7 @@
                 <select id="library-language-filter">
                   <option value="all" selected>All active</option>
                   <option value="french">French</option>
-                  <option value="hebrew">Hebrew</option>
+                  <option value="he">Hebrew</option>
                   <option value="arabic">Arabic</option>
                   <option value="turkish">Turkish</option>
                 </select>
@@ -277,15 +277,21 @@ Sonra evde kahve içeceğiz.</textarea>
               </select>
             </label>
 
-            <div class="row-menu" aria-label="Visible interlinear rows">
-              <label class="row-chip transliteration-chip" title="Pronunciation or romanization row"><input type="checkbox" data-row="transliteration" checked /> Transliteration</label>
-              <label class="row-chip morphs-chip" title="Morpheme segmentation row"><input type="checkbox" data-row="morphs" checked /> Morphs</label>
-              <label class="row-chip gloss-chip" title="Short word-by-word meaning row"><input type="checkbox" data-row="gloss" checked /> Gloss</label>
-              <label class="row-chip lemma-chip" title="Dictionary headword row"><input type="checkbox" data-row="lemma" checked /> Lemma</label>
-              <label class="row-chip root-chip" title="Root or stem row when parser data exists"><input type="checkbox" data-row="root" /> Root</label>
-              <label class="row-chip pos-chip" title="Part of speech row"><input type="checkbox" data-row="pos" checked /> POS</label>
-              <label class="row-chip features-chip" title="Grammar feature row"><input type="checkbox" data-row="features" checked /> Features</label>
-            </div>
+            <details class="row-menu" aria-label="Visible interlinear rows">
+              <summary>Row Labels</summary>
+              <div class="row-menu-options">
+                <label class="row-chip" title="Sentence-level translation"><input type="checkbox" data-row="translation" checked /> Translation</label>
+                <label class="row-chip" title="Original script row"><input type="checkbox" data-row="surface" checked /> Original</label>
+                <label class="row-chip transliteration-chip" title="Pronunciation or romanization row"><input type="checkbox" data-row="transliteration" checked /> Transliteration</label>
+                <label class="row-chip morphs-chip" title="Morpheme segmentation row"><input type="checkbox" data-row="morphs" checked /> Morphs</label>
+                <label class="row-chip gloss-chip" title="Compact grammatical and inflectional gloss"><input type="checkbox" data-row="gloss" checked /> Grammar gloss</label>
+                <label class="row-chip word-translations-chip" title="All stored English meanings for this Hebrew surface spelling"><input type="checkbox" data-row="wordTranslations" /> Word meanings</label>
+                <label class="row-chip lemma-chip" title="Dictionary headword row"><input type="checkbox" data-row="lemma" checked /> Lemma</label>
+                <label class="row-chip root-chip" title="Root or stem row when parser data exists"><input type="checkbox" data-row="root" /> Root</label>
+                <label class="row-chip pos-chip" title="Part of speech row"><input type="checkbox" data-row="pos" checked /> POS</label>
+                <label class="row-chip features-chip" title="Grammar feature row"><input type="checkbox" data-row="features" checked /> Features</label>
+              </div>
+            </details>
           </div>
 
           <div id="reader" class="reader" aria-live="polite"></div>
@@ -377,16 +383,6 @@ Sonra evde kahve içeceğiz.</textarea>
             Reading width
             <input id="reading-width" type="range" min="760" max="1320" value="1120" />
           </label>
-          <label>
-            RTL transliteration
-            <select id="rtl-transliteration-mode">
-              <option value="normal">Normal Latin</option>
-              <option value="rtl">RTL token flow</option>
-              <option value="reverse">Reverse Latin characters</option>
-              <option value="morpheme">Reverse by morpheme</option>
-            </select>
-          </label>
-
           <div class="color-grid">
             <label>Original <input id="original-color" type="color" value="#13201b" /></label>
             <label>Translit. <input id="transliteration-color" type="color" value="#59656f" /></label>
@@ -578,6 +574,6 @@ Sonra evde kahve içeceğiz.</textarea>
       </section>
     </dialog>
 
-    <script src="./app.js?v=simple-feedback-import-v2"></script>
+    <script src="./app.js?v=rtl-row-label-columns-v1"></script>
   </body>
 </html>

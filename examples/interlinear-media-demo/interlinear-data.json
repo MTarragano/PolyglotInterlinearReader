@@ -1,0 +1,62 @@
+{
+  "language": "Chinese",
+  "languageCode": "zh-Hans",
+  "transliterationSystem": "Hanyu Pinyin",
+  "source": {
+    "audio": "chinese-sample.m4a",
+    "derivedFrom": "Chinese English 1st Playlist.mp3",
+    "clipStartSeconds": 0,
+    "clipEndSeconds": 25
+  },
+  "annotationStatus": "illustrative human-reviewed sample",
+  "cues": [
+    {
+      "id": "0072",
+      "startMs": 0,
+      "endMs": 7001,
+      "sourceText": "我学习英语。",
+      "transliteration": "wǒ xuéxí Yīngyǔ",
+      "wordForWord": "I learn English",
+      "translation": "I learn English.",
+      "tokens": [
+        { "form": "我", "transliteration": "wǒ", "lemma": "我", "pos": "PRON", "gloss": "1SG", "wordForWord": "I" },
+        { "form": "学习", "transliteration": "xuéxí", "lemma": "学习", "pos": "VERB", "gloss": "learn", "wordForWord": "learn" },
+        { "form": "英语", "transliteration": "Yīngyǔ", "lemma": "英语", "pos": "NOUN", "gloss": "English", "wordForWord": "English" },
+        { "form": "。", "transliteration": "", "lemma": "。", "pos": "PUNCT", "gloss": "PUNCT", "wordForWord": "." }
+      ]
+    },
+    {
+      "id": "0955",
+      "startMs": 9001,
+      "endMs": 14774,
+      "sourceText": "我是初学者。",
+      "transliteration": "wǒ shì chūxuézhě",
+      "wordForWord": "I be beginner",
+      "translation": "I'm only a beginner.",
+      "tokens": [
+        { "form": "我", "transliteration": "wǒ", "lemma": "我", "pos": "PRON", "gloss": "1SG", "wordForWord": "I" },
+        { "form": "是", "transliteration": "shì", "lemma": "是", "pos": "AUX", "gloss": "COP", "wordForWord": "be" },
+        { "form": "初学者", "transliteration": "chūxuézhě", "lemma": "初学者", "pos": "NOUN", "gloss": "beginner", "wordForWord": "beginner" },
+        { "form": "。", "transliteration": "", "lemma": "。", "pos": "PUNCT", "gloss": "PUNCT", "wordForWord": "." }
+      ]
+    },
+    {
+      "id": "0450",
+      "startMs": 16774,
+      "endMs": 24976,
+      "sourceText": "我还会出很多错误。",
+      "transliteration": "wǒ hái huì chū hěn duō cuòwù",
+      "wordForWord": "I still MOD produce many mistakes",
+      "translation": "I still make many mistakes.",
+      "tokens": [
+        { "form": "我", "transliteration": "wǒ", "lemma": "我", "pos": "PRON", "gloss": "1SG", "wordForWord": "I" },
+        { "form": "还", "transliteration": "hái", "lemma": "还", "pos": "ADV", "gloss": "still", "wordForWord": "still" },
+        { "form": "会", "transliteration": "huì", "lemma": "会", "pos": "AUX", "gloss": "MOD", "wordForWord": "will / tend to" },
+        { "form": "出", "transliteration": "chū", "lemma": "出", "pos": "VERB", "gloss": "produce", "wordForWord": "produce" },
+        { "form": "很多", "transliteration": "hěn duō", "lemma": "很多", "pos": "DET", "gloss": "many", "wordForWord": "many" },
+        { "form": "错误", "transliteration": "cuòwù", "lemma": "错误", "pos": "NOUN", "gloss": "error", "wordForWord": "mistakes" },
+        { "form": "。", "transliteration": "", "lemma": "。", "pos": "PUNCT", "gloss": "PUNCT", "wordForWord": "." }
+      ]
+    }
+  ]
+}

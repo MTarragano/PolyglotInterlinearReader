@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "polyglot-library-import/0.1",
+  "status": "staged-not-persisted",
+  "reason": "The repository currently contains the backend specification and browser prototype, but no live PostgreSQL schema/migrations or import API implementation.",
+  "input": "02-processed-reader-document.json",
+  "transaction": {
+    "atomic": true,
+    "onValidationFailure": "retain import job and rows; create no corpus document",
+    "onSuccess": "create document, units, tokens, morphemes, annotations, translations, media attachment, provenance links, and revision zero"
+  },
+  "entityMapping": [
+    {"packagePath":"document","databaseEntity":"documents","notes":"One normal Hebrew corpus document; not an MP4-specific document."},
+    {"packagePath":"units[*]","databaseEntity":"sentences","notes":"Unit kind distinguishes title, vocabulary line, instruction, and exercise sentence."},
+    {"packagePath":"units[*].tokens[*]","databaseEntity":"tokens","notes":"Surface, normalized form, lemma link, root link, UPOS, features, and offsets after tokenizer confirmation."},
+    {"packagePath":"units[*].tokens[*].segments[*]","databaseEntity":"morphemes","notes":"Prefixes, stem, suffixes, grammatical function, and compact gloss."},
+    {"packagePath":"units[*].translation","databaseEntity":"translations","notes":"Sentence translation with language=en and its own source/confidence."},
+    {"packagePath":"units[*].tokens[*].translations[*]","databaseEntity":"translations/dictionary_senses","notes":"Word translations remain distinct from grammatical glosses and may be polysemous."},
+    {"packagePath":"units[*].tokens[*].root","databaseEntity":"roots + entity_relations","notes":"Null and low-confidence values are valid pending review."},
+    {"packagePath":"media[*]","databaseEntity":"audio_files + document_audio","notes":"The MP3 attaches to the document; alignments are separate records."},
+    {"packagePath":"annotationPolicy","databaseEntity":"annotation_types + import job options","notes":"Records transliteration/gloss conventions without hardcoding them into the UI."},
+    {"packagePath":"sourceExtraction","databaseEntity":"import_jobs + import_sources + import_rows","notes":"Source files, hashes, mapping decisions, warnings, and original pointed strings are retained."}
+  ],
+  "provenanceSources": [
+    {"code":"source-lwt","label":"Local LWT HTML export","trust":"imported-unreviewed"},
+    {"code":"source-audio","label":"Local Lesson 64 MP3","trust":"primary-media"},
+    {"code":"codex-provisional","label":"Provisional normalization and linguistic annotation","trust":"requires-human-review"},
+    {"code":"future-hebrew-parser","label":"YAP/HebPipe comparison","trust":"not-yet-run"},
+    {"code":"future-dictionary","label":"Licensed Hebrew lexical sources","trust":"not-yet-selected"}
+  ],
+  "requiredBeforePersistence": [
+    "Implement or select the initial SQLAlchemy/Alembic corpus migration.",
+    "Assign UUIDs inside the import transaction rather than baking them into this portable package.",
+    "Validate language, sentence order, token order, source hashes, translation language, and annotation types.",
+    "Choose dictionary/frequency sources only after checking licence and attribution requirements."
+  ],
+  "reimportIdentity": {
+    "documentExternalId":"he-assimil-l064",
+    "sourceSha256":"45d1772e190e46290c0fcf0a3aa37ef6c47cec81abf14034a63254e89fadb178",
+    "audioSha256":"7137f58ca20414196c8234ff258af0075ae3cabbb9d57f3bf70fcb006fe55428",
+    "policy":"matching identities create a new import/revision proposal, never a silent overwrite"
+  }
+}
+

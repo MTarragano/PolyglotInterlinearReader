@@ -1,0 +1,29 @@
+[Script Info]
+Title: Chinese interlinear audio sample
+ScriptType: v4.00+
+PlayResX: 1280
+PlayResY: 720
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Original,PingFang SC,50,&H00FFFFFF,&H0000FFFF,&H00101824,&H8A07111F,-1,0,0,0,100,100,2,0,1,3,0,8,40,40,168,1
+Style: Pinyin,Arial,27,&H00FFC78D,&H0000FFFF,&H00101824,&H8A07111F,0,0,0,0,100,100,0,0,1,2,0,8,40,40,112,1
+Style: Gloss,Courier New,21,&H00FFA6C5,&H0000FFFF,&H00101824,&H8A07111F,0,0,0,0,100,100,0,0,1,2,0,2,40,40,67,1
+Style: Translation,Arial,28,&H00FFFFFF,&H0000FFFF,&H00101824,&H8A07111F,0,0,0,0,100,100,0,0,1,2,0,2,40,40,28,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:07.00,Original,,0,0,0,,{\k80}我{\k260}学习{\k360}英语。
+Dialogue: 0,0:00:00.00,0:00:07.00,Pinyin,,0,0,0,,wǒ　　xuéxí　　Yīngyǔ
+Dialogue: 0,0:00:00.00,0:00:07.00,Gloss,,0,0,0,,1SG　·　learn　·　English
+Dialogue: 0,0:00:00.00,0:00:07.00,Translation,,0,0,0,,I learn English.
+Dialogue: 0,0:00:09.00,0:00:14.77,Original,,0,0,0,,{\k90}我{\k170}是{\k317}初学者。
+Dialogue: 0,0:00:09.00,0:00:14.77,Pinyin,,0,0,0,,wǒ　　shì　　chūxuézhě
+Dialogue: 0,0:00:09.00,0:00:14.77,Gloss,,0,0,0,,1SG　·　COP　·　beginner
+Dialogue: 0,0:00:09.00,0:00:14.77,Translation,,0,0,0,,I'm only a beginner.
+Dialogue: 0,0:00:16.77,0:00:24.98,Original,,0,0,0,,{\k70}我{\k95}还{\k110}会{\k100}出{\k180}很多{\k265}错误。
+Dialogue: 0,0:00:16.77,0:00:24.98,Pinyin,,0,0,0,,wǒ　hái　huì　chū　hěn duō　cuòwù
+Dialogue: 0,0:00:16.77,0:00:24.98,Gloss,,0,0,0,,1SG · still · MOD · produce · many · error
+Dialogue: 0,0:00:16.77,0:00:24.98,Translation,,0,0,0,,I still make many mistakes.

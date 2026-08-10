@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en" style="--target-size: 27px; --annotation-size: 13px; --token-gap: 18px; --row-gap: 4px; --original-color: #13201b; --transliteration-color: #59656f; --morphs-color: #9a5a1f; --gloss-color: #42526b; --lemma-color: #2f6f4f; --root-color: #6b4f2a; --pos-color: #755a13; --feature-color: #315b9d;"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Polyglot Interlinear Reader Draft</title>
+    <link rel="stylesheet" href="Polyglot%20Interlinear%20Reader%20Draft%203_files/styles_0mW2.css">
+  </head>
+  <body>
+    <div class="app-shell" data-view="reader">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="eyebrow">Polyglot Reader</div>
+          <h1 id="document-title">French baseline: Le petit prince</h1>
+        </div>
+
+        <nav class="app-nav" aria-label="Draft app sections">
+          <button class="app-nav-button" data-view="library" type="button">Library</button>
+          <button class="app-nav-button" data-view="import" type="button">Import</button>
+          <button class="app-nav-button is-active" data-view="reader" type="button">Reader</button>
+          <button class="app-nav-button" data-view="dictionary" type="button">Dictionary</button>
+          <button class="app-nav-button" data-view="progress" type="button">Progress</button>
+        </nav>
+
+        <label class="language-select-control">
+          <span>Language</span>
+          <select id="language-select" aria-label="Learning language">
+            <option value="french" selected="selected">French</option>
+            <option value="hebrew">Hebrew</option>
+            <option value="arabic">Arabic</option>
+            <option value="turkish">Turkish</option>
+          </select>
+        </label>
+
+        <button class="icon-button" id="settings-toggle" type="button" aria-expanded="false" aria-controls="settings-panel">
+          <span aria-hidden="true">Aa</span>
+          <span class="sr-only">Reader settings</span>
+        </button>
+        <button class="icon-button wide-icon-button" id="word-list-toggle" type="button" aria-expanded="false" aria-controls="word-list-panel">
+          <span aria-hidden="true">Words</span>
+          <span class="sr-only">Open word list</span>
+        </button>
+        <button class="icon-button" id="inspector-toggle" type="button" aria-expanded="true" aria-controls="inspector-panel">
+          <span aria-hidden="true">i</span>
+          <span class="sr-only">Open inspector</span>
+        </button>
+      </header>
+
+      <main class="main-stage">
+        <section class="app-view" id="library-view" aria-label="Text library">
+          <div class="page-band">
+            <div class="page-heading">
+              <div>
+                <div class="eyebrow">Library</div>
+                <h2>Texts ready for reading and practice</h2>
+              </div>
+              <button class="primary-action" type="button" data-switch-view="import">Import text</button>
+            </div>
+            <div class="library-controls">
+              <label>View
+                <select id="library-view-mode">
+                  <option value="table" selected="selected">Table</option>
+                  <option value="cards">Cards</option>
+                </select>
+              </label>
+              <label>Sort
+                <select id="library-sort">
+                  <option value="language" selected="selected">Language</option>
+                  <option value="progress">Progress</option>
+                  <option value="recent">Recent</option>
+                  <option value="due">Due next</option>
+                </select>
+              </label>
+              <label>Language
+                <select id="library-language-filter">
+                  <option value="all" selected="selected">All active</option>
+                  <option value="french">French</option>
+                  <option value="hebrew">Hebrew</option>
+                  <option value="arabic">Arabic</option>
+                  <option value="turkish">Turkish</option>
+                </select>
+              </label>
+            </div>
+            <div class="library-grid is-table" id="library-grid"><div class="library-table">
+      <div class="library-table-head">
+        <span>Language</span><span>Text / lesson</span><span>Progress</span><span>Recent</span><span>Due</span><span>Next</span><span></span>
+      </div>
+    <article class="library-row">
+        <span>Arabic</span>
+        <strong>Arabic RTL: roots and clitics</strong>
+        <span><div class="meter"><i style="width:0%"></i></div>0% · 10 words</span>
+        <span>2 days ago</span>
+        <span>Today</span>
+        <span>Review unknown words</span>
+        <button type="button">Open</button>
+      </article><article class="library-row">
+        <span>French</span>
+        <strong>French baseline: Le petit prince</strong>
+        <span><div class="meter"><i style="width:0%"></i></div>0% · 17 words</span>
+        <span>Today</span>
+        <span>Today</span>
+        <span>Review unknown words</span>
+        <button type="button">Open</button>
+      </article><article class="library-row">
+        <span>Hebrew</span>
+        <strong>Hebrew RTL: short reading sample</strong>
+        <span><div class="meter"><i style="width:0%"></i></div>0% · 10 words</span>
+        <span>Yesterday</span>
+        <span>Today</span>
+        <span>Review unknown words</span>
+        <button type="button">Open</button>
+      </article><article class="library-row">
+        <span>Turkish</span>
+        <strong>Turkish morphology: dense suffix stacks</strong>
+        <span><div class="meter"><i style="width:0%"></i></div>0% · 6 words</span>
+        <span>Last week</span>
+        <span>Today</span>
+        <span>Review unknown words</span>
+        <button type="button">Open</button>
+      </article></div></div>
+          </div>
+        </section>
+
+        <section class="app-view" id="import-view" aria-label="Import text">
+          <div class="page-band import-layout">
+            <nav class="import-stage-tabs" aria-label="Import review stages">
+              <button class="is-active" data-import-stage="source" type="button">1 Source</button>
+              <button data-import-stage="structure" type="button">2 Structure review</button>
+              <button data-import-stage="annotations" type="button">3 Annotation review</button>
+            </nav>
+            <section class="import-editor" aria-label="Draft import form">
+              <div class="page-heading compact-heading">
+                <div>
+                  <div class="eyebrow">Import</div>
+                  <h2>Preview-confirm text intake</h2>
+                </div>
+                <button class="primary-action" id="review-import" type="button">Review structure</button>
+              </div>
+              <div class="form-grid">
+                <label>Title <input id="import-title" type="text" value="A small market dialogue"></label>
+                <label>Language
+                  <select id="import-language">
+                    <option value="turkish" selected="selected">Turkish</option>
+                    <option value="arabic">Arabic</option>
+                    <option value="hebrew">Hebrew</option>
+                    <option value="french">French</option>
+                    <option value="new">Add a new language…</option>
+                  </select>
+                </label>
+                <label>Source <input type="text" value="Personal lesson draft"></label>
+                <label>Tags <input type="text" value="dialogue, beginner, speaking"></label>
+                <label>Original URL <input type="url" value="https://example.org/lesson/source"></label>
+                <label>Record date <input type="date" value="2026-07-09"></label>
+                <label class="file-field">Audio file <input type="file" accept="audio/*"></label>
+                <label>Import purpose
+                  <select>
+                    <option selected="selected">Reading + speaking practice</option>
+                    <option>Dictionary enrichment</option>
+                    <option>Teacher assignment</option>
+                    <option>External analysis</option>
+                  </select>
+                </label>
+              </div>
+              <label class="text-input-label">Original text
+                <textarea id="import-text" rows="9">Merhaba. Pazara gidiyorum.
+Bugün elma ve ekmek alacağım.
+Sonra evde kahve içeceğiz.</textarea>
+              </label>
+              <fieldset id="new-language-panel" class="new-language-panel" hidden="">
+                <legend>New language defaults</legend>
+                <div class="form-grid">
+                  <label>Name <input id="new-language-name" type="text" placeholder="e.g. Welsh"></label>
+                  <label>ISO code <input id="new-language-code" type="text" maxlength="12" placeholder="e.g. cy"></label>
+                  <label>Writing direction
+                    <select id="new-language-direction">
+                      <option value="ltr" selected="selected">Left to right</option>
+                      <option value="rtl">Right to left</option>
+                    </select>
+                  </label>
+                  <label>Parser/tokenizer
+                    <select id="new-language-parser">
+                      <option value="generic" selected="selected">Generic word tokenizer</option>
+                      <option value="none">No automatic parsing</option>
+                    </select>
+                  </label>
+                  <label>Script/font preference <input id="new-language-script" type="text" placeholder="Optional"></label>
+                  <label>Transliteration convention <input id="new-language-transliteration" type="text" placeholder="Optional"></label>
+                </div>
+              </fieldset>
+            </section>
+            <section class="import-preview import-review-panel" id="structure-review" aria-label="Import structure review" hidden="">
+              <div class="eyebrow">Preview</div>
+              <h2>Structure and sentence candidates</h2>
+              <p class="supporting-copy">Review the detected units. Split, merge, and reorder controls are represented here before parser integration.</p>
+              <ol id="import-preview-list" class="preview-list"><li>
+        <strong>1</strong>
+        <span>Merhaba.</span>
+        <span class="candidate-actions"><button type="button" disabled="disabled" title="Parser editing is not connected yet">Split</button><button type="button" disabled="disabled" title="Parser editing is not connected yet">Merge</button></span>
+      </li><li>
+        <strong>2</strong>
+        <span>Pazara gidiyorum.</span>
+        <span class="candidate-actions"><button type="button" disabled="disabled" title="Parser editing is not connected yet">Split</button><button type="button" disabled="disabled" title="Parser editing is not connected yet">Merge</button></span>
+      </li><li>
+        <strong>3</strong>
+        <span>Bugün elma ve ekmek alacağım.</span>
+        <span class="candidate-actions"><button type="button" disabled="disabled" title="Parser editing is not connected yet">Split</button><button type="button" disabled="disabled" title="Parser editing is not connected yet">Merge</button></span>
+      </li><li>
+        <strong>4</strong>
+        <span>Sonra evde kahve içeceğiz.</span>
+        <span class="candidate-actions"><button type="button" disabled="disabled" title="Parser editing is not connected yet">Split</button><button type="button" disabled="disabled" title="Parser editing is not connected yet">Merge</button></span>
+      </li></ol>
+              <div class="validation-list">
+    <span>Language set</span>
+    <span>4 sentence candidates</span>
+    <span>Audio optional</span>
+    <span>Source URL captured</span>
+    <span>Ready for parser job</span>
+  </div>
+              <div class="import-review-actions">
+                <button type="button" data-import-stage="source" class="is-active">Back to source</button>
+                <button type="button" id="rerun-import-preview">Re-run detection</button>
+                <button class="primary-action" type="button" data-import-stage="annotations">Review annotations</button>
+              </div>
+            </section>
+            <section class="import-preview import-review-panel" id="annotation-review" aria-label="Import annotation review" hidden="">
+              <div class="eyebrow">Editable preview</div>
+              <h2>Annotations above the resulting reader</h2>
+              <p class="supporting-copy">The review sits underneath the source form for width. A wide-screen side-by-side version can still be compared later.</p>
+              <div id="import-annotation-list" class="import-annotation-list"><article class="annotation-review-row">
+        <div><span>Sentence 1</span><strong>Merhaba.</strong></div>
+        <label>Translation <input type="text" placeholder="Add or correct sentence translation"></label>
+        <label>Token / lemma / gloss notes <textarea rows="2" placeholder="Parser output will appear here for correction"></textarea></label>
+        <div class="annotation-reader-preview"><span>Reader preview</span><p>Merhaba.</p></div>
+      </article><article class="annotation-review-row">
+        <div><span>Sentence 2</span><strong>Pazara gidiyorum.</strong></div>
+        <label>Translation <input type="text" placeholder="Add or correct sentence translation"></label>
+        <label>Token / lemma / gloss notes <textarea rows="2" placeholder="Parser output will appear here for correction"></textarea></label>
+        <div class="annotation-reader-preview"><span>Reader preview</span><p>Pazara gidiyorum.</p></div>
+      </article><article class="annotation-review-row">
+        <div><span>Sentence 3</span><strong>Bugün elma ve ekmek alacağım.</strong></div>
+        <label>Translation <input type="text" placeholder="Add or correct sentence translation"></label>
+        <label>Token / lemma / gloss notes <textarea rows="2" placeholder="Parser output will appear here for correction"></textarea></label>
+        <div class="annotation-reader-preview"><span>Reader preview</span><p>Bugün elma ve ekmek alacağım.</p></div>
+      </article><article class="annotation-review-row">
+        <div><span>Sentence 4</span><strong>Sonra evde kahve içeceğiz.</strong></div>
+        <label>Translation <input type="text" placeholder="Add or correct sentence translation"></label>
+        <label>Token / lemma / gloss notes <textarea rows="2" placeholder="Parser output will appear here for correction"></textarea></label>
+        <div class="annotation-reader-preview"><span>Reader preview</span><p>Sonra evde kahve içeceğiz.</p></div>
+      </article></div>
+              <div class="import-review-actions">
+                <button type="button" data-import-stage="structure">Back to structure</button>
+                <button type="button" disabled="disabled" title="Backend persistence is not connected yet">Save draft (backend later)</button>
+                <button class="primary-action" id="mock-import-confirm" type="button">Confirm import</button>
+                <button type="button" id="open-import-reader">Open in Reader</button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="app-view is-active" id="reader-view" aria-label="Reader workspace">
+          <div class="workspace">
+            <section class="reader-panel" aria-label="Interlinear reader">
+          <div class="reader-toolbar">
+            <div class="document-meta">
+              <span id="language-name">French</span>
+              <span id="sentence-count">3 sentences</span>
+              <span id="direction-label">LTR</span>
+            </div>
+
+            <label class="preset-control">
+              View
+              <select id="row-preset" title="Choose a saved reader row arrangement">
+                <option value="reading">Reading</option>
+                <option value="interlinear" selected="selected">Interlinear</option>
+                <option value="morphology">Morphology</option>
+                <option value="cloze">Cloze</option>
+                <option value="minimal">Minimal</option>
+              </select>
+            </label>
+
+            <label class="preset-control">
+              Cloze
+              <select id="cloze-mode" title="Hide reader fields for active recall">
+                <option value="off" selected="selected">Off</option>
+                <option value="blank">Hide answer fields</option>
+                <option value="first">First character</option>
+              </select>
+            </label>
+
+            <div class="row-menu" aria-label="Visible interlinear rows">
+              <label class="row-chip transliteration-chip" title="Pronunciation or romanization row"><input type="checkbox" data-row="transliteration" checked="checked"> Transliteration</label>
+              <label class="row-chip morphs-chip" title="Morpheme segmentation row"><input type="checkbox" data-row="morphs" checked="checked"> Morphs</label>
+              <label class="row-chip gloss-chip" title="Short word-by-word meaning row"><input type="checkbox" data-row="gloss" checked="checked"> Gloss</label>
+              <label class="row-chip lemma-chip" title="Dictionary headword row"><input type="checkbox" data-row="lemma" checked="checked"> Lemma</label>
+              <label class="row-chip root-chip" title="Root or stem row when parser data exists"><input type="checkbox" data-row="root"> Root</label>
+              <label class="row-chip pos-chip" title="Part of speech row"><input type="checkbox" data-row="pos" checked="checked"> POS</label>
+              <label class="row-chip features-chip" title="Grammar feature row"><input type="checkbox" data-row="features" checked="checked"> Features</label>
+            </div>
+          </div>
+
+          <div id="reader" class="reader ltr " aria-live="polite" dir="ltr"><div class="reader-inner"><section class="sentence is-active" data-sentence="0"><div class="sentence-progress">Active sentence</div><p class="sentence-translation">The little prince looks at the stars.</p><div class="sentence-tokens"><article class="token-stack  " data-sentence="0" data-token="0"><div class="token-row surface"><button class="clickable" type="button">Le</button></div><div class="token-row transliteration">lə</div><div class="token-row morphs"><span><button class="clickable" type="button">le</button></span></div><div class="token-row gloss">the</div><div class="token-row lemma"><button class="clickable" type="button">le</button></div><div class="token-row pos"><button class="clickable" type="button">DET</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Definite</button><button class="clickable feature-pill" type="button">Masc</button><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="0" data-token="1"><div class="token-row surface"><button class="clickable" type="button">petit</button></div><div class="token-row transliteration">pə.ti</div><div class="token-row morphs"><span><button class="clickable" type="button">petit</button></span></div><div class="token-row gloss">small</div><div class="token-row lemma"><button class="clickable" type="button">petit</button></div><div class="token-row pos"><button class="clickable" type="button">ADJ</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Masc</button><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="0" data-token="2"><div class="token-row surface"><button class="clickable" type="button">prince</button></div><div class="token-row transliteration">pʁɛ̃s</div><div class="token-row morphs"><span><button class="clickable" type="button">prince</button></span></div><div class="token-row gloss">prince</div><div class="token-row lemma"><button class="clickable" type="button">prince</button></div><div class="token-row pos"><button class="clickable" type="button">NOUN</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Masc</button><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="0" data-token="3"><div class="token-row surface"><button class="clickable" type="button">regarde</button></div><div class="token-row transliteration">ʁə.ɡaʁd</div><div class="token-row morphs"><span><button class="clickable" type="button">regard</button>-<button class="clickable" type="button">e</button></span></div><div class="token-row gloss">look-3SG</div><div class="token-row lemma"><button class="clickable" type="button">regarder</button></div><div class="token-row pos"><button class="clickable" type="button">VERB</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Pres</button><button class="clickable feature-pill" type="button">3SG</button></span></div></article><article class="token-stack is-selected is-current" data-sentence="0" data-token="4"><div class="token-row surface"><button class="clickable" type="button">les</button></div><div class="token-row transliteration">le</div><div class="token-row morphs"><span><button class="clickable" type="button">le</button>-<button class="clickable" type="button">s</button></span></div><div class="token-row gloss">the-PL</div><div class="token-row lemma"><button class="clickable" type="button">le</button></div><div class="token-row pos"><button class="clickable" type="button">DET</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Definite</button><button class="clickable feature-pill" type="button">Plur</button></span></div></article><article class="token-stack  " data-sentence="0" data-token="5"><div class="token-row surface"><button class="clickable" type="button">étoiles</button></div><div class="token-row transliteration">e.twal</div><div class="token-row morphs"><span><button class="clickable" type="button">étoile</button>-<button class="clickable" type="button">s</button></span></div><div class="token-row gloss">star-PL</div><div class="token-row lemma"><button class="clickable" type="button">étoile</button></div><div class="token-row pos"><button class="clickable" type="button">NOUN</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Fem</button><button class="clickable feature-pill" type="button">Plur</button></span></div></article><article class="token-stack  " data-sentence="0" data-token="6"><div class="token-row surface"><button class="clickable" type="button">.</button></div><div class="token-row morphs"><span><button class="clickable" type="button">.</button></span></div><div class="token-row gloss">.</div><div class="token-row lemma"><button class="clickable" type="button">.</button></div><div class="token-row pos"><button class="clickable" type="button">PUNCT</button></div></article></div></section><section class="sentence " data-sentence="1"><div class="sentence-progress">Sentence 2</div><p class="sentence-translation">He asks a question to the pilot.</p><div class="sentence-tokens"><article class="token-stack  " data-sentence="1" data-token="0"><div class="token-row surface"><button class="clickable" type="button">Il</button></div><div class="token-row transliteration">il</div><div class="token-row morphs"><span><button class="clickable" type="button">il</button></span></div><div class="token-row gloss">he</div><div class="token-row lemma"><button class="clickable" type="button">il</button></div><div class="token-row pos"><button class="clickable" type="button">PRON</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Masc</button><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="1" data-token="1"><div class="token-row surface"><button class="clickable" type="button">pose</button></div><div class="token-row transliteration">poz</div><div class="token-row morphs"><span><button class="clickable" type="button">pos</button>-<button class="clickable" type="button">e</button></span></div><div class="token-row gloss">ask-3SG</div><div class="token-row lemma"><button class="clickable" type="button">poser</button></div><div class="token-row pos"><button class="clickable" type="button">VERB</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Pres</button><button class="clickable feature-pill" type="button">3SG</button></span></div></article><article class="token-stack  " data-sentence="1" data-token="2"><div class="token-row surface"><button class="clickable" type="button">une</button></div><div class="token-row transliteration">yn</div><div class="token-row morphs"><span><button class="clickable" type="button">un</button>-<button class="clickable" type="button">e</button></span></div><div class="token-row gloss">a-FEM</div><div class="token-row lemma"><button class="clickable" type="button">un</button></div><div class="token-row pos"><button class="clickable" type="button">DET</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Indef</button><button class="clickable feature-pill" type="button">Fem</button><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="1" data-token="3"><div class="token-row surface"><button class="clickable" type="button">question</button></div><div class="token-row transliteration">kɛs.tjɔ̃</div><div class="token-row morphs"><span><button class="clickable" type="button">question</button></span></div><div class="token-row gloss">question</div><div class="token-row lemma"><button class="clickable" type="button">question</button></div><div class="token-row pos"><button class="clickable" type="button">NOUN</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Fem</button><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="1" data-token="4"><div class="token-row surface"><button class="clickable" type="button">au</button></div><div class="token-row transliteration">o</div><div class="token-row morphs"><span><button class="clickable" type="button">à+le</button></span></div><div class="token-row gloss">to+the</div><div class="token-row lemma"><button class="clickable" type="button">à</button></div><div class="token-row pos"><button class="clickable" type="button">ADP+DET</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Contracted</button></span></div></article><article class="token-stack  " data-sentence="1" data-token="5"><div class="token-row surface"><button class="clickable" type="button">pilote</button></div><div class="token-row transliteration">pi.lɔt</div><div class="token-row morphs"><span><button class="clickable" type="button">pilote</button></span></div><div class="token-row gloss">pilot</div><div class="token-row lemma"><button class="clickable" type="button">pilote</button></div><div class="token-row pos"><button class="clickable" type="button">NOUN</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="1" data-token="6"><div class="token-row surface"><button class="clickable" type="button">.</button></div><div class="token-row morphs"><span><button class="clickable" type="button">.</button></span></div><div class="token-row gloss">.</div><div class="token-row lemma"><button class="clickable" type="button">.</button></div><div class="token-row pos"><button class="clickable" type="button">PUNCT</button></div></article></div></section><section class="sentence " data-sentence="2"><div class="sentence-progress">Sentence 3</div><p class="sentence-translation">The rose is beautiful, but she is difficult.</p><div class="sentence-tokens"><article class="token-stack  " data-sentence="2" data-token="0"><div class="token-row surface"><button class="clickable" type="button">La</button></div><div class="token-row transliteration">la</div><div class="token-row morphs"><span><button class="clickable" type="button">la</button></span></div><div class="token-row gloss">the</div><div class="token-row lemma"><button class="clickable" type="button">le</button></div><div class="token-row pos"><button class="clickable" type="button">DET</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Definite</button><button class="clickable feature-pill" type="button">Fem</button><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="2" data-token="1"><div class="token-row surface"><button class="clickable" type="button">rose</button></div><div class="token-row transliteration">ʁoz</div><div class="token-row morphs"><span><button class="clickable" type="button">rose</button></span></div><div class="token-row gloss">rose</div><div class="token-row lemma"><button class="clickable" type="button">rose</button></div><div class="token-row pos"><button class="clickable" type="button">NOUN</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Fem</button><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="2" data-token="2"><div class="token-row surface"><button class="clickable" type="button">est</button></div><div class="token-row transliteration">ɛ</div><div class="token-row morphs"><span><button class="clickable" type="button">est</button></span></div><div class="token-row gloss">is</div><div class="token-row lemma"><button class="clickable" type="button">être</button></div><div class="token-row pos"><button class="clickable" type="button">AUX</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Pres</button><button class="clickable feature-pill" type="button">3SG</button></span></div></article><article class="token-stack  " data-sentence="2" data-token="3"><div class="token-row surface"><button class="clickable" type="button">belle</button></div><div class="token-row transliteration">bɛl</div><div class="token-row morphs"><span><button class="clickable" type="button">bell</button>-<button class="clickable" type="button">e</button></span></div><div class="token-row gloss">beautiful-FEM</div><div class="token-row lemma"><button class="clickable" type="button">beau</button></div><div class="token-row pos"><button class="clickable" type="button">ADJ</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Fem</button><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="2" data-token="4"><div class="token-row surface"><button class="clickable" type="button">,</button></div><div class="token-row morphs"><span><button class="clickable" type="button">,</button></span></div><div class="token-row gloss">,</div><div class="token-row lemma"><button class="clickable" type="button">,</button></div><div class="token-row pos"><button class="clickable" type="button">PUNCT</button></div></article><article class="token-stack  " data-sentence="2" data-token="5"><div class="token-row surface"><button class="clickable" type="button">mais</button></div><div class="token-row transliteration">mɛ</div><div class="token-row morphs"><span><button class="clickable" type="button">mais</button></span></div><div class="token-row gloss">but</div><div class="token-row lemma"><button class="clickable" type="button">mais</button></div><div class="token-row pos"><button class="clickable" type="button">CCONJ</button></div></article><article class="token-stack  " data-sentence="2" data-token="6"><div class="token-row surface"><button class="clickable" type="button">elle</button></div><div class="token-row transliteration">ɛl</div><div class="token-row morphs"><span><button class="clickable" type="button">elle</button></span></div><div class="token-row gloss">she</div><div class="token-row lemma"><button class="clickable" type="button">elle</button></div><div class="token-row pos"><button class="clickable" type="button">PRON</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Fem</button><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="2" data-token="7"><div class="token-row surface"><button class="clickable" type="button">est</button></div><div class="token-row transliteration">ɛ</div><div class="token-row morphs"><span><button class="clickable" type="button">est</button></span></div><div class="token-row gloss">is</div><div class="token-row lemma"><button class="clickable" type="button">être</button></div><div class="token-row pos"><button class="clickable" type="button">AUX</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Pres</button><button class="clickable feature-pill" type="button">3SG</button></span></div></article><article class="token-stack  " data-sentence="2" data-token="8"><div class="token-row surface"><button class="clickable" type="button">difficile</button></div><div class="token-row transliteration">di.fi.sil</div><div class="token-row morphs"><span><button class="clickable" type="button">difficile</button></span></div><div class="token-row gloss">difficult</div><div class="token-row lemma"><button class="clickable" type="button">difficile</button></div><div class="token-row pos"><button class="clickable" type="button">ADJ</button></div><div class="token-row features"><span><button class="clickable feature-pill" type="button">Sing</button></span></div></article><article class="token-stack  " data-sentence="2" data-token="9"><div class="token-row surface"><button class="clickable" type="button">.</button></div><div class="token-row morphs"><span><button class="clickable" type="button">.</button></span></div><div class="token-row gloss">.</div><div class="token-row lemma"><button class="clickable" type="button">.</button></div><div class="token-row pos"><button class="clickable" type="button">PUNCT</button></div></article></div></section><div class="reader-end-actions"><button type="button">Review word list</button></div></div></div>
+
+          <section class="word-list-panel" id="word-list-panel" hidden="">
+            <div class="word-list-header">
+              <div>
+                <div class="eyebrow">Learning list</div>
+                <h2>Words in this text</h2>
+              </div>
+              <div class="word-list-controls">
+                <label>
+                  Sort
+                  <select id="word-sort">
+                    <option value="knowledge" selected="selected">Unknown first</option>
+                    <option value="target">Target value</option>
+                    <option value="frequency">Frequency</option>
+                    <option value="alphabetic">Alphabetic</option>
+                  </select>
+                </label>
+                <label>
+                  View
+                  <select id="word-list-view">
+                    <option value="compact">Compact</option>
+                    <option value="interlinear" selected="selected">Interlinear</option>
+                    <option value="cloze">Cloze</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+            <div id="word-list-content" class="word-list-content"><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>Le</strong>
+        <span class="transliteration">lə</span>
+        <span class="morphs">le</span>
+        <span class="gloss">the</span>
+        <span class="lemma">le</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>3</strong></div>
+      <div><span>Target</span><strong>99</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>petit</strong>
+        <span class="transliteration">pə.ti</span>
+        <span class="morphs">petit</span>
+        <span class="gloss">small</span>
+        <span class="lemma">petit</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>prince</strong>
+        <span class="transliteration">pʁɛ̃s</span>
+        <span class="morphs">prince</span>
+        <span class="gloss">prince</span>
+        <span class="lemma">prince</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>regarde</strong>
+        <span class="transliteration">ʁə.ɡaʁd</span>
+        <span class="morphs">regard-e</span>
+        <span class="gloss">look-3SG</span>
+        <span class="lemma">regarder</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>étoiles</strong>
+        <span class="transliteration">e.twal</span>
+        <span class="morphs">étoile-s</span>
+        <span class="gloss">star-PL</span>
+        <span class="lemma">étoile</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>Il</strong>
+        <span class="transliteration">il</span>
+        <span class="morphs">il</span>
+        <span class="gloss">he</span>
+        <span class="lemma">il</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>pose</strong>
+        <span class="transliteration">poz</span>
+        <span class="morphs">pos-e</span>
+        <span class="gloss">ask-3SG</span>
+        <span class="lemma">poser</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>une</strong>
+        <span class="transliteration">yn</span>
+        <span class="morphs">un-e</span>
+        <span class="gloss">a-FEM</span>
+        <span class="lemma">un</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>question</strong>
+        <span class="transliteration">kɛs.tjɔ̃</span>
+        <span class="morphs">question</span>
+        <span class="gloss">question</span>
+        <span class="lemma">question</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>au</strong>
+        <span class="transliteration">o</span>
+        <span class="morphs">à+le</span>
+        <span class="gloss">to+the</span>
+        <span class="lemma">à</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>pilote</strong>
+        <span class="transliteration">pi.lɔt</span>
+        <span class="morphs">pilote</span>
+        <span class="gloss">pilot</span>
+        <span class="lemma">pilote</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>rose</strong>
+        <span class="transliteration">ʁoz</span>
+        <span class="morphs">rose</span>
+        <span class="gloss">rose</span>
+        <span class="lemma">rose</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>est</strong>
+        <span class="transliteration">ɛ</span>
+        <span class="morphs">est</span>
+        <span class="gloss">is</span>
+        <span class="lemma">être</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>2</strong></div>
+      <div><span>Target</span><strong>91</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>belle</strong>
+        <span class="transliteration">bɛl</span>
+        <span class="morphs">bell-e</span>
+        <span class="gloss">beautiful-FEM</span>
+        <span class="lemma">beau</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>mais</strong>
+        <span class="transliteration">mɛ</span>
+        <span class="morphs">mais</span>
+        <span class="gloss">but</span>
+        <span class="lemma">mais</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>elle</strong>
+        <span class="transliteration">ɛl</span>
+        <span class="morphs">elle</span>
+        <span class="gloss">she</span>
+        <span class="lemma">elle</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article><article class="word-card word-card-interlinear">
+      <div class="mini-token">
+        <strong>difficile</strong>
+        <span class="transliteration">di.fi.sil</span>
+        <span class="morphs">difficile</span>
+        <span class="gloss">difficult</span>
+        <span class="lemma">difficile</span>
+      </div>
+      <div><span>Learning stage</span><div class="meter"><i style="width:0%"></i></div><strong>New</strong></div>
+      <div><span>Due</span><strong>Today</strong></div>
+      <div><span>Seen</span><strong>1</strong></div>
+      <div><span>Target</span><strong>83</strong></div>
+    </article></div>
+          </section>
+        </section>
+
+        <aside class="inspector" id="inspector-panel" aria-label="Selected linguistic item">
+          <div class="inspector-header">
+            <div>
+              <div class="eyebrow">Inspector</div>
+              <h2 id="inspect-title">les</h2>
+            </div>
+            <div class="inspector-header-actions">
+              <div class="knowledge-stepper" aria-label="Learning stage">
+                <button id="knowledge-down" type="button" aria-label="Move learning stage down" disabled="disabled">↓</button>
+                <strong id="knowledge-stage">New</strong>
+                <button id="knowledge-up" type="button" aria-label="Move learning stage up">↑</button>
+              </div>
+              <button class="icon-button" id="inspector-close" type="button" aria-label="Close inspector">x</button>
+            </div>
+          </div>
+          <dl id="inspect-details" class="detail-list"><div><dt>Type</dt><dd>token</dd></div><div><dt>Lemma</dt><dd>le</dd></div><div><dt>Root</dt><dd>—</dd></div><div><dt>Morphs</dt><dd>le-s</dd></div><div><dt>Gloss</dt><dd>the-PL</dd></div><div><dt>Part of speech</dt><dd>DET</dd></div><div><dt>Features</dt><dd>Definite, Plur</dd></div></dl>
+          <div class="inspector-actions">
+            <button type="button">Add note</button>
+            <button type="button">Create cloze</button>
+            <button type="button">Open page</button>
+          </div>
+        </aside>
+
+        <aside class="settings-panel" id="settings-panel" aria-label="Reader settings" hidden="">
+          <div class="settings-header">
+            <div>
+              <div class="eyebrow">Per-language settings</div>
+              <h2>Display</h2>
+            </div>
+            <button class="icon-button" id="settings-close" type="button" aria-label="Close settings">x</button>
+          </div>
+
+          <label>
+            Target font size
+            <input id="target-size" type="range" min="18" max="42" value="27">
+          </label>
+          <label>
+            Annotation font size
+            <input id="annotation-size" type="range" min="10" max="20" value="13">
+          </label>
+          <label>
+            Token gap
+            <input id="token-gap" type="range" min="8" max="34" value="18">
+          </label>
+          <label>
+            Row gap
+            <input id="row-gap" type="range" min="1" max="10" value="4">
+          </label>
+          <label>
+            Reading width
+            <input id="reading-width" type="range" min="760" max="1320" value="1120">
+          </label>
+          <label>
+            RTL transliteration
+            <select id="rtl-transliteration-mode">
+              <option value="normal" selected="selected">Normal Latin</option>
+              <option value="rtl">RTL token flow</option>
+              <option value="reverse">Reverse Latin characters</option>
+              <option value="morpheme">Reverse by morpheme</option>
+            </select>
+          </label>
+
+          <div class="color-grid">
+            <label>Original <input id="original-color" type="color" value="#13201b"></label>
+            <label>Translit. <input id="transliteration-color" type="color" value="#59656f"></label>
+            <label>Morphs <input id="morphs-color" type="color" value="#9a5a1f"></label>
+            <label>Gloss <input id="gloss-color" type="color" value="#42526b"></label>
+            <label>Lemma <input id="lemma-color" type="color" value="#2f6f4f"></label>
+            <label>Root/Stem <input id="root-color" type="color" value="#6b4f2a"></label>
+            <label>POS <input id="pos-color" type="color" value="#755a13"></label>
+            <label>Feature <input id="feature-color" type="color" value="#315b9d"></label>
+            <label>Highlight <input id="highlight-color" type="color" value="#fff2a8"></label>
+          </div>
+
+          <div class="density-buttons" aria-label="Density presets">
+            <button type="button" data-density="comfortable">Comfortable</button>
+            <button type="button" data-density="standard">Standard</button>
+            <button type="button" data-density="compact">Compact</button>
+          </div>
+        </aside>
+          </div>
+        </section>
+
+        <section class="app-view" id="dictionary-view" aria-label="Dictionary and entities">
+          <div class="page-band dictionary-layout">
+            <section>
+              <div class="page-heading compact-heading">
+                <div>
+                <div class="eyebrow">Dictionary</div>
+                  <h2>Words, roots, and morphology in one language</h2>
+                </div>
+                <input class="search-input" id="dictionary-search" type="search" placeholder="Search words, meanings, roots, or morphemes" aria-label="Search dictionary">
+              </div>
+              <div class="dictionary-controls">
+                <label>Language
+                  <select id="dictionary-language">
+                    <option value="french" selected="selected">French</option>
+                    <option value="hebrew">Hebrew</option>
+                    <option value="arabic">Arabic</option>
+                    <option value="turkish">Turkish</option>
+                  </select>
+                </label>
+                <label>Scope
+                  <select id="dictionary-scope">
+                    <option value="recent" selected="selected">Recent words</option>
+                    <option value="target">Target lexicon</option>
+                    <option value="all">Whole dictionary</option>
+                  </select>
+                </label>
+                <label>Root contains
+                  <input id="dictionary-root-filter" type="search" placeholder="e.g. k-t-b">
+                </label>
+                <label>Morpheme/type
+                  <input id="dictionary-morph-filter" type="search" placeholder="e.g. plural, -ler">
+                </label>
+                <label>Part of speech
+                  <select id="dictionary-pos-filter">
+                    <option value="all" selected="selected">All</option>
+                    <option value="NOUN">Noun</option>
+                    <option value="VERB">Verb</option>
+                    <option value="ADJ">Adjective</option>
+                    <option value="PRON">Pronoun</option>
+                    <option value="other">Other</option>
+                  </select>
+                </label>
+                <label class="advanced-structure-toggle"><input id="dictionary-advanced" type="checkbox"> Expanded structural detail</label>
+              </div>
+              <div class="entity-list" id="entity-list"><div class="entity-table word-dictionary-table ">
+    <div class="entity-table-head">
+      <span>Word / lemma</span><span>Meaning</span><span>Root</span><span>Morphology</span><span>POS</span><span>Learning stage</span><span>Seen</span><span>Source</span>
+      
+    </div>
+  <button class="entity-table-row is-active" type="button">
+      <strong>le</strong>
+      <span>the</span>
+      <span>—</span>
+      <span>le, le-s, la</span>
+      <span>DET</span>
+      <span><div class="meter"><i style="width:0%"></i></div>New</span>
+      <span>3</span>
+      <span>French baseline: Le petit prince</span>
+      
+    </button><button class="entity-table-row " type="button">
+      <strong>un</strong>
+      <span>a-FEM</span>
+      <span>—</span>
+      <span>un-e</span>
+      <span>DET</span>
+      <span><div class="meter"><i style="width:0%"></i></div>New</span>
+      <span>1</span>
+      <span>French baseline: Le petit prince</span>
+      
+    </button><button class="entity-table-row " type="button">
+      <strong>question</strong>
+      <span>question</span>
+      <span>—</span>
+      <span>question</span>
+      <span>NOUN</span>
+      <span><div class="meter"><i style="width:0%"></i></div>New</span>
+      <span>1</span>
+      <span>French baseline: Le petit prince</span>
+      
+    </button><button class="entity-table-row " type="button">
+      <strong>à</strong>
+      <span>to+the</span>
+      <span>—</span>
+      <span>à+le</span>
+      <span>ADP+DET</span>
+      <span><div class="meter"><i style="width:0%"></i></div>New</span>
+      <span>1</span>
+      <span>French baseline: Le petit prince</span>
+      
+    </button><button class="entity-table-row " type="button">
+      <strong>pilote</strong>
+      <span>pilot</span>
+      <span>—</span>
+      <span>pilote</span>
+      <span>NOUN</span>
+      <span><div class="meter"><i style="width:0%"></i></div>New</span>
+      <span>1</span>
+      <span>French baseline: Le petit prince</span>
+      
+    </button><button class="entity-table-row " type="button">
+      <strong>rose</strong>
+      <span>rose</span>
+      <span>—</span>
+      <span>rose</span>
+      <span>NOUN</span>
+      <span><div class="meter"><i style="width:0%"></i></div>New</span>
+      <span>1</span>
+      <span>French baseline: Le petit prince</span>
+      
+    </button><button class="entity-table-row " type="button">
+      <strong>être</strong>
+      <span>is</span>
+      <span>—</span>
+      <span>est</span>
+      <span>AUX</span>
+      <span><div class="meter"><i style="width:0%"></i></div>New</span>
+      <span>2</span>
+      <span>French baseline: Le petit prince</span>
+      
+    </button><button class="entity-table-row " type="button">
+      <strong>beau</strong>
+      <span>beautiful-FEM</span>
+      <span>—</span>
+      <span>bell-e</span>
+      <span>ADJ</span>
+      <span><div class="meter"><i style="width:0%"></i></div>New</span>
+      <span>1</span>
+      <span>French baseline: Le petit prince</span>
+      
+    </button><button class="entity-table-row " type="button">
+      <strong>mais</strong>
+      <span>but</span>
+      <span>—</span>
+      <span>mais</span>
+      <span>CCONJ</span>
+      <span><div class="meter"><i style="width:0%"></i></div>New</span>
+      <span>1</span>
+      <span>French baseline: Le petit prince</span>
+      
+    </button><button class="entity-table-row " type="button">
+      <strong>elle</strong>
+      <span>she</span>
+      <span>—</span>
+      <span>elle</span>
+      <span>PRON</span>
+      <span><div class="meter"><i style="width:0%"></i></div>New</span>
+      <span>1</span>
+      <span>French baseline: Le petit prince</span>
+      
+    </button><button class="entity-table-row " type="button">
+      <strong>difficile</strong>
+      <span>difficult</span>
+      <span>—</span>
+      <span>difficile</span>
+      <span>ADJ</span>
+      <span><div class="meter"><i style="width:0%"></i></div>New</span>
+      <span>1</span>
+      <span>French baseline: Le petit prince</span>
+      
+    </button></div></div>
+            </section>
+            <aside class="entity-detail" id="entity-detail" aria-label="Selected entity detail">
+    <div class="eyebrow">French word</div>
+    <h2>le</h2>
+    <p class="entity-meaning">the</p>
+    <dl class="detail-list">
+      <div><dt>Learning stage</dt><dd>New</dd></div>
+      <div><dt>Root</dt><dd>—</dd></div>
+      <div><dt>Morphology</dt><dd>le, le-s, la</dd></div>
+      <div><dt>Features</dt><dd>Definite, Masc, Sing, Plur, Fem</dd></div>
+      <div><dt>Source text</dt><dd>French baseline: Le petit prince</dd></div>
+      <div><dt>Personal editing</dt><dd>Learner note, preferred gloss, learning stage</dd></div>
+      <div><dt>Shared editing</dt><dd>Requires later permissions and provenance rules</dd></div>
+    </dl>
+    <h3>Corpus examples</h3>
+    <ul><li>Le petit prince regarde les étoiles.</li><li>La rose est belle, mais elle est difficile.</li></ul>
+    <h3>Forms and structural matches</h3>
+    <div class="tag-row"><span>Le</span><span>les</span><span>La</span><span>Definite</span><span>Masc</span><span>Sing</span><span>Plur</span><span>Fem</span></div>
+  </aside>
+          </div>
+        </section>
+
+        <section class="app-view" id="progress-view" aria-label="Learning progress">
+          <div class="page-band">
+            <div class="page-heading">
+              <div>
+                <div class="eyebrow">Progress</div>
+                <h2>Reading, cloze, and speaking score draft</h2>
+              </div>
+              <button class="primary-action" type="button" data-switch-view="reader">Practice now</button>
+            </div>
+            <div class="progress-grid" id="progress-grid"><article class="progress-card"><span>All languages</span><strong>0% stage progress</strong><p>43 tracked lemmas · derived only from New/Learning/Acquainted/Well known stages</p></article><article class="progress-card"><span>French</span><strong>0% stage progress</strong><p>17 tracked words · 3 reading units · active language</p></article><article class="progress-card"><span>Hebrew</span><strong>0% stage progress</strong><p>10 tracked words · 2 reading units · available</p></article><article class="progress-card"><span>Arabic</span><strong>0% stage progress</strong><p>10 tracked words · 2 reading units · available</p></article><article class="progress-card"><span>Turkish</span><strong>0% stage progress</strong><p>6 tracked words · 3 reading units · available</p></article></div>
+            <section class="schedule-panel" aria-label="User scheduling suggestions">
+              <div class="page-heading compact-heading">
+                <div>
+                  <div class="eyebrow">User Scheduling</div>
+                  <h2>Suggested next work</h2>
+                </div>
+              </div>
+              <div id="schedule-list" class="schedule-list"><article class="schedule-card"><span>Review candidate</span><strong>Review New and Learning words in the current reader</strong><p>Stage-based placeholder; scheduling method not yet selected</p></article><article class="schedule-card"><span>Target lexicon</span><strong>Distill high-frequency words from imported texts</strong><p>Frequency data + teacher targets</p></article><article class="schedule-card"><span>Grammar pattern</span><strong>Practise ablative/source patterns</strong><p>Parser feature examples</p></article><article class="schedule-card"><span>Teacher/Maven</span><strong>Assign a short dialogue with audio</strong><p>Speaking practice schedule</p></article></div>
+            </section>
+          </div>
+        </section>
+      </main>
+
+      <footer class="audio-bar" aria-label="Audio player">
+        <div class="transport">
+          <button type="button" id="previous-sentence" aria-label="Previous sentence">‹</button>
+          <button class="play-button" id="play-toggle" type="button">Play</button>
+          <button type="button" id="next-sentence" aria-label="Next sentence">›</button>
+        </div>
+        <div class="audio-status">
+          <span id="audio-label">French · sentence 1 of 3</span>
+          <div class="progress-track"><span id="progress-fill" style="width: 0%;"></span></div>
+        </div>
+        <div class="audio-options">
+          <label class="speed-slider">Speed <strong id="speed-value">0.85x</strong>
+            <input id="speed-range" type="range" min="25" max="160" step="5" value="85">
+          </label>
+          <button type="button" id="loop-toggle">Sentence loop</button>
+          <button type="button" id="ab-start">A</button>
+          <button type="button" id="ab-end">B</button>
+          <button type="button" id="ab-clear">Clear A-B</button>
+          <button type="button" id="record-button">Record</button>
+        </div>
+      </footer>
+    </div>
+
+    <script src="Polyglot%20Interlinear%20Reader%20Draft%203_files/app_0mW2.js"></script>
+  
+
+</body></html>
