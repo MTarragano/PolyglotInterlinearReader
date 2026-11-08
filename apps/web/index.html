@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Polyglot Interlinear Reader Draft</title>
-    <link rel="stylesheet" href="./styles.css?v=next-draft" />
+    <link rel="stylesheet" href="./styles.css?v=rtl-row-label-wrap-v2" />
   </head>
   <body>
     <div class="app-shell">
@@ -23,8 +23,8 @@
         </nav>
 
         <label class="language-select-control">
-          <span>Language</span>
-          <select id="language-select" aria-label="Learning language">
+          <span>Text</span>
+          <select id="language-select" aria-label="Reader text">
             <option value="french">French</option>
             <option value="hebrew">Hebrew</option>
             <option value="arabic">Arabic</option>
@@ -75,7 +75,7 @@
                 <select id="library-language-filter">
                   <option value="all" selected>All active</option>
                   <option value="french">French</option>
-                  <option value="hebrew">Hebrew</option>
+                  <option value="he">Hebrew</option>
                   <option value="arabic">Arabic</option>
                   <option value="turkish">Turkish</option>
                 </select>
@@ -87,98 +87,153 @@
 
         <section class="app-view" id="import-view" aria-label="Import text">
           <div class="page-band import-layout">
-            <nav class="import-stage-tabs" aria-label="Import review stages">
-              <button class="is-active" data-import-stage="source" type="button">1 Source</button>
-              <button data-import-stage="structure" type="button">2 Structure review</button>
-              <button data-import-stage="annotations" type="button">3 Annotation review</button>
-            </nav>
-            <section class="import-editor" aria-label="Draft import form">
-              <div class="page-heading compact-heading">
-                <div>
-                  <div class="eyebrow">Import</div>
-                  <h2>Preview-confirm text intake</h2>
-                </div>
-                <button class="primary-action" id="review-import" type="button">Review structure</button>
+            <header class="import-hero">
+              <div>
+                <div class="eyebrow">Import</div>
+                <h2>Paste text</h2>
+                <p>Add a language, then open the text in Reader.</p>
               </div>
-              <div class="form-grid">
-                <label>Title <input id="import-title" type="text" value="A small market dialogue" /></label>
-                <label>Language
-                  <select id="import-language">
-                    <option value="turkish">Turkish</option>
-                    <option value="arabic">Arabic</option>
-                    <option value="hebrew">Hebrew</option>
-                    <option value="french">French</option>
-                    <option value="new">Add a new language…</option>
-                  </select>
-                </label>
-                <label>Source <input type="text" value="Personal lesson draft" /></label>
-                <label>Tags <input type="text" value="dialogue, beginner, speaking" /></label>
-                <label>Original URL <input type="url" value="https://example.org/lesson/source" /></label>
-                <label>Record date <input type="date" value="2026-07-09" /></label>
-                <label class="file-field">Audio file <input type="file" accept="audio/*" /></label>
-                <label>Import purpose
-                  <select>
-                    <option>Reading + speaking practice</option>
-                    <option>Dictionary enrichment</option>
-                    <option>Teacher assignment</option>
-                    <option>External analysis</option>
-                  </select>
-                </label>
-              </div>
-              <label class="text-input-label">Original text
-                <textarea id="import-text" rows="9">Merhaba. Pazara gidiyorum.
+              <span class="import-save-state" id="import-save-state">Draft saved on this device</span>
+            </header>
+
+            <section class="import-simple-card" data-import-panel="source" id="source-review" aria-label="Source text">
+              <div class="import-stage-content import-editor">
+                <label class="import-primary-text">Paste or type source text
+                  <textarea id="import-text" rows="11" autofocus>Merhaba. Pazara gidiyorum.
 Bugün elma ve ekmek alacağım.
 Sonra evde kahve içeceğiz.</textarea>
-              </label>
-              <fieldset id="new-language-panel" class="new-language-panel" hidden>
-                <legend>New language defaults</legend>
-                <div class="form-grid">
-                  <label>Name <input id="new-language-name" type="text" placeholder="e.g. Welsh" /></label>
-                  <label>ISO code <input id="new-language-code" type="text" maxlength="12" placeholder="e.g. cy" /></label>
-                  <label>Writing direction
-                    <select id="new-language-direction">
-                      <option value="ltr">Left to right</option>
-                      <option value="rtl">Right to left</option>
+                </label>
+
+                <div class="import-language-row">
+                  <label>Language
+                    <select id="import-language">
+                      <option value="turkish">Turkish</option>
+                      <option value="arabic">Arabic</option>
+                      <option value="hebrew">Hebrew</option>
+                      <option value="french">French</option>
+                      <option value="new">Add a new language…</option>
                     </select>
                   </label>
-                  <label>Parser/tokenizer
-                    <select id="new-language-parser">
-                      <option value="generic">Generic word tokenizer</option>
-                      <option value="none">No automatic parsing</option>
-                    </select>
-                  </label>
-                  <label>Script/font preference <input id="new-language-script" type="text" placeholder="Optional" /></label>
-                  <label>Transliteration convention <input id="new-language-transliteration" type="text" placeholder="Optional" /></label>
+                  <span id="import-source-summary">Turkish · 12 words</span>
                 </div>
-              </fieldset>
+
+                <div class="import-entry-actions">
+                  <button class="primary-action import-open-reader" id="quick-read-import" type="button">Open in Reader</button>
+                  <span>Reader opens immediately. You can revise the import later.</span>
+                </div>
+
+                <details class="import-more-options">
+                  <summary>More import options</summary>
+                  <div class="import-more-options-body">
+                    <div class="form-grid">
+                      <label>Title <input id="import-title" type="text" value="A small market dialogue" /></label>
+                      <label>Source <input id="import-source" type="text" value="Personal lesson draft" /></label>
+                      <label>Original URL <input id="import-url" type="url" value="https://example.org/lesson/source" /></label>
+                      <label>Record date <input id="import-date" type="date" value="2026-07-09" /></label>
+                      <label>Tags <input id="import-tags" type="text" value="dialogue, beginner, speaking" /></label>
+                      <label class="file-field">Audio file <input id="import-audio" type="file" accept="audio/*" /></label>
+                      <label>Import purpose
+                        <select id="import-purpose">
+                          <option>Reading + speaking practice</option>
+                          <option>Dictionary enrichment</option>
+                          <option>Teacher assignment</option>
+                          <option>External analysis</option>
+                        </select>
+                      </label>
+                    </div>
+                    <button id="review-import" type="button">Review parsing before reading</button>
+                    <p class="supporting-copy">Future shared pages, captions and library texts can add their source details automatically.</p>
+                  </div>
+                </details>
+
+                <fieldset id="new-language-panel" class="new-language-panel" hidden>
+                  <legend>New language defaults</legend>
+                  <div class="form-grid">
+                    <label>Name <input id="new-language-name" type="text" placeholder="e.g. Welsh" /></label>
+                    <label>ISO code <input id="new-language-code" type="text" maxlength="12" placeholder="e.g. cy" /></label>
+                    <label>Writing direction
+                      <select id="new-language-direction">
+                        <option value="ltr">Left to right</option>
+                        <option value="rtl">Right to left</option>
+                      </select>
+                    </label>
+                    <label>Parser/tokenizer
+                      <select id="new-language-parser">
+                        <option value="generic">Generic word tokenizer</option>
+                        <option value="none">No automatic parsing</option>
+                      </select>
+                    </label>
+                    <label>Script/font preference <input id="new-language-script" type="text" placeholder="Optional" /></label>
+                    <label>Transliteration convention <input id="new-language-transliteration" type="text" placeholder="Optional" /></label>
+                  </div>
+                </fieldset>
+              </div>
             </section>
-            <section class="import-preview import-review-panel" id="structure-review" aria-label="Import structure review" hidden>
-              <div class="eyebrow">Preview</div>
-              <h2>Structure and sentence candidates</h2>
-              <p class="supporting-copy">Review the detected units. Split, merge, and reorder controls are represented here before parser integration.</p>
-              <ol id="import-preview-list" class="preview-list"></ol>
-              <div class="validation-list">
-                <span>Language set</span>
-                <span>3 sentence candidates</span>
-                <span>Ready for parser job</span>
-              </div>
-              <div class="import-review-actions">
-                <button type="button" data-import-stage="source">Back to source</button>
-                <button type="button" id="rerun-import-preview">Re-run detection</button>
-                <button class="primary-action" type="button" data-import-stage="annotations">Review annotations</button>
-              </div>
-            </section>
-            <section class="import-preview import-review-panel" id="annotation-review" aria-label="Import annotation review" hidden>
-              <div class="eyebrow">Editable preview</div>
-              <h2>Annotations above the resulting reader</h2>
-              <p class="supporting-copy">The review sits underneath the source form for width. A wide-screen side-by-side version can still be compared later.</p>
-              <div id="import-annotation-list" class="import-annotation-list"></div>
-              <div class="import-review-actions">
-                <button type="button" data-import-stage="structure">Back to structure</button>
-                <button type="button" disabled title="Backend persistence is not connected yet">Save draft (backend later)</button>
-                <button class="primary-action" id="mock-import-confirm" type="button">Confirm import</button>
-                <button type="button" id="open-import-reader">Open in Reader</button>
-              </div>
+
+            <section class="import-review-flow" id="import-review-flow" aria-label="Advanced import review" hidden>
+              <header class="import-review-flow-header">
+                <button type="button" data-import-stage="source">← Back to text</button>
+                <div><span>Optional review</span><strong>Check parsing before Reader</strong></div>
+              </header>
+
+              <article class="import-review-panel" data-import-panel="structure" id="structure-review" hidden>
+                <section class="import-stage-content import-preview" aria-label="Import structure review">
+                <div class="import-section-intro">
+                  <div>
+                    <div class="eyebrow">Structure</div>
+                    <h2>Check sentence breaks</h2>
+                    <p class="supporting-copy"><span id="import-structure-summary">Detected sentence candidates</span>. Continue if these divisions look right.</p>
+                  </div>
+                  <button type="button" id="rerun-import-preview">Re-run detection</button>
+                </div>
+                <ol id="import-preview-list" class="preview-list"></ol>
+                <div class="validation-list">
+                  <span>Language set</span>
+                  <span>3 sentence candidates</span>
+                  <span>Ready for parser job</span>
+                </div>
+                <div class="import-review-actions">
+                  <button type="button" data-import-stage="source">Edit source</button>
+                  <button class="primary-action" type="button" data-import-stage="annotations">Accept structure and continue</button>
+                </div>
+                </section>
+              </article>
+
+              <article class="import-review-panel" data-import-panel="annotations" id="annotation-review" hidden>
+                <section class="import-stage-content import-preview" aria-label="Import annotation review">
+                <div class="import-section-intro">
+                  <div>
+                    <div class="eyebrow">Annotations</div>
+                    <h2>Review optional linguistic notes</h2>
+                    <p class="supporting-copy"><span id="import-annotation-summary">Draft rows</span>. Leave fields blank and continue if you prefer.</p>
+                  </div>
+                  <button type="button" disabled title="Parser service is not connected yet">Re-run selected</button>
+                </div>
+                <div id="import-annotation-list" class="import-annotation-list"></div>
+                <div class="import-review-actions">
+                  <button type="button" data-import-stage="structure">Edit structure</button>
+                  <button type="button" disabled title="Local autosave is represented in this draft">Save draft</button>
+                  <button class="primary-action" type="button" data-import-stage="reader">Accept annotations and continue</button>
+                </div>
+                </section>
+              </article>
+
+              <article class="import-review-panel" data-import-panel="reader" id="reader-review" hidden>
+                <section class="import-stage-content import-reader-ready" aria-label="Imported text ready for Reader">
+                <div class="import-ready-icon" aria-hidden="true">✓</div>
+                <div>
+                  <div class="eyebrow">Ready to read</div>
+                  <h2 id="import-ready-title">A small market dialogue</h2>
+                  <p id="import-ready-description">Turkish · 3 sentences · annotation draft available</p>
+                  <p class="supporting-copy">Reader will retain links back to Source, Structure and Annotations so this document can be corrected later.</p>
+                </div>
+                <div class="import-ready-actions">
+                  <button class="primary-action" id="open-import-reader" type="button">Open Reader</button>
+                  <button id="mock-import-confirm" type="button">Save to library</button>
+                </div>
+                <span id="import-reader-summary" hidden>Ready</span>
+                </section>
+              </article>
             </section>
           </div>
         </section>
@@ -193,6 +248,16 @@ Sonra evde kahve içeceğiz.</textarea>
               <span id="direction-label">LTR</span>
             </div>
 
+            <details class="reader-document-menu">
+              <summary>Document</summary>
+              <div>
+                <button type="button" data-edit-import-stage="source">Edit source/details</button>
+                <button type="button" data-edit-import-stage="structure">Review structure</button>
+                <button type="button" data-edit-import-stage="annotations">Edit annotations</button>
+                <button type="button" data-edit-import-stage="source">View provenance</button>
+              </div>
+            </details>
+
             <label class="preset-control">
               View
               <select id="row-preset" title="Choose a saved reader row arrangement">
@@ -203,7 +268,6 @@ Sonra evde kahve içeceğiz.</textarea>
                 <option value="minimal">Minimal</option>
               </select>
             </label>
-
             <label class="preset-control">
               Cloze
               <select id="cloze-mode" title="Hide reader fields for active recall">
@@ -213,15 +277,21 @@ Sonra evde kahve içeceğiz.</textarea>
               </select>
             </label>
 
-            <div class="row-menu" aria-label="Visible interlinear rows">
-              <label class="row-chip transliteration-chip" title="Pronunciation or romanization row"><input type="checkbox" data-row="transliteration" checked /> Transliteration</label>
-              <label class="row-chip morphs-chip" title="Morpheme segmentation row"><input type="checkbox" data-row="morphs" checked /> Morphs</label>
-              <label class="row-chip gloss-chip" title="Short word-by-word meaning row"><input type="checkbox" data-row="gloss" checked /> Gloss</label>
-              <label class="row-chip lemma-chip" title="Dictionary headword row"><input type="checkbox" data-row="lemma" checked /> Lemma</label>
-              <label class="row-chip root-chip" title="Root or stem row when parser data exists"><input type="checkbox" data-row="root" /> Root</label>
-              <label class="row-chip pos-chip" title="Part of speech row"><input type="checkbox" data-row="pos" checked /> POS</label>
-              <label class="row-chip features-chip" title="Grammar feature row"><input type="checkbox" data-row="features" checked /> Features</label>
-            </div>
+            <details class="row-menu" aria-label="Visible interlinear rows">
+              <summary>Row Labels</summary>
+              <div class="row-menu-options">
+                <label class="row-chip" title="Sentence-level translation"><input type="checkbox" data-row="translation" checked /> Translation</label>
+                <label class="row-chip" title="Original script row"><input type="checkbox" data-row="surface" checked /> Original</label>
+                <label class="row-chip transliteration-chip" title="Pronunciation or romanization row"><input type="checkbox" data-row="transliteration" checked /> Transliteration</label>
+                <label class="row-chip morphs-chip" title="Morpheme segmentation row"><input type="checkbox" data-row="morphs" checked /> Morphs</label>
+                <label class="row-chip gloss-chip" title="Compact grammatical and inflectional gloss"><input type="checkbox" data-row="gloss" checked /> Grammar gloss</label>
+                <label class="row-chip word-translations-chip" title="All stored English meanings for this Hebrew surface spelling"><input type="checkbox" data-row="wordTranslations" /> Word meanings</label>
+                <label class="row-chip lemma-chip" title="Dictionary headword row"><input type="checkbox" data-row="lemma" checked /> Lemma</label>
+                <label class="row-chip root-chip" title="Root or stem row when parser data exists"><input type="checkbox" data-row="root" /> Root</label>
+                <label class="row-chip pos-chip" title="Part of speech row"><input type="checkbox" data-row="pos" checked /> POS</label>
+                <label class="row-chip features-chip" title="Grammar feature row"><input type="checkbox" data-row="features" checked /> Features</label>
+              </div>
+            </details>
           </div>
 
           <div id="reader" class="reader" aria-live="polite"></div>
@@ -313,16 +383,6 @@ Sonra evde kahve içeceğiz.</textarea>
             Reading width
             <input id="reading-width" type="range" min="760" max="1320" value="1120" />
           </label>
-          <label>
-            RTL transliteration
-            <select id="rtl-transliteration-mode">
-              <option value="normal">Normal Latin</option>
-              <option value="rtl">RTL token flow</option>
-              <option value="reverse">Reverse Latin characters</option>
-              <option value="morpheme">Reverse by morpheme</option>
-            </select>
-          </label>
-
           <div class="color-grid">
             <label>Original <input id="original-color" type="color" value="#13201b" /></label>
             <label>Translit. <input id="transliteration-color" type="color" value="#59656f" /></label>
@@ -440,6 +500,80 @@ Sonra evde kahve içeceğiz.</textarea>
       </footer>
     </div>
 
-    <script src="./app.js?v=next-draft"></script>
+    <section class="feedback-tools" data-feedback-ui aria-label="Design feedback">
+      <button class="feedback-launcher" id="feedback-review-toggle" type="button" aria-expanded="false" aria-controls="feedback-panel">
+        <span aria-hidden="true">＋</span>
+        <span>Feedback</span>
+        <span class="feedback-launcher-count" id="feedback-count">0</span>
+      </button>
+    </section>
+
+    <div class="feedback-pin-layer" id="feedback-pin-layer" data-feedback-ui aria-hidden="true"></div>
+
+    <aside class="feedback-panel" id="feedback-panel" data-feedback-ui aria-label="Draft design feedback" hidden>
+      <header class="feedback-panel-header">
+        <div>
+          <div class="eyebrow">Design feedback</div>
+          <h2>Your notes</h2>
+        </div>
+        <button class="feedback-icon-button" id="feedback-panel-close" type="button" aria-label="Close feedback panel">×</button>
+      </header>
+      <div class="feedback-start">
+        <p>Tap <strong>Add feedback</strong>, then tap the part of the draft you want to comment on.</p>
+        <button class="primary-action" id="feedback-toggle" type="button" aria-pressed="false">
+          <span aria-hidden="true">＋</span>
+          <span>Add feedback</span>
+        </button>
+      </div>
+      <div class="feedback-summary" aria-live="polite">
+        <strong><span id="feedback-local-count">0</span> notes</strong>
+        <span><span id="feedback-submitted-count">0</span> linked to GitHub</span>
+      </div>
+      <button class="primary-action feedback-send" id="feedback-send-github" type="button">Send unsent notes to GitHub</button>
+      <div class="feedback-list" id="feedback-list"></div>
+      <div class="feedback-panel-actions">
+        <details class="feedback-advanced">
+          <summary>Advanced</summary>
+          <div>
+            <button id="feedback-copy" type="button">Copy all notes</button>
+            <button id="feedback-export" type="button">Export all notes</button>
+            <button class="feedback-clear" id="feedback-clear" type="button">Delete local notes</button>
+          </div>
+        </details>
+      </div>
+      <p class="feedback-status" id="feedback-status" role="status" aria-live="polite"></p>
+    </aside>
+
+    <dialog class="feedback-dialog" id="feedback-dialog" data-feedback-ui aria-labelledby="feedback-dialog-title">
+      <form method="dialog" id="feedback-form">
+        <div class="eyebrow">Add feedback</div>
+        <h2 id="feedback-dialog-title">Your note</h2>
+        <p class="feedback-target-summary" id="feedback-target-summary"></p>
+        <label for="feedback-comment">What should change?</label>
+        <textarea id="feedback-comment" rows="5" required placeholder="Describe the change you want…"></textarea>
+        <p class="feedback-save-explanation">Save keeps this note on this device. It does not send it to GitHub.</p>
+        <div class="feedback-dialog-actions">
+          <button value="cancel" id="feedback-cancel" type="button">Cancel</button>
+          <button class="primary-action" id="feedback-save" type="submit">Save note</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="feedback-dialog feedback-github-dialog" id="feedback-github-dialog" data-feedback-ui aria-labelledby="feedback-github-title">
+      <section>
+        <div class="feedback-dialog-heading">
+          <div>
+            <div class="eyebrow">GitHub</div>
+            <h2 id="feedback-github-title">Send unsent notes</h2>
+          </div>
+          <button class="feedback-icon-button" id="feedback-github-close" type="button" aria-label="Close GitHub preparation">×</button>
+        </div>
+        <p class="feedback-panel-copy" id="feedback-github-summary"></p>
+        <div class="feedback-github-batches" id="feedback-github-batches"></div>
+        <p class="feedback-panel-copy"><strong>Important:</strong> opening GitHub does not submit an issue. Submit it on GitHub, then paste its issue URL here so the note can show its GitHub number.</p>
+      </section>
+    </dialog>
+
+    <script src="./app.js?v=rtl-row-label-columns-v1"></script>
   </body>
 </html>

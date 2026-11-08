@@ -1,0 +1,606 @@
+{
+  "language": "Arabic",
+  "direction": "rtl",
+  "durationSeconds": 180.062,
+  "cues": [
+    {
+      "id": "0072",
+      "startMs": 0,
+      "endMs": 5982,
+      "translation": "I learn English.",
+      "tokens": [
+        {
+          "surface": "أنا",
+          "transliteration": "ʾanā",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "أتعلم",
+          "transliteration": "ʾataʿallam",
+          "gloss": "learn.IPFV"
+        },
+        {
+          "surface": "الإنجليزية.",
+          "transliteration": "al-ʾinglīziyyah",
+          "gloss": "DEF-English"
+        }
+      ]
+    },
+    {
+      "id": "0955",
+      "startMs": 7982,
+      "endMs": 11874,
+      "translation": "I'm only a beginner.",
+      "tokens": [
+        {
+          "surface": "أنا",
+          "transliteration": "ʾanā",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "مجرد",
+          "transliteration": "mujarrad",
+          "gloss": "merely"
+        },
+        {
+          "surface": "مبتدئ.",
+          "transliteration": "mubtadiʾ",
+          "gloss": "beginner"
+        }
+      ]
+    },
+    {
+      "id": "0450",
+      "startMs": 13874,
+      "endMs": 20770,
+      "translation": "I still make many mistakes.",
+      "tokens": [
+        {
+          "surface": "وما",
+          "transliteration": "wa-mā",
+          "gloss": "and-NEG"
+        },
+        {
+          "surface": "أزال",
+          "transliteration": "ʾazālu",
+          "gloss": "cease.1SG"
+        },
+        {
+          "surface": "أعمل",
+          "transliteration": "ʾaʿmalu",
+          "gloss": "make.1SG"
+        },
+        {
+          "surface": "أخطاء",
+          "transliteration": "ʾakhṭāʾ",
+          "gloss": "mistakes"
+        },
+        {
+          "surface": "كثيرة.",
+          "transliteration": "kathīrah",
+          "gloss": "many"
+        }
+      ]
+    },
+    {
+      "id": "1263",
+      "startMs": 22770,
+      "endMs": 27472,
+      "translation": "I don't understand the word.",
+      "tokens": [
+        {
+          "surface": "لا",
+          "transliteration": "lā",
+          "gloss": "NEG"
+        },
+        {
+          "surface": "أفهم",
+          "transliteration": "ʾafhamu",
+          "gloss": "understand.1SG"
+        },
+        {
+          "surface": "الكلمة.",
+          "transliteration": "al-kalimah",
+          "gloss": "DEF-word"
+        }
+      ]
+    },
+    {
+      "id": "1265",
+      "startMs": 29472,
+      "endMs": 34958,
+      "translation": "I don't understand the meaning.",
+      "tokens": [
+        {
+          "surface": "لا",
+          "transliteration": "lā",
+          "gloss": "NEG"
+        },
+        {
+          "surface": "أفهم",
+          "transliteration": "ʾafhamu",
+          "gloss": "understand.1SG"
+        },
+        {
+          "surface": "المعنى.",
+          "transliteration": "al-maʿnā",
+          "gloss": "DEF-meaning"
+        }
+      ]
+    },
+    {
+      "id": "0460",
+      "startMs": 36958,
+      "endMs": 40850,
+      "translation": "I've forgotten it.",
+      "tokens": [
+        {
+          "surface": "لقد",
+          "transliteration": "laqad",
+          "gloss": "indeed"
+        },
+        {
+          "surface": "نسيته",
+          "transliteration": "nasītuhu",
+          "gloss": "forget.PST.1SG-it"
+        },
+        {
+          "surface": "للتو.",
+          "transliteration": "li-l-taww",
+          "gloss": "just-now"
+        }
+      ]
+    },
+    {
+      "id": "0458",
+      "startMs": 42850,
+      "endMs": 49250,
+      "translation": "I don't remember the name right now.",
+      "tokens": [
+        {
+          "surface": "لا",
+          "transliteration": "lā",
+          "gloss": "NEG"
+        },
+        {
+          "surface": "أعرف",
+          "transliteration": "ʾaʿrifu",
+          "gloss": "know.1SG"
+        },
+        {
+          "surface": "اسمه",
+          "transliteration": "ismahu",
+          "gloss": "name-his"
+        },
+        {
+          "surface": "في",
+          "transliteration": "fī",
+          "gloss": "in"
+        },
+        {
+          "surface": "الوقت",
+          "transliteration": "al-waqt",
+          "gloss": "DEF-time"
+        },
+        {
+          "surface": "الحالي.",
+          "transliteration": "al-ḥālī",
+          "gloss": "current"
+        }
+      ]
+    },
+    {
+      "id": "0078",
+      "startMs": 53250,
+      "endMs": 61531,
+      "translation": "Learning languages is interesting.",
+      "tokens": [
+        {
+          "surface": "تعلم",
+          "transliteration": "taʿallumu",
+          "gloss": "learning"
+        },
+        {
+          "surface": "اللغات",
+          "transliteration": "al-lughāt",
+          "gloss": "DEF-languages"
+        },
+        {
+          "surface": "شيء",
+          "transliteration": "shayʾ",
+          "gloss": "thing"
+        },
+        {
+          "surface": "ممتع.",
+          "transliteration": "mumtiʿ",
+          "gloss": "enjoyable"
+        }
+      ]
+    },
+    {
+      "id": "0445",
+      "startMs": 63531,
+      "endMs": 73536,
+      "translation": "Yes, and I also speak some Italian.",
+      "tokens": [
+        {
+          "surface": "نعم،",
+          "transliteration": "naʿam",
+          "gloss": "yes"
+        },
+        {
+          "surface": "وأتكلم",
+          "transliteration": "wa-ʾatakallamu",
+          "gloss": "and-speak.1SG"
+        },
+        {
+          "surface": "أيضًا",
+          "transliteration": "ʾayḍan",
+          "gloss": "also"
+        },
+        {
+          "surface": "شيئاً",
+          "transliteration": "shayʾan",
+          "gloss": "something"
+        },
+        {
+          "surface": "من",
+          "transliteration": "min",
+          "gloss": "of"
+        },
+        {
+          "surface": "الإيطالية.",
+          "transliteration": "al-ʾīṭāliyyah",
+          "gloss": "DEF-Italian"
+        }
+      ]
+    },
+    {
+      "id": "0447",
+      "startMs": 75536,
+      "endMs": 82223,
+      "translation": "The languages are quite similar.",
+      "tokens": [
+        {
+          "surface": "اللغات",
+          "transliteration": "al-lughāt",
+          "gloss": "DEF-languages"
+        },
+        {
+          "surface": "متشابهة",
+          "transliteration": "mutashābihah",
+          "gloss": "similar"
+        },
+        {
+          "surface": "إلى",
+          "transliteration": "ʾilā",
+          "gloss": "to"
+        },
+        {
+          "surface": "حد",
+          "transliteration": "ḥadd",
+          "gloss": "extent"
+        },
+        {
+          "surface": "ما.",
+          "transliteration": "mā",
+          "gloss": "somewhat"
+        }
+      ]
+    },
+    {
+      "id": "0448",
+      "startMs": 84223,
+      "endMs": 90205,
+      "translation": "I can understand them well.",
+      "tokens": [
+        {
+          "surface": "أستطيع",
+          "transliteration": "ʾastaṭīʿu",
+          "gloss": "can.1SG"
+        },
+        {
+          "surface": "أن",
+          "transliteration": "ʾan",
+          "gloss": "COMP"
+        },
+        {
+          "surface": "أفهمها",
+          "transliteration": "ʾafhamahā",
+          "gloss": "understand.1SG-it"
+        },
+        {
+          "surface": "جيدًا.",
+          "transliteration": "jayyidan",
+          "gloss": "well"
+        }
+      ]
+    },
+    {
+      "id": "0071",
+      "startMs": 94205,
+      "endMs": 99795,
+      "translation": "We are learning a language.",
+      "tokens": [
+        {
+          "surface": "نحن",
+          "transliteration": "naḥnu",
+          "gloss": "1PL"
+        },
+        {
+          "surface": "نتعلم",
+          "transliteration": "nataʿallamu",
+          "gloss": "learn.IPFV.1PL"
+        },
+        {
+          "surface": "لغة.",
+          "transliteration": "lughah",
+          "gloss": "language"
+        }
+      ]
+    },
+    {
+      "id": "0079",
+      "startMs": 101795,
+      "endMs": 108874,
+      "translation": "We want to understand people.",
+      "tokens": [
+        {
+          "surface": "نحن",
+          "transliteration": "naḥnu",
+          "gloss": "1PL"
+        },
+        {
+          "surface": "نريد",
+          "transliteration": "nurīdu",
+          "gloss": "want.1PL"
+        },
+        {
+          "surface": "أن",
+          "transliteration": "ʾan",
+          "gloss": "COMP"
+        },
+        {
+          "surface": "نفهم",
+          "transliteration": "nafhamu",
+          "gloss": "understand.1PL"
+        },
+        {
+          "surface": "الناس.",
+          "transliteration": "al-nās",
+          "gloss": "DEF-people"
+        }
+      ]
+    },
+    {
+      "id": "0080",
+      "startMs": 110874,
+      "endMs": 119468,
+      "translation": "We want to speak with people.",
+      "tokens": [
+        {
+          "surface": "نريد",
+          "transliteration": "nurīdu",
+          "gloss": "want.1PL"
+        },
+        {
+          "surface": "أن",
+          "transliteration": "ʾan",
+          "gloss": "COMP"
+        },
+        {
+          "surface": "نتكلم",
+          "transliteration": "natakallama",
+          "gloss": "speak.1PL"
+        },
+        {
+          "surface": "مع",
+          "transliteration": "maʿa",
+          "gloss": "with"
+        },
+        {
+          "surface": "الناس.",
+          "transliteration": "al-nās",
+          "gloss": "DEF-people"
+        }
+      ]
+    },
+    {
+      "id": "0251",
+      "startMs": 121468,
+      "endMs": 126849,
+      "translation": "He studies languages.",
+      "tokens": [
+        {
+          "surface": "هو",
+          "transliteration": "huwa",
+          "gloss": "3MSG"
+        },
+        {
+          "surface": "يدرس",
+          "transliteration": "yadrusu",
+          "gloss": "study.IPFV.3MSG"
+        },
+        {
+          "surface": "لغات.",
+          "transliteration": "lughāt",
+          "gloss": "languages"
+        }
+      ]
+    },
+    {
+      "id": "0408",
+      "startMs": 128849,
+      "endMs": 135145,
+      "translation": "He speaks several languages.",
+      "tokens": [
+        {
+          "surface": "هو",
+          "transliteration": "huwa",
+          "gloss": "3MSG"
+        },
+        {
+          "surface": "يتكلم",
+          "transliteration": "yatakallamu",
+          "gloss": "speak.IPFV.3MSG"
+        },
+        {
+          "surface": "عدّة",
+          "transliteration": "ʿiddata",
+          "gloss": "several"
+        },
+        {
+          "surface": "لغات.",
+          "transliteration": "lughāt",
+          "gloss": "languages"
+        }
+      ]
+    },
+    {
+      "id": "0073",
+      "startMs": 139145,
+      "endMs": 146041,
+      "translation": "You learn Spanish.",
+      "tokens": [
+        {
+          "surface": "أنت",
+          "transliteration": "ʾanta",
+          "gloss": "2MSG"
+        },
+        {
+          "surface": "تتعلم",
+          "transliteration": "tataʿallamu",
+          "gloss": "learn.IPFV.2MSG"
+        },
+        {
+          "surface": "الأسبانية.",
+          "transliteration": "al-ʾisbāniyyah",
+          "gloss": "DEF-Spanish"
+        }
+      ]
+    },
+    {
+      "id": "0446",
+      "startMs": 148041,
+      "endMs": 155930,
+      "translation": "I think you speak very well.",
+      "tokens": [
+        {
+          "surface": "أرى",
+          "transliteration": "ʾarā",
+          "gloss": "see.1SG"
+        },
+        {
+          "surface": "أنك",
+          "transliteration": "ʾannaka",
+          "gloss": "that-2MSG"
+        },
+        {
+          "surface": "تتكلم",
+          "transliteration": "tatakallamu",
+          "gloss": "speak.2MSG"
+        },
+        {
+          "surface": "بشكل",
+          "transliteration": "bi-shakl",
+          "gloss": "in-manner"
+        },
+        {
+          "surface": "جيد",
+          "transliteration": "jayyid",
+          "gloss": "good"
+        },
+        {
+          "surface": "جدًا.",
+          "transliteration": "jiddan",
+          "gloss": "very"
+        }
+      ]
+    },
+    {
+      "id": "0403",
+      "startMs": 157930,
+      "endMs": 161535,
+      "translation": "Where do you come from?",
+      "tokens": [
+        {
+          "surface": "من",
+          "transliteration": "min",
+          "gloss": "from"
+        },
+        {
+          "surface": "أين",
+          "transliteration": "ʾayna",
+          "gloss": "where"
+        },
+        {
+          "surface": "أنت؟",
+          "transliteration": "ʾanta",
+          "gloss": "2MSG"
+        }
+      ]
+    },
+    {
+      "id": "0456",
+      "startMs": 163535,
+      "endMs": 172234,
+      "translation": "Are you taking a language course?",
+      "tokens": [
+        {
+          "surface": "هل",
+          "transliteration": "hal",
+          "gloss": "Q"
+        },
+        {
+          "surface": "أنت",
+          "transliteration": "ʾanta",
+          "gloss": "2MSG"
+        },
+        {
+          "surface": "تتعلم",
+          "transliteration": "tataʿallamu",
+          "gloss": "learn.2MSG"
+        },
+        {
+          "surface": "في",
+          "transliteration": "fī",
+          "gloss": "in"
+        },
+        {
+          "surface": "دورة",
+          "transliteration": "dawrah",
+          "gloss": "course"
+        },
+        {
+          "surface": "لغوية؟",
+          "transliteration": "lughawiyyah",
+          "gloss": "language.ADJ"
+        }
+      ]
+    },
+    {
+      "id": "0452",
+      "startMs": 174234,
+      "endMs": 180033,
+      "translation": "Your pronunciation is very good.",
+      "tokens": [
+        {
+          "surface": "نطقك",
+          "transliteration": "nuṭquka",
+          "gloss": "pronunciation-your"
+        },
+        {
+          "surface": "جيد",
+          "transliteration": "jayyid",
+          "gloss": "good"
+        },
+        {
+          "surface": "تماماً.",
+          "transliteration": "tamāman",
+          "gloss": "completely"
+        }
+      ]
+    }
+  ],
+  "annotationStatus": "provisional video-layout glosses; backend review required"
+}

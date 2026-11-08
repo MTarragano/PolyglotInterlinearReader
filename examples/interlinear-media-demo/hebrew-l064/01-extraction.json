@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "interlinear-extraction/0.1",
+  "status": "extracted-unreviewed",
+  "lesson": 64,
+  "language": "he",
+  "sources": [
+    {
+      "kind": "lwt-html-export",
+      "path": "/Users/m.tarraganogmail.com/Sites/LWT/PRINTS/LWT   Print Hebrew Assimil NEW 51-85.htm",
+      "sha256": "45d1772e190e46290c0fcf0a3aa37ef6c47cec81abf14034a63254e89fadb178",
+      "lessonMarker": "64 3",
+      "notes": "Pointed Hebrew and inherited LWT meanings/tags. Several inherited English meanings are demonstrably noisy and are not promoted to reviewed annotations."
+    },
+    {
+      "kind": "audio-mpeg",
+      "path": "/Users/m.tarraganogmail.com/Sites/media/Hebrew/drive-download-20260728T153518Z-1-001/L064-LESSON.mp3",
+      "sha256": "7137f58ca20414196c8234ff258af0075ae3cabbb9d57f3bf70fcb006fe55428",
+      "durationMs": 93701,
+      "channels": 2,
+      "sampleRateHz": 44100,
+      "alignmentStatus": "not-aligned"
+    }
+  ],
+  "extractedUnits": [
+    {"kind": "title", "pointed": "שִׁעוּר שִׁשִׁים וְאַרבַּ"},
+    {"kind": "section-heading", "pointed": "צבָעִים וּבגָדִים בַּחֲרוּזִים"},
+    {"kind": "vocabulary-line", "pointed": "יְרוּקִים הַמִכנָסַיִים"},
+    {"kind": "vocabulary-line", "pointed": "כּחוּלִים הַמַגָפַיִים"},
+    {"kind": "vocabulary-line", "pointed": "אֲדוּמָה הַעֲנִיבָה"},
+    {"kind": "vocabulary-line", "pointed": "אֲפוֹרָה החוּלצָה"},
+    {"kind": "vocabulary-line", "pointed": "שׁחוֹרוֹת הַנַעֲלַיִים"},
+    {"kind": "vocabulary-line", "pointed": "לְבָנוֹת הַגַרבַּיִים"},
+    {"kind": "vocabulary-line", "pointed": "וְאֵיפֹה הַמְעִילִים"},
+    {"kind": "vocabulary-line", "pointed": "מַה זֶה? בּגָדִים לְפּוּרִים"},
+    {"kind": "instruction", "pointed": "תַרגֵם"},
+    {"kind": "exercise-sentence", "pointed": "הבגדים האופנתיים ביותר הם גם היקרים ביותר"},
+    {"kind": "exercise-sentence", "pointed": "הוא צעיר אבל הוא לבוש בבגדים שחורים"},
+    {"kind": "exercise-sentence", "pointed": "קניתי לי שמלת ערב אדומה ארוכה למסיבה הרשמית"},
+    {"kind": "exercise-sentence", "pointed": "בחורף היא אוהבת מגפיים שחורים ומעיל אפור"},
+    {"kind": "exercise-sentence", "pointed": "מכנסיים אדומים, חולצה כחולה, עניבה ירוקה: בגדים ממש לפורים"}
+  ],
+  "extractionWarnings": [
+    "The HTML title token for four is truncated as וְאַרבַּ; normalized text restores וארבע.",
+    "The HTML inherited meaning for בחרוזים is beads, but lesson context supports in rhymes.",
+    "The HTML inherited meaning for לבנות is build, but agreement/context supports white (feminine plural).",
+    "No sentence or token timing data was present in the HTML export.",
+    "The MP3 has not yet been automatically transcribed or forced-aligned."
+  ]
+}

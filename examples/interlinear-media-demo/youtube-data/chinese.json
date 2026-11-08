@@ -1,0 +1,709 @@
+{
+  "language": "Chinese",
+  "direction": "ltr",
+  "durationSeconds": 250.802,
+  "cues": [
+    {
+      "id": "0072",
+      "startMs": 0,
+      "endMs": 7001,
+      "translation": "I learn English.",
+      "tokens": [
+        {
+          "surface": "我",
+          "transliteration": "wǒ",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "学习",
+          "transliteration": "xuéxí",
+          "gloss": "learn"
+        },
+        {
+          "surface": "英语。",
+          "transliteration": "Yīngyǔ",
+          "gloss": "English"
+        }
+      ]
+    },
+    {
+      "id": "0955",
+      "startMs": 9001,
+      "endMs": 14774,
+      "translation": "I'm only a beginner.",
+      "tokens": [
+        {
+          "surface": "我",
+          "transliteration": "wǒ",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "是",
+          "transliteration": "shì",
+          "gloss": "COP"
+        },
+        {
+          "surface": "初学者。",
+          "transliteration": "chūxuézhě",
+          "gloss": "beginner"
+        }
+      ]
+    },
+    {
+      "id": "0450",
+      "startMs": 16774,
+      "endMs": 24976,
+      "translation": "I still make many mistakes.",
+      "tokens": [
+        {
+          "surface": "我",
+          "transliteration": "wǒ",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "还",
+          "transliteration": "hái",
+          "gloss": "still"
+        },
+        {
+          "surface": "会",
+          "transliteration": "huì",
+          "gloss": "MOD"
+        },
+        {
+          "surface": "出",
+          "transliteration": "chū",
+          "gloss": "make"
+        },
+        {
+          "surface": "很多",
+          "transliteration": "hěn duō",
+          "gloss": "many"
+        },
+        {
+          "surface": "错误。",
+          "transliteration": "cuòwù",
+          "gloss": "mistakes"
+        }
+      ]
+    },
+    {
+      "id": "1263",
+      "startMs": 26976,
+      "endMs": 34787,
+      "translation": "I don't understand the word.",
+      "tokens": [
+        {
+          "surface": "我",
+          "transliteration": "wǒ",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "不",
+          "transliteration": "bù",
+          "gloss": "NEG"
+        },
+        {
+          "surface": "明白",
+          "transliteration": "míngbai",
+          "gloss": "understand"
+        },
+        {
+          "surface": "这个",
+          "transliteration": "zhège",
+          "gloss": "this"
+        },
+        {
+          "surface": "词。",
+          "transliteration": "cí",
+          "gloss": "word"
+        }
+      ]
+    },
+    {
+      "id": "1265",
+      "startMs": 36787,
+      "endMs": 44467,
+      "translation": "I don't understand the meaning.",
+      "tokens": [
+        {
+          "surface": "我",
+          "transliteration": "wǒ",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "不",
+          "transliteration": "bù",
+          "gloss": "NEG"
+        },
+        {
+          "surface": "明白",
+          "transliteration": "míngbai",
+          "gloss": "understand"
+        },
+        {
+          "surface": "这个",
+          "transliteration": "zhège",
+          "gloss": "this"
+        },
+        {
+          "surface": "意思。",
+          "transliteration": "yìsi",
+          "gloss": "meaning"
+        }
+      ]
+    },
+    {
+      "id": "0460",
+      "startMs": 46467,
+      "endMs": 51848,
+      "translation": "I've forgotten it.",
+      "tokens": [
+        {
+          "surface": "我",
+          "transliteration": "wǒ",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "把",
+          "transliteration": "bǎ",
+          "gloss": "BA"
+        },
+        {
+          "surface": "它",
+          "transliteration": "tā",
+          "gloss": "3SG"
+        },
+        {
+          "surface": "忘",
+          "transliteration": "wàng",
+          "gloss": "forget"
+        },
+        {
+          "surface": "了。",
+          "transliteration": "le",
+          "gloss": "PRF"
+        }
+      ]
+    },
+    {
+      "id": "0458",
+      "startMs": 53848,
+      "endMs": 71376,
+      "translation": "I don't remember the name right now.",
+      "tokens": [
+        {
+          "surface": "我",
+          "transliteration": "wǒ",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "现在",
+          "transliteration": "xiànzài",
+          "gloss": "now"
+        },
+        {
+          "surface": "一时",
+          "transliteration": "yīshí",
+          "gloss": "for-now"
+        },
+        {
+          "surface": "记不起来",
+          "transliteration": "jì-bu-qǐlái",
+          "gloss": "cannot-recall"
+        },
+        {
+          "surface": "（这教材）",
+          "transliteration": "zhè jiàocái",
+          "gloss": "this-material"
+        },
+        {
+          "surface": "叫",
+          "transliteration": "jiào",
+          "gloss": "be-called"
+        },
+        {
+          "surface": "什么",
+          "transliteration": "shénme",
+          "gloss": "what"
+        },
+        {
+          "surface": "名字。",
+          "transliteration": "míngzi",
+          "gloss": "name"
+        }
+      ]
+    },
+    {
+      "id": "0442",
+      "startMs": 75376,
+      "endMs": 81436,
+      "translation": "Learning foreign languages",
+      "tokens": [
+        {
+          "surface": "学习",
+          "transliteration": "xuéxí",
+          "gloss": "learn"
+        },
+        {
+          "surface": "外语",
+          "transliteration": "wàiyǔ",
+          "gloss": "foreign-language"
+        }
+      ]
+    },
+    {
+      "id": "0078",
+      "startMs": 83436,
+      "endMs": 93807,
+      "translation": "Learning languages is interesting.",
+      "tokens": [
+        {
+          "surface": "学习",
+          "transliteration": "xuéxí",
+          "gloss": "learning"
+        },
+        {
+          "surface": "语言",
+          "transliteration": "yǔyán",
+          "gloss": "languages"
+        },
+        {
+          "surface": "是",
+          "transliteration": "shì",
+          "gloss": "COP"
+        },
+        {
+          "surface": "很",
+          "transliteration": "hěn",
+          "gloss": "very"
+        },
+        {
+          "surface": "有趣",
+          "transliteration": "yǒuqù",
+          "gloss": "interesting"
+        },
+        {
+          "surface": "的。",
+          "transliteration": "de",
+          "gloss": "NMLZ"
+        }
+      ]
+    },
+    {
+      "id": "0445",
+      "startMs": 95807,
+      "endMs": 110096,
+      "translation": "Yes, and I also speak some Italian.",
+      "tokens": [
+        {
+          "surface": "是啊，",
+          "transliteration": "shì a",
+          "gloss": "yes"
+        },
+        {
+          "surface": "而且",
+          "transliteration": "érqiě",
+          "gloss": "and"
+        },
+        {
+          "surface": "我",
+          "transliteration": "wǒ",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "也",
+          "transliteration": "yě",
+          "gloss": "also"
+        },
+        {
+          "surface": "会",
+          "transliteration": "huì",
+          "gloss": "can"
+        },
+        {
+          "surface": "说",
+          "transliteration": "shuō",
+          "gloss": "speak"
+        },
+        {
+          "surface": "一点",
+          "transliteration": "yīdiǎn",
+          "gloss": "a-little"
+        },
+        {
+          "surface": "意大利语。",
+          "transliteration": "Yìdàlìyǔ",
+          "gloss": "Italian"
+        }
+      ]
+    },
+    {
+      "id": "0447",
+      "startMs": 112096,
+      "endMs": 122754,
+      "translation": "The languages are quite similar.",
+      "tokens": [
+        {
+          "surface": "这些",
+          "transliteration": "zhèxiē",
+          "gloss": "these"
+        },
+        {
+          "surface": "语言",
+          "transliteration": "yǔyán",
+          "gloss": "languages"
+        },
+        {
+          "surface": "都",
+          "transliteration": "dōu",
+          "gloss": "all"
+        },
+        {
+          "surface": "是",
+          "transliteration": "shì",
+          "gloss": "COP"
+        },
+        {
+          "surface": "很",
+          "transliteration": "hěn",
+          "gloss": "very"
+        },
+        {
+          "surface": "相近",
+          "transliteration": "xiāngjìn",
+          "gloss": "similar"
+        },
+        {
+          "surface": "的。",
+          "transliteration": "de",
+          "gloss": "NMLZ"
+        }
+      ]
+    },
+    {
+      "id": "0448",
+      "startMs": 124754,
+      "endMs": 131076,
+      "translation": "I can understand them well.",
+      "tokens": [
+        {
+          "surface": "我",
+          "transliteration": "wǒ",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "听得",
+          "transliteration": "tīng-de",
+          "gloss": "hear-COMP"
+        },
+        {
+          "surface": "很",
+          "transliteration": "hěn",
+          "gloss": "very"
+        },
+        {
+          "surface": "明白。",
+          "transliteration": "míngbai",
+          "gloss": "clearly"
+        }
+      ]
+    },
+    {
+      "id": "0071",
+      "startMs": 135076,
+      "endMs": 143566,
+      "translation": "We are learning a language.",
+      "tokens": [
+        {
+          "surface": "我们",
+          "transliteration": "wǒmen",
+          "gloss": "1PL"
+        },
+        {
+          "surface": "学习",
+          "transliteration": "xuéxí",
+          "gloss": "learn"
+        },
+        {
+          "surface": "一门",
+          "transliteration": "yī-mén",
+          "gloss": "one-CL"
+        },
+        {
+          "surface": "语言。",
+          "transliteration": "yǔyán",
+          "gloss": "language"
+        }
+      ]
+    },
+    {
+      "id": "0079",
+      "startMs": 145566,
+      "endMs": 158915,
+      "translation": "We want to understand people.",
+      "tokens": [
+        {
+          "surface": "我们",
+          "transliteration": "wǒmen",
+          "gloss": "1PL"
+        },
+        {
+          "surface": "要",
+          "transliteration": "yào",
+          "gloss": "want"
+        },
+        {
+          "surface": "理解／听懂",
+          "transliteration": "lǐjiě / tīngdǒng",
+          "gloss": "understand"
+        },
+        {
+          "surface": "人们（讲话）。",
+          "transliteration": "rénmen (jiǎnghuà)",
+          "gloss": "people (speaking)"
+        }
+      ]
+    },
+    {
+      "id": "0080",
+      "startMs": 160915,
+      "endMs": 177268,
+      "translation": "We want to speak with people.",
+      "tokens": [
+        {
+          "surface": "我们",
+          "transliteration": "wǒmen",
+          "gloss": "1PL"
+        },
+        {
+          "surface": "想",
+          "transliteration": "xiǎng",
+          "gloss": "want"
+        },
+        {
+          "surface": "和",
+          "transliteration": "hé",
+          "gloss": "with"
+        },
+        {
+          "surface": "人们",
+          "transliteration": "rénmen",
+          "gloss": "people"
+        },
+        {
+          "surface": "说话／交谈。",
+          "transliteration": "shuōhuà / jiāotán",
+          "gloss": "speak / converse"
+        }
+      ]
+    },
+    {
+      "id": "0251",
+      "startMs": 179268,
+      "endMs": 187888,
+      "translation": "He studies languages.",
+      "tokens": [
+        {
+          "surface": "他",
+          "transliteration": "tā",
+          "gloss": "3SG"
+        },
+        {
+          "surface": "在",
+          "transliteration": "zài",
+          "gloss": "at"
+        },
+        {
+          "surface": "大学",
+          "transliteration": "dàxué",
+          "gloss": "university"
+        },
+        {
+          "surface": "学",
+          "transliteration": "xué",
+          "gloss": "study"
+        },
+        {
+          "surface": "语言。",
+          "transliteration": "yǔyán",
+          "gloss": "language"
+        }
+      ]
+    },
+    {
+      "id": "0408",
+      "startMs": 189888,
+      "endMs": 198090,
+      "translation": "He speaks several languages.",
+      "tokens": [
+        {
+          "surface": "他",
+          "transliteration": "tā",
+          "gloss": "3SG"
+        },
+        {
+          "surface": "会",
+          "transliteration": "huì",
+          "gloss": "can"
+        },
+        {
+          "surface": "说",
+          "transliteration": "shuō",
+          "gloss": "speak"
+        },
+        {
+          "surface": "很多种",
+          "transliteration": "hěn-duō-zhǒng",
+          "gloss": "many-kinds"
+        },
+        {
+          "surface": "语言。",
+          "transliteration": "yǔyán",
+          "gloss": "languages"
+        }
+      ]
+    },
+    {
+      "id": "0073",
+      "startMs": 202090,
+      "endMs": 211128,
+      "translation": "You learn Spanish.",
+      "tokens": [
+        {
+          "surface": "你",
+          "transliteration": "nǐ",
+          "gloss": "2SG"
+        },
+        {
+          "surface": "学习",
+          "transliteration": "xuéxí",
+          "gloss": "learn"
+        },
+        {
+          "surface": "西班牙语。",
+          "transliteration": "Xībānyáyǔ",
+          "gloss": "Spanish"
+        }
+      ]
+    },
+    {
+      "id": "0446",
+      "startMs": 213128,
+      "endMs": 222010,
+      "translation": "I think you speak very well.",
+      "tokens": [
+        {
+          "surface": "我",
+          "transliteration": "wǒ",
+          "gloss": "1SG"
+        },
+        {
+          "surface": "觉得，",
+          "transliteration": "juéde",
+          "gloss": "think"
+        },
+        {
+          "surface": "您",
+          "transliteration": "nín",
+          "gloss": "2SG.POL"
+        },
+        {
+          "surface": "说得",
+          "transliteration": "shuō-de",
+          "gloss": "speak-COMP"
+        },
+        {
+          "surface": "很好。",
+          "transliteration": "hěn hǎo",
+          "gloss": "very-well"
+        }
+      ]
+    },
+    {
+      "id": "0403",
+      "startMs": 224010,
+      "endMs": 230593,
+      "translation": "Where do you come from?",
+      "tokens": [
+        {
+          "surface": "您",
+          "transliteration": "nín",
+          "gloss": "2SG.POL"
+        },
+        {
+          "surface": "从",
+          "transliteration": "cóng",
+          "gloss": "from"
+        },
+        {
+          "surface": "哪里",
+          "transliteration": "nǎlǐ",
+          "gloss": "where"
+        },
+        {
+          "surface": "来？",
+          "transliteration": "lái",
+          "gloss": "come"
+        }
+      ]
+    },
+    {
+      "id": "0456",
+      "startMs": 232593,
+      "endMs": 242023,
+      "translation": "Are you taking a language course?",
+      "tokens": [
+        {
+          "surface": "您",
+          "transliteration": "nín",
+          "gloss": "2SG.POL"
+        },
+        {
+          "surface": "在",
+          "transliteration": "zài",
+          "gloss": "PROG"
+        },
+        {
+          "surface": "上",
+          "transliteration": "shàng",
+          "gloss": "attend"
+        },
+        {
+          "surface": "语言培训班",
+          "transliteration": "yǔyán péixùnbān",
+          "gloss": "language-course"
+        },
+        {
+          "surface": "吗？",
+          "transliteration": "ma",
+          "gloss": "Q"
+        }
+      ]
+    },
+    {
+      "id": "0452",
+      "startMs": 244023,
+      "endMs": 250763,
+      "translation": "Your pronunciation is very good.",
+      "tokens": [
+        {
+          "surface": "您的",
+          "transliteration": "nín-de",
+          "gloss": "2SG.POL-POSS"
+        },
+        {
+          "surface": "发音",
+          "transliteration": "fāyīn",
+          "gloss": "pronunciation"
+        },
+        {
+          "surface": "很好（准确）。",
+          "transliteration": "hěn hǎo (zhǔnquè)",
+          "gloss": "very-good (accurate)"
+        }
+      ]
+    }
+  ],
+  "annotationStatus": "provisional video-layout glosses; backend review required"
+}

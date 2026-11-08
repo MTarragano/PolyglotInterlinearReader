@@ -101,6 +101,16 @@ Each visible annotation row aligns under that token:
 - User note marker
 - Known or learning state marker
 
+### RTL annotation display
+
+Source-script text must always be stored and rendered in its normal logical order. The UI must never reverse Hebrew, Arabic, or another RTL source string to create visual alignment.
+
+For the current reader prototype, Latin-script transliteration attached to an RTL token is displayed in reversed visual grapheme order by default. This is a didactic display transformation only: the stored transliteration remains in normal logical order, and accessible labels expose that logical value. Grapheme-aware reversal keeps combining marks and diacritics attached.
+
+The same display rule applies to Latin-script transliteration, Latin morpheme segmentation, and Latin root transliteration. Root data must keep source-script root and Latin root transliteration as separate fields; the Latin root transliteration is capitalized in this display. Gloss words remain internally LTR, but hyphen-separated gloss segments are mirrored as units to follow the RTL morpheme sequence.
+
+This prototype choice should be tested with Hebrew and Arabic before introducing more detailed source-to-transliteration alignment data. Future didactic formatting may highlight roots, prefixes, particles, stems, and suffixes without altering stored linguistic values.
+
 Morpheme-level rows may either appear as:
 
 - Segmented inline text within the token stack.
@@ -172,6 +182,53 @@ Settings should include:
 - Whether morphemes are always visible or collapsed by default.
 
 Settings should support reset-to-default per language.
+
+### Language, User, and Teaching-Group Profiles
+
+The Reader `Aa` control should lead to a proper settings section or page rather
+than remaining only a small typography popover. Resolved settings should use a
+clear precedence order:
+
+```text
+system/language defaults
+  -> teaching-group or course profile
+    -> individual user overrides
+```
+
+Users must be able to see which layer supplied a value, restore the inherited
+value, and save reusable profiles. A teacher-controlled setting should be
+distinguishable from a suggested default and from a locked course requirement.
+
+Advanced language settings should include:
+
+- Named transliteration schemes and versions.
+- Editable character/grapheme maps for source-script to transliteration output.
+- Contextual and exception rules that cannot be represented as simple
+  one-character substitutions.
+- Normal LTR transliteration, segment-aligned RTL presentation, and
+  grapheme-reversed didactic presentation as distinct display choices.
+- Didactic formatting driven by analysed morphology: prefixes, suffixes,
+  clitics, stems, roots/radicals, patterns, and non-surfacing root letters.
+- Root emphasis choices such as capitalization, weight, spacing, or other
+  accessible highlighting that does not alter canonical stored text.
+- Boundary presentation choices such as thin spaces, separators, or no visible
+  boundary.
+- Learner-, teacher-, or tradition-specific terminology profiles for POS,
+  grammar features, binyanim/patterns, and compact gloss abbreviations.
+- Terminology language and script independent of both the target language and
+  the sentence-translation language.
+- Preview examples showing exactly how the current language profile will render
+  before it is applied throughout Reader or exported media.
+
+Character maps, terminology labels, and didactic formatting rules are language
+configuration data. They must not be hardcoded into the generic Reader UI.
+
+### Wrapping Rule
+
+Reader sentences must never require horizontal scrolling as the normal solution
+for long interlinear text. Token stacks wrap onto additional visual lines. All
+visible rows within a wrapped line retain shared heights and baselines; an RTL
+sentence keeps its row-label column on the right of the sentence block.
 
 ## Accessibility Requirements
 

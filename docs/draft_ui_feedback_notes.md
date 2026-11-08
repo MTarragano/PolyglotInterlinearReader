@@ -62,6 +62,53 @@ Feedback and next improvements:
 - Cloze answers should unhide after a scoring action so users can see whether they were right.
 - Users should be able to adjust score down again after revealing an answer.
 
+### Interlinear Row-Label Columns
+
+Product requirement recorded 2026-08-04. Implemented in the local draft on
+2026-08-04 for user evaluation; responsive wrapping and final presentation
+remain subject to feedback.
+
+- Replace the toolbar's long row-checkbox strip with a compact **Row Labels**
+  control or heading.
+- Give every sentence or other Reader unit a narrow row-label column alongside
+  its token stacks.
+- Put this label column on the right of every RTL sentence/unit block and on
+  the left of every LTR sentence/unit block.
+- Include the applicable row name and checkbox in this first visual column,
+  including Original, Transliteration, Morphs, Grammar gloss, Word meanings,
+  Lemma, Root, POS, and Features.
+- Treat Translation as a sentence-level row rather than pretending it is a
+  token annotation.
+- Align each row label, checkbox, and corresponding token annotation on shared
+  row tracks with the same height and baseline across the sentence.
+- A row checkbox changes visibility consistently for that sentence/document;
+  it must not hide the row for only one token.
+- Account for wrapped token groups and missing annotation values without
+  allowing later rows to drift out of alignment.
+- Never use horizontal scrolling as the normal presentation for long Reader
+  sentences. Token stacks must wrap onto further visual lines while retaining
+  aligned annotation rows; RTL row labels remain at the right of the sentence
+  block.
+
+## Feedback-to-Codex Handoff
+
+Product requirement recorded 2026-08-04; implement this as a separate product
+workflow rather than coupling it to the Hebrew import/media trial.
+
+- Let the user send one locally saved feedback note, a selected set, or all
+  unsent notes to a Codex prompt.
+- Include enough local context to identify the view and targeted element, while
+  making clear exactly what information will be passed to Codex.
+- Codex must first restate its interpretation and discuss relevant suggestions
+  or likely code changes.
+- Require confirmation of mutual understanding before Codex edits code in
+  response to the feedback.
+- Keep collecting/saving feedback distinct from implementing feedback: sending
+  a note must not silently trigger code changes.
+- Preserve feedback status and its relationship to later Codex work so the UI
+  can distinguish recorded, sent, understood/confirmed, implemented, and
+  verified feedback.
+
 ## Dictionary
 
 Current draft:

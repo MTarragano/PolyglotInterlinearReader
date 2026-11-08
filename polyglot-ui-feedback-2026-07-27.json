@@ -1,0 +1,31 @@
+{
+  "format": "polyglot-ui-feedback-v2",
+  "exportedAt": "2026-07-27T15:53:24.633Z",
+  "repository": "https://github.com/MTarragano/PolyglotInterlinearReader",
+  "comments": [
+    {
+      "id": "1783865379586-52bwxm",
+      "view": "Reader workspace",
+      "selector": "#inspect-title",
+      "element": "oynuyor",
+      "comment": "oynuyor - 'the 'word' or 'lemma' or 'form' or whatever this datum is - is imho poorly displayed next to the 'knowledge/status score' whereas it deserves it's 'own line' visually. \n\n\nFeedback on Inspector frame window. \nAs part of general planning of Inspector frame window And ordering of info ... i'm still unsure about the general format / design of the Inspector Frame generally. EG what fields or info it shows on each 'term' compared to / in relation to / versus contrary-wise to Reader view. ie \"what is the Intention, Purpose, Use Case ?\" \nIMHO  ... Inspector should show \"oynuyar\" then Transliteration or 'Morphs' below, then 'Translation' / 'Gloss', before any other fields",
+      "viewport": "1620×1148",
+      "path": "/",
+      "createdAt": "2026-07-12T14:09:39.586Z",
+      "submittedIssueUrl": "",
+      "submittedAt": ""
+    },
+    {
+      "id": "1785167594823-bqzu05",
+      "view": "Reader workspace",
+      "selector": "div.reader-inner > section.sentence:nth-of-type(1) > div.sentence-tokens:nth-of-type(2) > article.token-stack:nth-of-type(1) > div.token-row:nth-of-type(6) > button.clickable",
+      "element": "y-l-d",
+      "comment": "for LTR languages, eg Semitic languages - here Hebrew, the 'Latinized' Transliterations should be shown in Reversed Visual order IE so that 'Latinized' Charachters appear (approx) directly under / vertically aligned RTL script charachters. This should apply to all fields of 'Latinized' Transliteration of RTL Original Script language fields - here labelled as \"Transliteration\" \"Morphs\" (maybe/arguably \"Gloss\" pre - & suf-fixes or particles' translations  might be reversed - please advise or 'lets try') and \"Root\"",
+      "viewport": "1286×981",
+      "path": "/",
+      "createdAt": "2026-07-27T15:53:14.825Z",
+      "submittedIssueUrl": "",
+      "submittedAt": ""
+    }
+  ]
+}

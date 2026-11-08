@@ -1,0 +1,186 @@
+{
+  "schemaVersion": "polyglot-reader-document/0.2",
+  "status": "provisional-needs-human-linguistic-review",
+  "language": {"code": "he", "name": "Hebrew", "direction": "rtl"},
+  "document": {
+    "externalId": "he-assimil-l064",
+    "title": "שיעור שישים וארבע — צבעים ובגדים בחרוזים",
+    "titleTranslation": {"language": "en", "text": "Lesson sixty-four — Colours and clothes in rhyme"},
+    "displayOrthography": "undotted",
+    "preservedSourceOrthography": "pointed-when-present",
+    "sourceExtraction": "01-extraction.json",
+    "audioRef": "audio-l064"
+  },
+  "annotationPolicy": {
+    "transliterationScheme": "he-Latn-learner-provisional-v1",
+    "canonicalTransliterationDirection": "ltr",
+    "sentenceTranslationLanguage": "en",
+    "wordTranslationLanguage": "en",
+    "glossConvention": "compact-interlinear",
+    "rootPolicy": "store lexical root separately; null or flag uncertain roots",
+    "reviewRule": "automatic or inferred values remain provisional until explicitly accepted"
+  },
+  "units": [
+    {
+      "id": "l064-title",
+      "kind": "title",
+      "sourcePointed": "שִׁעוּר שִׁשִׁים וְאַרבַּ",
+      "surface": "שיעור שישים וארבע",
+      "translation": "Lesson sixty-four",
+      "tokens": [
+        {"surface":"שיעור","transliteration":"shiur","lemma":"שיעור","root":"ש־ע־ר","upos":"NOUN","morph":{"Gender":"Masc","Number":"Sing"},"gloss":"lesson","translations":["lesson"],"confidence":"medium"},
+        {"surface":"שישים","transliteration":"shishim","lemma":"שישים","root":null,"upos":"NUM","morph":{"NumType":"Card"},"gloss":"sixty","translations":["sixty"],"confidence":"high"},
+        {"surface":"וארבע","transliteration":"ve-arba","lemma":"ארבע","root":null,"upos":"NUM","morph":{"NumType":"Card"},"segments":[{"surface":"ו","type":"coordinating-prefix","gloss":"and"},{"surface":"ארבע","type":"stem","gloss":"four"}],"gloss":"and-four","translations":["and four"],"confidence":"high"}
+      ]
+    },
+    {
+      "id": "l064-heading",
+      "kind": "section-heading",
+      "sourcePointed": "צבָעִים וּבגָדִים בַּחֲרוּזִים",
+      "surface": "צבעים ובגדים בחרוזים",
+      "translation": "Colours and clothes in rhyme",
+      "tokens": [
+        {"surface":"צבעים","transliteration":"tsvaim","lemma":"צבע","root":"צ־ב־ע","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"colour-PL","translations":["colours","colors"],"confidence":"high"},
+        {"surface":"ובגדים","transliteration":"u-vgadim","lemma":"בגד","root":"ב־ג־ד","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"segments":[{"surface":"ו","type":"coordinating-prefix","gloss":"and"},{"surface":"בגד","type":"stem","gloss":"clothing"},{"surface":"ים","type":"plural-suffix","gloss":"PL"}],"gloss":"and-clothing-PL","translations":["and clothes","and clothing"],"confidence":"high"},
+        {"surface":"בחרוזים","transliteration":"ba-kharuzim","lemma":"חרוז","root":"ח־ר־ז","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"segments":[{"surface":"ב","type":"prepositional-prefix","gloss":"in"},{"surface":"חרוז","type":"stem","gloss":"rhyme"},{"surface":"ים","type":"plural-suffix","gloss":"PL"}],"gloss":"in-rhyme-PL","translations":["in rhymes","in rhyme"],"confidence":"medium","reviewNote":"Inherited LWT meaning beads is rejected by local lesson context."}
+      ]
+    },
+    {
+      "id":"l064-v01","kind":"vocabulary-line","sourcePointed":"יְרוּקִים הַמִכנָסַיִים","surface":"ירוקים המכנסיים","translation":"The trousers are green.",
+      "tokens":[
+        {"surface":"ירוקים","transliteration":"yerukim","lemma":"ירוק","root":"י־ר־ק","upos":"ADJ","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"green.M.PL","translations":["green"],"confidence":"high"},
+        {"surface":"המכנסיים","transliteration":"ha-mikhnasayim","lemma":"מכנסיים","root":"כ־נ־ס","upos":"NOUN","morph":{"Definite":"Def","Gender":"Masc","Number":"Plur","NumberForm":"Dual"},"segments":[{"surface":"ה","type":"definite-prefix","gloss":"DEF"},{"surface":"מכנסיים","type":"stem","gloss":"trousers"}],"gloss":"DEF-trousers","translations":["the trousers","the pants"],"confidence":"medium","reviewNote":"Root assignment and pluralia-tantum analysis need lexicon confirmation."}
+      ]
+    },
+    {
+      "id":"l064-v02","kind":"vocabulary-line","sourcePointed":"כּחוּלִים הַמַגָפַיִים","surface":"כחולים המגפיים","translation":"The boots are blue.",
+      "tokens":[
+        {"surface":"כחולים","transliteration":"kekhulim","lemma":"כחול","root":"כ־ח־ל","upos":"ADJ","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"blue.M.PL","translations":["blue"],"confidence":"high"},
+        {"surface":"המגפיים","transliteration":"ha-magafayim","lemma":"מגפיים","root":null,"upos":"NOUN","morph":{"Definite":"Def","Gender":"Masc","Number":"Plur","NumberForm":"Dual"},"segments":[{"surface":"ה","type":"definite-prefix","gloss":"DEF"},{"surface":"מגפיים","type":"stem","gloss":"boots"}],"gloss":"DEF-boots","translations":["the boots"],"confidence":"medium","reviewNote":"Lexical root deliberately left unset pending authoritative lookup."}
+      ]
+    },
+    {
+      "id":"l064-v03","kind":"vocabulary-line","sourcePointed":"אֲדוּמָה הַעֲנִיבָה","surface":"אדומה העניבה","translation":"The tie is red.",
+      "tokens":[
+        {"surface":"אדומה","transliteration":"aduma","lemma":"אדום","root":"א־ד־ם","upos":"ADJ","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"red.F.SG","translations":["red"],"confidence":"high"},
+        {"surface":"העניבה","transliteration":"ha-aniva","lemma":"עניבה","root":"ע־נ־ב","upos":"NOUN","morph":{"Definite":"Def","Gender":"Fem","Number":"Sing"},"segments":[{"surface":"ה","type":"definite-prefix","gloss":"DEF"},{"surface":"עניבה","type":"stem","gloss":"tie"}],"gloss":"DEF-tie","translations":["the tie","the necktie"],"confidence":"medium","reviewNote":"Root needs lexical confirmation."}
+      ]
+    },
+    {
+      "id":"l064-v04","kind":"vocabulary-line","sourcePointed":"אֲפוֹרָה החוּלצָה","surface":"אפורה החולצה","translation":"The shirt is grey.",
+      "tokens":[
+        {"surface":"אפורה","transliteration":"afora","lemma":"אפור","root":"א־פ־ר","upos":"ADJ","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"grey.F.SG","translations":["grey","gray"],"confidence":"high"},
+        {"surface":"החולצה","transliteration":"ha-khultsa","lemma":"חולצה","root":"ח־ל־ץ","upos":"NOUN","morph":{"Definite":"Def","Gender":"Fem","Number":"Sing"},"segments":[{"surface":"ה","type":"definite-prefix","gloss":"DEF"},{"surface":"חולצה","type":"stem","gloss":"shirt"}],"gloss":"DEF-shirt","translations":["the shirt","the blouse"],"confidence":"medium","reviewNote":"Root needs lexical confirmation."}
+      ]
+    },
+    {
+      "id":"l064-v05","kind":"vocabulary-line","sourcePointed":"שׁחוֹרוֹת הַנַעֲלַיִים","surface":"שחורות הנעליים","translation":"The shoes are black.",
+      "tokens":[
+        {"surface":"שחורות","transliteration":"shekhorot","lemma":"שחור","root":"ש־ח־ר","upos":"ADJ","morph":{"Gender":"Fem","Number":"Plur"},"gloss":"black.F.PL","translations":["black"],"confidence":"high"},
+        {"surface":"הנעליים","transliteration":"ha-naalayim","lemma":"נעליים","root":"נ־ע־ל","upos":"NOUN","morph":{"Definite":"Def","Gender":"Fem","Number":"Plur","NumberForm":"Dual"},"segments":[{"surface":"ה","type":"definite-prefix","gloss":"DEF"},{"surface":"נעליים","type":"stem","gloss":"shoes"}],"gloss":"DEF-shoes","translations":["the shoes"],"confidence":"high"}
+      ]
+    },
+    {
+      "id":"l064-v06","kind":"vocabulary-line","sourcePointed":"לְבָנוֹת הַגַרבַּיִים","surface":"לבנות הגרביים","translation":"The socks are white.",
+      "tokens":[
+        {"surface":"לבנות","transliteration":"levanot","lemma":"לבן","root":"ל־ב־ן","upos":"ADJ","morph":{"Gender":"Fem","Number":"Plur"},"gloss":"white.F.PL","translations":["white"],"confidence":"high","reviewNote":"Context disambiguates this from the infinitive to build."},
+        {"surface":"הגרביים","transliteration":"ha-garbayim","lemma":"גרביים","root":"ג־ר־ב","upos":"NOUN","morph":{"Definite":"Def","Gender":"Fem","Number":"Plur","NumberForm":"Dual"},"segments":[{"surface":"ה","type":"definite-prefix","gloss":"DEF"},{"surface":"גרביים","type":"stem","gloss":"socks"}],"gloss":"DEF-socks","translations":["the socks"],"confidence":"medium","reviewNote":"Root needs lexical confirmation."}
+      ]
+    },
+    {
+      "id":"l064-v07","kind":"vocabulary-line","sourcePointed":"וְאֵיפֹה הַמְעִילִים","surface":"ואיפה המעילים","translation":"And where are the coats?",
+      "tokens":[
+        {"surface":"ואיפה","transliteration":"ve-eifo","lemma":"איפה","root":null,"upos":"ADV","morph":{"PronType":"Int"},"segments":[{"surface":"ו","type":"coordinating-prefix","gloss":"and"},{"surface":"איפה","type":"stem","gloss":"where"}],"gloss":"and-where","translations":["and where"],"confidence":"high"},
+        {"surface":"המעילים","transliteration":"ha-meilim","lemma":"מעיל","root":null,"upos":"NOUN","morph":{"Definite":"Def","Gender":"Masc","Number":"Plur"},"segments":[{"surface":"ה","type":"definite-prefix","gloss":"DEF"},{"surface":"מעיל","type":"stem","gloss":"coat"},{"surface":"ים","type":"plural-suffix","gloss":"PL"}],"gloss":"DEF-coat-PL","translations":["the coats"],"confidence":"medium","reviewNote":"Lexical root deliberately left unset pending authoritative lookup."}
+      ]
+    },
+    {
+      "id":"l064-v08","kind":"vocabulary-line","sourcePointed":"מַה זֶה? בּגָדִים לְפּוּרִים","surface":"מה זה? בגדים לפורים","translation":"What is this? Clothes for Purim.",
+      "tokens":[
+        {"surface":"מה","transliteration":"ma","lemma":"מה","root":null,"upos":"PRON","morph":{"PronType":"Int"},"gloss":"what","translations":["what"],"confidence":"high"},
+        {"surface":"זה","transliteration":"ze","lemma":"זה","root":null,"upos":"PRON","morph":{"Gender":"Masc","Number":"Sing","PronType":"Dem"},"gloss":"this","translations":["this","it"],"confidence":"high"},
+        {"surface":"בגדים","transliteration":"bgadim","lemma":"בגד","root":"ב־ג־ד","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"clothing-PL","translations":["clothes","clothing"],"confidence":"high"},
+        {"surface":"לפורים","transliteration":"le-Purim","lemma":"פורים","root":null,"upos":"PROPN","morph":{},"segments":[{"surface":"ל","type":"prepositional-prefix","gloss":"for"},{"surface":"פורים","type":"proper-name","gloss":"Purim"}],"gloss":"for-Purim","translations":["for Purim"],"confidence":"high"}
+      ]
+    },
+    {
+      "id":"l064-instruction","kind":"instruction","sourcePointed":"תַרגֵם","surface":"תרגם","translation":"Translate.",
+      "tokens":[{"surface":"תרגם","transliteration":"targem","lemma":"תרגם","root":"ת־ר־ג־ם","upos":"VERB","morph":{"Binyan":"Piel","Mood":"Imp","Gender":"Masc","Number":"Sing","Person":"2"},"gloss":"translate.IMP.2MSG","translations":["translate"],"confidence":"medium","reviewNote":"Four-consonant root and imperative analysis should be parser-checked."}]
+    },
+    {
+      "id":"l064-s01","kind":"exercise-sentence","surface":"הבגדים האופנתיים ביותר הם גם היקרים ביותר","translation":"The most fashionable clothes are also the most expensive.",
+      "tokens":[
+        {"surface":"הבגדים","transliteration":"ha-bgadim","lemma":"בגד","root":"ב־ג־ד","upos":"NOUN","morph":{"Definite":"Def","Gender":"Masc","Number":"Plur"},"gloss":"DEF-clothing-PL","translations":["the clothes"],"confidence":"high"},
+        {"surface":"האופנתיים","transliteration":"ha-ofnatiyim","lemma":"אופנתי","root":"א־פ־ן","upos":"ADJ","morph":{"Definite":"Def","Gender":"Masc","Number":"Plur"},"gloss":"DEF-fashionable.M.PL","translations":["fashionable"],"confidence":"medium","reviewNote":"Derivational root analysis needs lexical confirmation."},
+        {"surface":"ביותר","transliteration":"be-yoter","lemma":"יותר","root":"י־ת־ר","upos":"ADV","morph":{"Degree":"Sup"},"gloss":"most","translations":["most"],"confidence":"high"},
+        {"surface":"הם","transliteration":"hem","lemma":"הוא","root":null,"upos":"PRON","morph":{"Person":"3","Gender":"Masc","Number":"Plur"},"gloss":"3M.PL","translations":["they","are"],"confidence":"high"},
+        {"surface":"גם","transliteration":"gam","lemma":"גם","root":null,"upos":"ADV","morph":{},"gloss":"also","translations":["also"],"confidence":"high"},
+        {"surface":"היקרים","transliteration":"ha-yekarim","lemma":"יקר","root":"י־ק־ר","upos":"ADJ","morph":{"Definite":"Def","Gender":"Masc","Number":"Plur"},"gloss":"DEF-expensive.M.PL","translations":["expensive"],"confidence":"high"},
+        {"surface":"ביותר","transliteration":"be-yoter","lemma":"יותר","root":"י־ת־ר","upos":"ADV","morph":{"Degree":"Sup"},"gloss":"most","translations":["most"],"confidence":"high"}
+      ]
+    },
+    {
+      "id":"l064-s02","kind":"exercise-sentence","surface":"הוא צעיר אבל הוא לבוש בבגדים שחורים","translation":"He is young, but he is dressed in black clothes.",
+      "tokens":[
+        {"surface":"הוא","transliteration":"hu","lemma":"הוא","root":null,"upos":"PRON","morph":{"Person":"3","Gender":"Masc","Number":"Sing"},"gloss":"3M.SG","translations":["he","he is"],"confidence":"high"},
+        {"surface":"צעיר","transliteration":"tsair","lemma":"צעיר","root":"צ־ע־ר","upos":"ADJ","morph":{"Gender":"Masc","Number":"Sing"},"gloss":"young.M.SG","translations":["young"],"confidence":"medium"},
+        {"surface":"אבל","transliteration":"aval","lemma":"אבל","root":null,"upos":"CCONJ","morph":{},"gloss":"but","translations":["but"],"confidence":"high"},
+        {"surface":"הוא","transliteration":"hu","lemma":"הוא","root":null,"upos":"PRON","morph":{"Person":"3","Gender":"Masc","Number":"Sing"},"gloss":"3M.SG","translations":["he","he is"],"confidence":"high"},
+        {"surface":"לבוש","transliteration":"lavush","lemma":"לבש","root":"ל־ב־ש","upos":"ADJ","morph":{"Binyan":"Paal","VerbForm":"Part","Voice":"Pass","Gender":"Masc","Number":"Sing"},"gloss":"dress.PASS.PTCP.M.SG","translations":["dressed","wearing"],"confidence":"medium","reviewNote":"Whether exposed as adjective or passive participle should retain parser alternatives."},
+        {"surface":"בבגדים","transliteration":"bi-vgadim","lemma":"בגד","root":"ב־ג־ד","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"segments":[{"surface":"ב","type":"prepositional-prefix","gloss":"in"},{"surface":"בגד","type":"stem","gloss":"clothing"},{"surface":"ים","type":"plural-suffix","gloss":"PL"}],"gloss":"in-clothing-PL","translations":["in clothes"],"confidence":"high"},
+        {"surface":"שחורים","transliteration":"shekhorim","lemma":"שחור","root":"ש־ח־ר","upos":"ADJ","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"black.M.PL","translations":["black"],"confidence":"high"}
+      ]
+    },
+    {
+      "id":"l064-s03","kind":"exercise-sentence","surface":"קניתי לי שמלת ערב אדומה ארוכה למסיבה הרשמית","translation":"I bought myself a long red evening dress for the formal party.",
+      "tokens":[
+        {"surface":"קניתי","transliteration":"kaniti","lemma":"קנה","root":"ק־נ־ה","upos":"VERB","morph":{"Binyan":"Paal","Tense":"Past","Person":"1","Number":"Sing"},"gloss":"buy.PST.1SG","translations":["I bought"],"confidence":"high","reviewNote":"Final root letter is not surfaced; root highlighting must not capitalize the suffix t as though it were radical ה."},
+        {"surface":"לי","transliteration":"li","lemma":"ל","root":null,"upos":"PRON","morph":{"Person":"1","Number":"Sing"},"segments":[{"surface":"ל","type":"preposition","gloss":"to/for"},{"surface":"י","type":"pronominal-suffix","gloss":"1SG"}],"gloss":"for-1SG","translations":["for me","myself"],"confidence":"high"},
+        {"surface":"שמלת","transliteration":"simlat","lemma":"שמלה","root":null,"upos":"NOUN","morph":{"Gender":"Fem","Number":"Sing","State":"Construct"},"gloss":"dress.F.SG.CSTR","translations":["dress","a dress"],"confidence":"medium","reviewNote":"Lexical root deliberately left unset pending authoritative lookup."},
+        {"surface":"ערב","transliteration":"erev","lemma":"ערב","root":"ע־ר־ב","upos":"NOUN","morph":{"Gender":"Masc","Number":"Sing"},"gloss":"evening","translations":["evening"],"confidence":"high"},
+        {"surface":"אדומה","transliteration":"aduma","lemma":"אדום","root":"א־ד־ם","upos":"ADJ","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"red.F.SG","translations":["red"],"confidence":"high"},
+        {"surface":"ארוכה","transliteration":"aruka","lemma":"ארוך","root":"א־ר־ך","upos":"ADJ","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"long.F.SG","translations":["long"],"confidence":"high"},
+        {"surface":"למסיבה","transliteration":"la-mesiba","lemma":"מסיבה","root":"ס־ב־ב","upos":"NOUN","morph":{"Definite":"Def","Gender":"Fem","Number":"Sing"},"segments":[{"surface":"ל","type":"prepositional-prefix","gloss":"to/for"},{"surface":"ה","type":"fused-definite-prefix","gloss":"DEF"},{"surface":"מסיבה","type":"stem","gloss":"party"}],"gloss":"for-DEF-party","translations":["for the party"],"confidence":"medium","reviewNote":"Root and fused definiteness need parser/lexicon confirmation."},
+        {"surface":"הרשמית","transliteration":"ha-rishmit","lemma":"רשמי","root":"ר־ש־ם","upos":"ADJ","morph":{"Definite":"Def","Gender":"Fem","Number":"Sing"},"gloss":"DEF-formal.F.SG","translations":["formal","official"],"confidence":"high"}
+      ]
+    },
+    {
+      "id":"l064-s04","kind":"exercise-sentence","surface":"בחורף היא אוהבת מגפיים שחורים ומעיל אפור","translation":"In winter she likes black boots and a grey coat.",
+      "tokens":[
+        {"surface":"בחורף","transliteration":"ba-khoref","lemma":"חורף","root":"ח־ר־ף","upos":"NOUN","morph":{"Definite":"Def","Gender":"Masc","Number":"Sing"},"segments":[{"surface":"ב","type":"prepositional-prefix","gloss":"in"},{"surface":"ה","type":"fused-definite-prefix","gloss":"DEF"},{"surface":"חורף","type":"stem","gloss":"winter"}],"gloss":"in-DEF-winter","translations":["in winter","in the winter"],"confidence":"high"},
+        {"surface":"היא","transliteration":"hi","lemma":"היא","root":null,"upos":"PRON","morph":{"Person":"3","Gender":"Fem","Number":"Sing"},"gloss":"3F.SG","translations":["she"],"confidence":"high"},
+        {"surface":"אוהבת","transliteration":"ohevet","lemma":"אהב","root":"א־ה־ב","upos":"VERB","morph":{"Binyan":"Paal","VerbForm":"Part","Tense":"Pres","Gender":"Fem","Number":"Sing"},"gloss":"love.PTCP.F.SG","translations":["likes","loves"],"confidence":"high"},
+        {"surface":"מגפיים","transliteration":"magafayim","lemma":"מגפיים","root":null,"upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur","NumberForm":"Dual"},"gloss":"boots","translations":["boots"],"confidence":"medium","reviewNote":"Lexical root deliberately left unset pending authoritative lookup."},
+        {"surface":"שחורים","transliteration":"shekhorim","lemma":"שחור","root":"ש־ח־ר","upos":"ADJ","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"black.M.PL","translations":["black"],"confidence":"high"},
+        {"surface":"ומעיל","transliteration":"u-meil","lemma":"מעיל","root":null,"upos":"NOUN","morph":{"Gender":"Masc","Number":"Sing"},"segments":[{"surface":"ו","type":"coordinating-prefix","gloss":"and"},{"surface":"מעיל","type":"stem","gloss":"coat"}],"gloss":"and-coat","translations":["and a coat"],"confidence":"medium","reviewNote":"Lexical root deliberately left unset pending authoritative lookup."},
+        {"surface":"אפור","transliteration":"afor","lemma":"אפור","root":"א־פ־ר","upos":"ADJ","morph":{"Gender":"Masc","Number":"Sing"},"gloss":"grey.M.SG","translations":["grey","gray"],"confidence":"high"}
+      ]
+    },
+    {
+      "id":"l064-s05","kind":"exercise-sentence","surface":"מכנסיים אדומים, חולצה כחולה, עניבה ירוקה: בגדים ממש לפורים","translation":"Red trousers, a blue shirt, a green tie: real clothes for Purim.",
+      "tokens":[
+        {"surface":"מכנסיים","transliteration":"mikhnasayim","lemma":"מכנסיים","root":"כ־נ־ס","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur","NumberForm":"Dual"},"gloss":"trousers","translations":["trousers","pants"],"confidence":"medium","reviewNote":"Root assignment and pluralia-tantum analysis need lexicon confirmation."},
+        {"surface":"אדומים","transliteration":"adumim","lemma":"אדום","root":"א־ד־ם","upos":"ADJ","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"red.M.PL","translations":["red"],"confidence":"high"},
+        {"surface":"חולצה","transliteration":"khultsa","lemma":"חולצה","root":"ח־ל־ץ","upos":"NOUN","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"shirt","translations":["shirt","blouse"],"confidence":"medium","reviewNote":"Root needs lexical confirmation."},
+        {"surface":"כחולה","transliteration":"kekhula","lemma":"כחול","root":"כ־ח־ל","upos":"ADJ","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"blue.F.SG","translations":["blue"],"confidence":"high"},
+        {"surface":"עניבה","transliteration":"aniva","lemma":"עניבה","root":"ע־נ־ב","upos":"NOUN","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"tie","translations":["tie","necktie"],"confidence":"medium","reviewNote":"Root needs lexical confirmation."},
+        {"surface":"ירוקה","transliteration":"yeruka","lemma":"ירוק","root":"י־ר־ק","upos":"ADJ","morph":{"Gender":"Fem","Number":"Sing"},"gloss":"green.F.SG","translations":["green"],"confidence":"high"},
+        {"surface":"בגדים","transliteration":"bgadim","lemma":"בגד","root":"ב־ג־ד","upos":"NOUN","morph":{"Gender":"Masc","Number":"Plur"},"gloss":"clothing-PL","translations":["clothes","clothing"],"confidence":"high"},
+        {"surface":"ממש","transliteration":"mamash","lemma":"ממש","root":null,"upos":"ADV","morph":{},"gloss":"really","translations":["really","actual","genuinely"],"confidence":"high"},
+        {"surface":"לפורים","transliteration":"le-Purim","lemma":"פורים","root":null,"upos":"PROPN","morph":{},"segments":[{"surface":"ל","type":"prepositional-prefix","gloss":"for"},{"surface":"פורים","type":"proper-name","gloss":"Purim"}],"gloss":"for-Purim","translations":["for Purim"],"confidence":"high"}
+      ]
+    }
+  ],
+  "media": [
+    {"id":"audio-l064","kind":"document-audio","mediaType":"audio/mpeg","path":"/Users/m.tarraganogmail.com/Sites/media/Hebrew/drive-download-20260728T153518Z-1-001/L064-LESSON.mp3","durationMs":93701,"alignment":{"granularity":"none","status":"pending"}}
+  ],
+  "reviewSummary": {
+    "priority": [
+      "Verify lexical roots currently marked medium confidence or null.",
+      "Compare YAP and HebPipe segmentation and disambiguation without overwriting alternatives.",
+      "Confirm learner transliteration vowels and stress against the recording.",
+      "Confirm natural English translations and retain additional senses as separate translation records.",
+      "Create sentence timing from the MP3 before MP4 export."
+    ]
+  }
+}

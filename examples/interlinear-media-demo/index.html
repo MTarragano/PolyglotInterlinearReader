@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interlinear Caption Composer · Chinese sample</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="demo-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Interlinear Media Studio</p>
+          <h1>Chinese listening sample</h1>
+        </div>
+        <div class="step-status">
+          <span>Step 4 of 5</span>
+          <strong>Compose &amp; preview</strong>
+        </div>
+      </header>
+
+      <section class="stage" aria-live="polite">
+        <button class="context-cue context-previous" id="context-previous" type="button">
+          <span class="context-label">Previous subtitle</span>
+          <strong class="context-original" lang="zh-Hans">Start of clip</strong>
+          <small class="context-translation"></small>
+        </button>
+
+        <article class="active-cue">
+          <div class="cue-meta">
+            <span id="cue-counter">Sentence 1 of 3</span>
+            <span id="cue-time">00:00.000–00:07.001</span>
+          </div>
+
+          <div class="translation-block">
+            <span>Translation · English</span>
+            <p id="sentence-translation"></p>
+          </div>
+
+          <div class="interlinear-wrap">
+            <div class="row-key" aria-hidden="true">
+              <span>Original</span>
+              <span>Pinyin</span>
+              <span>Gloss</span>
+            </div>
+            <div class="tokens" id="tokens"></div>
+          </div>
+        </article>
+
+        <button class="context-cue context-next" id="context-next" type="button">
+          <span class="context-label">Next subtitle</span>
+          <strong class="context-original" lang="zh-Hans"></strong>
+          <small class="context-translation"></small>
+        </button>
+      </section>
+
+      <section class="audio-panel" aria-label="Audio controls">
+        <audio id="audio" preload="metadata">
+          <source src="./assets/chinese-sample.m4a" type="audio/mp4" />
+          <track kind="subtitles" srclang="zh" label="Reading" src="./subtitles/reading.vtt" />
+          <track kind="metadata" srclang="en" label="Interlinear data" src="./subtitles/interlinear.vtt" />
+        </audio>
+
+        <div class="transport">
+          <button id="previous" type="button" aria-label="Previous sentence">‹</button>
+          <button id="rewind" type="button" aria-label="Rewind three seconds">−3s</button>
+          <button id="play" class="play-button" type="button">▶ Play</button>
+          <button id="forward" type="button" aria-label="Forward three seconds">+3s</button>
+          <button id="next" type="button" aria-label="Next sentence">›</button>
+          <label class="speed-control">
+            <span class="sr-only">Playback speed</span>
+            <select id="speed">
+              <option value="0.75">0.75×</option>
+              <option value="1" selected>1×</option>
+              <option value="1.25">1.25×</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="timeline">
+          <span id="elapsed">00:00</span>
+          <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="Seek audio" />
+          <span>00:25</span>
+        </label>
+
+        <div class="practice-controls" aria-label="Word knowledge controls">
+          <span>Focused token</span>
+          <strong id="focused-token">我 · wǒ · I</strong>
+          <div>
+            <button id="focus-previous" type="button">← Back</button>
+            <button id="mark-learning" type="button">Still learning</button>
+            <button id="mark-known" type="button">Known →</button>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p><strong>Export formats</strong> · <a href="./assets/chinese-sample-embedded-lyrics.mp3">MP3 with embedded lyrics</a> · <a href="./subtitles/reading.vtt">VTT</a> · <a href="./subtitles/interlinear.ass">ASS</a> · <a href="./interlinear-data.json">token JSON</a> · <a href="./assets/chinese-interlinear-sample.mp4">burned-in MP4</a></p>
+      </footer>
+    </main>
+
+    <script src="./demo.js"></script>
+  </body>
+</html>

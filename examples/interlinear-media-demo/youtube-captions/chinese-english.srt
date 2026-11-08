@@ -1,0 +1,87 @@
+1
+00:00:00,000 --> 00:00:07,001
+I learn English.
+
+2
+00:00:09,001 --> 00:00:14,774
+I'm only a beginner.
+
+3
+00:00:16,774 --> 00:00:24,976
+I still make many mistakes.
+
+4
+00:00:26,976 --> 00:00:34,787
+I don't understand the word.
+
+5
+00:00:36,787 --> 00:00:44,467
+I don't understand the meaning.
+
+6
+00:00:46,467 --> 00:00:51,848
+I've forgotten it.
+
+7
+00:00:53,848 --> 00:01:11,376
+I don't remember the name right now.
+
+8
+00:01:15,376 --> 00:01:21,436
+Learning foreign languages
+
+9
+00:01:23,436 --> 00:01:33,807
+Learning languages is interesting.
+
+10
+00:01:35,807 --> 00:01:50,096
+Yes, and I also speak some Italian.
+
+11
+00:01:52,096 --> 00:02:02,754
+The languages are quite similar.
+
+12
+00:02:04,754 --> 00:02:11,076
+I can understand them well.
+
+13
+00:02:15,076 --> 00:02:23,566
+We are learning a language.
+
+14
+00:02:25,566 --> 00:02:38,915
+We want to understand people.
+
+15
+00:02:40,915 --> 00:02:57,268
+We want to speak with people.
+
+16
+00:02:59,268 --> 00:03:07,888
+He studies languages.
+
+17
+00:03:09,888 --> 00:03:18,090
+He speaks several languages.
+
+18
+00:03:22,090 --> 00:03:31,128
+You learn Spanish.
+
+19
+00:03:33,128 --> 00:03:42,010
+I think you speak very well.
+
+20
+00:03:44,010 --> 00:03:50,593
+Where do you come from?
+
+21
+00:03:52,593 --> 00:04:02,023
+Are you taking a language course?
+
+22
+00:04:04,023 --> 00:04:10,763
+Your pronunciation is very good.
