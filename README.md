@@ -1,6 +1,18 @@
-# Polyglot Interlinear Reader
+# PolyglotInterlinearReader
 
-Polyglot Interlinear Reader is a multilingual corpus reader, morphology explorer, dictionary, audio-synchronized speaking practice platform, and language-learning system.
+PolyglotInterlinearReader is a multilingual corpus reader, morphology explorer, dictionary, audio-synchronized speaking practice platform, and language-learning system.
+
+## Project identity for mobile and remote work
+
+`PolyglotInterlinearReader` is the canonical project name, and [`MTarragano/PolyglotInterlinearReader`](https://github.com/MTarragano/PolyglotInterlinearReader) is the canonical GitHub repository. A lowercase local folder or a version of the title containing spaces does not represent a separate project.
+
+When working through ChatGPT or Codex on a phone, select the canonical GitHub repository and work from `main` unless another branch is intentionally required. Do not create a second project entry merely to match a different capitalization or folder label.
+
+The canonical local checkout is:
+
+- `/Users/m.tarraganogmail.com/Sites/PolyglotInterlinearReader`
+
+An older duplicate previously existed at `/Users/m.tarraganogmail.com/Downloads/PolyglotInterlinearReader`. If that folder or a stale project entry reappears, do not resume work there. Check its branch, Git status, remotes, and uncommitted work before removing it, and reconcile any unique work into the canonical repository first.
 
 Before generating or modifying application code, read the project documents in `docs/`:
 
